@@ -4,10 +4,10 @@ WeatherType = {}
 WeatherType.Cloudy = 2
 
 ---@type number
-WeatherType.Rain = 1
+WeatherType.Thunderstorm = 3
 
 ---@type number
-WeatherType.Thunderstorm = 3
+WeatherType.Rain = 1
 
 ---@type number
 WeatherType.Clear = 0

@@ -1,10 +1,10 @@
 StanceMode = {}
 
 ---@type number
-StanceMode.None = 0
+StanceMode.Crouching = 2
 
 ---@type number
-StanceMode.Crouching = 2
+StanceMode.None = 0
 
 ---@type number
 StanceMode.Proning = 3

@@ -1,10 +1,10 @@
 TextRenderAlignCamera = {}
 
 ---@type number
-TextRenderAlignCamera.Unaligned = 0
+TextRenderAlignCamera.FaceCamera = 2
 
 ---@type number
-TextRenderAlignCamera.FaceCamera = 2
+TextRenderAlignCamera.Unaligned = 0
 
 ---@type number
 TextRenderAlignCamera.AlignCameraRotation = 1

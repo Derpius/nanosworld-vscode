@@ -4,8 +4,8 @@ LightType = {}
 LightType.Spot = 1
 
 ---@type number
-LightType.Point = 0
+LightType.React = 2
 
 ---@type number
-LightType.React = 2
+LightType.Point = 0
 

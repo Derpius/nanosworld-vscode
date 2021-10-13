@@ -1,7 +1,10 @@
 AttenuationFunction = {}
 
 ---@type number
-AttenuationFunction.NaturalSound = 4
+AttenuationFunction.Linear = 0
+
+---@type number
+AttenuationFunction.Inverse = 2
 
 ---@type number
 AttenuationFunction.Logarithmic = 1
@@ -10,8 +13,5 @@ AttenuationFunction.Logarithmic = 1
 AttenuationFunction.LogReverse = 3
 
 ---@type number
-AttenuationFunction.Inverse = 2
-
----@type number
-AttenuationFunction.Linear = 0
+AttenuationFunction.NaturalSound = 4
 

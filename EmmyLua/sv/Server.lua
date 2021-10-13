@@ -4,8 +4,8 @@ Server = {}
 function Server.Subscribe(...) end
 
 ---@return any
-function Server.Unsubscribe(...) end
+function Server.IsValid(...) end
 
 ---@return any
-function Server.IsValid(...) end
+function Server.Unsubscribe(...) end
 

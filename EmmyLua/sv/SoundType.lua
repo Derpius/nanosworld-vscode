@@ -1,8 +1,8 @@
 SoundType = {}
 
 ---@type number
-SoundType.SFX = 0
+SoundType.Music = 1
 
 ---@type number
-SoundType.Music = 1
+SoundType.SFX = 0
 

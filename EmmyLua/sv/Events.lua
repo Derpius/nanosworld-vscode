@@ -4,8 +4,8 @@ Events = {}
 function Events.Subscribe(...) end
 
 ---@return any
-function Events.Unsubscribe(...) end
+function Events.IsValid(...) end
 
 ---@return any
-function Events.IsValid(...) end
+function Events.Unsubscribe(...) end
 

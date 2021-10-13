@@ -5,52 +5,16 @@ function Player(...) end
 local cls = Player()
 
 ---@return any
-function cls:Subscribe(...) end
-
----@return any
 function cls:GetVOIPSetting(...) end
 
 ---@return any
 function cls:SetVOIPVolume(...) end
 
 ---@return any
-function cls:GetPing(...) end
-
----@return any
-function cls:GetCameraLocation(...) end
-
----@return any
-function cls:GetType(...) end
-
----@return any
-function cls:SetCameraLocation(...) end
-
----@return any
-function cls:GetControlledCharacter(...) end
-
----@return any
-function cls:SetVOIPSetting(...) end
-
----@return any
-function cls:GetName(...) end
-
----@return any
-function cls:GetAccountName(...) end
-
----@return any
-function cls:GetCameraRotation(...) end
+function cls:IsLocalPlayer(...) end
 
 ---@return any
 function cls:GetID(...) end
-
----@return any
-function cls:GetValue(...) end
-
----@return any
-function cls:Destroy(...) end
-
----@return any
-function cls:Unsubscribe(...) end
 
 ---@return any
 function cls:IsValid(...) end
@@ -62,14 +26,50 @@ function cls:SetCameraRotation(...) end
 function cls:GetVOIPChannel(...) end
 
 ---@return any
-function cls:IsLocalPlayer(...) end
+function cls:SetVOIPSetting(...) end
+
+---@return any
+function cls:GetAccountName(...) end
+
+---@return any
+function cls:Unsubscribe(...) end
+
+---@return any
+function cls:GetType(...) end
+
+---@return any
+function cls:Destroy(...) end
 
 ---@return any
 function cls:GetSteamID(...) end
 
 ---@return any
-function cls:GetAccountID(...) end
+function cls:GetValue(...) end
 
 ---@return any
 function cls:SetValue(...) end
+
+---@return any
+function cls:SetCameraLocation(...) end
+
+---@return any
+function cls:GetAccountID(...) end
+
+---@return any
+function cls:GetControlledCharacter(...) end
+
+---@return any
+function cls:GetPing(...) end
+
+---@return any
+function cls:GetCameraLocation(...) end
+
+---@return any
+function cls:Subscribe(...) end
+
+---@return any
+function cls:GetName(...) end
+
+---@return any
+function cls:GetCameraRotation(...) end
 

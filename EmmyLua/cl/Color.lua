@@ -8,29 +8,32 @@ function Color(_R, _G, _B, _A) end
 ---@class Color
 local cls = {}
 
----@return any
-function cls:__tostring() end
+---@param _R any
+---@param _G any
+---@param _B any
+---@param _A any
+---@return Color
+function Color.new(_R, _G, _B, _A) end
 
 ---@type Color
-Color.GREEN = nil
+Color.BLUE = nil
 
 ---@param other any
 ---@return any
-function cls:__eq(other) end
+function cls:__mul(other) end
 
+---@param other any
 ---@return any
-function Color.RandomPalette() end
+function cls:__add(other) end
+
+---@type Color
+Color.CHARTREUSE = nil
+
+---@type Color
+Color.AZURE = nil
 
 ---@type Color
 Color.YELLOW = nil
-
----@param other any
----@return any
-function cls:__sub(other) end
-
----@param hex any
----@return any
-function Color.FromHEX(hex) end
 
 ---@param h any
 ---@param s any
@@ -38,11 +41,19 @@ function Color.FromHEX(hex) end
 ---@return any
 function Color.FromHSV(h, s, v) end
 
----@param h any
----@param s any
----@param l any
+---@param other any
 ---@return any
-function Color.FromHSL(h, s, l) end
+function cls:__div(other) end
+
+---@type table<string, any>
+Color.__index = nil
+
+---@param hex any
+---@return any
+function Color.FromHEX(hex) end
+
+---@type Color
+Color.ROSE = nil
 
 ---@param c any
 ---@param y any
@@ -53,51 +64,7 @@ function Color.FromHSL(h, s, l) end
 function Color.FromCYMK(c, y, m, k, a) end
 
 ---@type Color
-Color.ORANGE = nil
-
----@type Color
-Color.CHARTREUSE = nil
-
----@type Color
-Color.MAGENTA = nil
-
----@type Color
-Color.ROSE = nil
-
----@type table<number, table>
-Color.PALETTE = nil
-
----@param other any
----@return any
-function cls:__div(other) end
-
----@return any
-function Color.Random() end
-
----@param _R any
----@param _G any
----@param _B any
----@param _A any
----@return Color
-function Color.new(_R, _G, _B, _A) end
-
----@type table<string, any>
-Color.__index = nil
-
----@type Color
-Color.VIOLET = nil
-
----@type Color
 Color.CYAN = nil
-
----@type Color
-Color.AZURE = nil
-
----@type Color
-Color.WHITE = nil
-
----@type Color
-Color.BLUE = nil
 
 ---@param r any
 ---@param g any
@@ -106,20 +73,53 @@ Color.BLUE = nil
 ---@return any
 function Color.FromRGBA(r, g, b, a) end
 
----@type Color
-Color.RED = nil
+---@return any
+function cls:__tostring() end
+
+---@return any
+function Color.Random() end
+
+---@return any
+function Color.RandomPalette() end
 
 ---@param other any
 ---@return any
-function cls:__mul(other) end
+function cls:__eq(other) end
+
+---@param h any
+---@param s any
+---@param l any
+---@return any
+function Color.FromHSL(h, s, l) end
+
+---@type Color
+Color.VIOLET = nil
+
+---@param other any
+---@return any
+function cls:__sub(other) end
+
+---@type table<number, table>
+Color.PALETTE = nil
 
 ---@type Color
 Color.BLACK = nil
 
 ---@type Color
+Color.RED = nil
+
+---@type Color
+Color.ORANGE = nil
+
+---@type Color
 Color.AQUAMARINE = nil
 
----@param other any
----@return any
-function cls:__add(other) end
+---@type Color
+Color.WHITE = nil
+
+---@type Color
+Color.GREEN = nil
+
+---@type Color
+Color.MAGENTA = nil
 

@@ -1,15 +1,11 @@
----@return Render
-function Render(...) end
-
----@class Render
-local cls = Render()
+Render = {}
 
 ---@return any
-function cls:Subscribe(...) end
+function Render.Subscribe(...) end
 
 ---@return any
-function cls:IsValid(...) end
+function Render.IsValid(...) end
 
 ---@return any
-function cls:Unsubscribe(...) end
+function Render.Unsubscribe(...) end
 

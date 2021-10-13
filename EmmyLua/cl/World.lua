@@ -1,15 +1,11 @@
----@return World
-function World(...) end
-
----@class World
-local cls = World()
+World = {}
 
 ---@return any
-function cls:Subscribe(...) end
+function World.Subscribe(...) end
 
 ---@return any
-function cls:IsValid(...) end
+function World.IsValid(...) end
 
 ---@return any
-function cls:Unsubscribe(...) end
+function World.Unsubscribe(...) end
 

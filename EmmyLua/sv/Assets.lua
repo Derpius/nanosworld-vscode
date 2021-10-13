@@ -1,15 +1,11 @@
----@return Assets
-function Assets(...) end
-
----@class Assets
-local cls = Assets()
+Assets = {}
 
 ---@return any
-function cls:Subscribe(...) end
+function Assets.Subscribe(...) end
 
 ---@return any
-function cls:Unsubscribe(...) end
+function Assets.IsValid(...) end
 
 ---@return any
-function cls:IsValid(...) end
+function Assets.Unsubscribe(...) end
 

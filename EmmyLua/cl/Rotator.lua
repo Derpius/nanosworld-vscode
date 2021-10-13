@@ -7,17 +7,9 @@ function Rotator(_pitch, _yaw, _roll) end
 ---@class Rotator
 local cls = {}
 
+---@param V any
 ---@return any
-function cls:__tostring() end
-
----@param other any
----@param tolerance any
----@return any
-function cls:Equals(other, tolerance) end
-
----@param roll any
----@return any
-function Rotator.Random(roll) end
+function cls:RotateVector(V) end
 
 ---@param _pitch any
 ---@param _yaw any
@@ -25,19 +17,21 @@ function Rotator.Random(roll) end
 ---@return Rotator
 function Rotator.new(_pitch, _yaw, _roll) end
 
----@type table<string, any>
-Rotator.__index = nil
-
----@param V any
+---@param roll any
 ---@return any
-function cls:RotateVector(V) end
+function Rotator.Random(roll) end
+
+---@param other any
+---@param tolerance any
+---@return any
+function cls:Equals(other, tolerance) end
+
+---@param other any
+---@return any
+function cls:__add(other) end
 
 ---@return any
-function cls:GetNormalized() end
-
----@param V any
----@return any
-function cls:UnrotateVector(V) end
+function cls:Normalize() end
 
 ---@return any
 function cls:GetForwardVector() end
@@ -46,24 +40,30 @@ function cls:GetForwardVector() end
 ---@return any
 function cls:__sub(other) end
 
----@param tolerance any
----@return any
-function cls:IsNearlyZero(tolerance) end
-
 ---@param other any
 ---@return any
 function cls:__mul(other) end
 
 ---@return any
-function cls:Normalize() end
+function cls:Quaternion() end
+
+---@type table<string, any>
+Rotator.__index = nil
+
+---@return any
+function cls:__tostring() end
+
+---@param tolerance any
+---@return any
+function cls:IsNearlyZero(tolerance) end
+
+---@return any
+function cls:GetNormalized() end
 
 ---@return any
 function cls:IsZero() end
 
+---@param V any
 ---@return any
-function cls:Quaternion() end
-
----@param other any
----@return any
-function cls:__add(other) end
+function cls:UnrotateVector(V) end
 

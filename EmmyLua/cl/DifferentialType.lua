@@ -4,10 +4,10 @@ DifferentialType = {}
 DifferentialType.LimitedSlip_4W = 0
 
 ---@type number
-DifferentialType.Open_4W = 3
+DifferentialType.Open_RearDrive = 5
 
 ---@type number
-DifferentialType.LimitedSlip_RearDrive = 2
+DifferentialType.Open_4W = 3
 
 ---@type number
 DifferentialType.Open_FrontDrive = 4
@@ -16,5 +16,5 @@ DifferentialType.Open_FrontDrive = 4
 DifferentialType.LimitedSlip_FrontDrive = 1
 
 ---@type number
-DifferentialType.Open_RearDrive = 5
+DifferentialType.LimitedSlip_RearDrive = 2
 

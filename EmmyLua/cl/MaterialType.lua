@@ -1,10 +1,10 @@
 MaterialType = {}
 
 ---@type number
-MaterialType.None = 0
+MaterialType.Translucent = 2
 
 ---@type number
-MaterialType.Translucent = 2
+MaterialType.None = 0
 
 ---@type number
 MaterialType.TranslucentDepth = 3
