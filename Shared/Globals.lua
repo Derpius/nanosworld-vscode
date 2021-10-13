@@ -171,7 +171,7 @@ local globals = {_G = {}}
 
 local count = 1
 for k, v in pairs(_G) do
-	if not VANILLA_GLOBALS[k] and type(k) == "string" then
+	if not VANILLA_GLOBALS[k] and type(k) == "string" and k:sub(1, 2) ~= "__" then
 		Package.Log("Generating documentation for " .. k)
 		local type = type(v)
 		if type == "table" then

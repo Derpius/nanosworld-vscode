@@ -1,7 +1,12 @@
 local STATICS = {
-	["Server"] = true,
+	["Assets"] = true,
 	["Client"] = true,
-	["Events"] = true
+	["Events"] = true,
+	["Package"] = true,
+	["Render"] = true,
+	["Server"] = true,
+	["Timer"] = true,
+	["World"] = true
 }
 
 local INTERNAL = {
