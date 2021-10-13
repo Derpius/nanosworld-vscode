@@ -50,13 +50,17 @@ local function parseLibrary(library, libname, traversed)
 	traversed[library] = true
 
 	local ret, count = {libname .. " = {}\n\n"}, 1
+	local empty = true
 	for k, v in pairs(library) do
+		empty = false
 		if type(k) == "string" then
 			count = count + 1
 
 			local type = type(v)
 			if type == "table" then
-				ret[count] = parseLibrary(v, libname .. "." .. k, traversed)
+				local parsed = parseLibrary(v, libname .. "." .. k, traversed)
+				if parsed then ret[count] = parsed
+				else count = count - 1 end
 			elseif type == "function" then
 				local args = GetArgs(v)
 
@@ -88,7 +92,7 @@ local function parseLibrary(library, libname, traversed)
 			end
 		end
 	end
-	return table.concat(ret)
+	if not empty then return table.concat(ret) end
 end
 
 local globals = {_G = {}}
@@ -99,7 +103,8 @@ for k, v in pairs(_G) do
 		Package.Log("Generating documentation for " .. k)
 		local type = type(v)
 		if type == "table" then
-			globals[k] = parseLibrary(v, k, {})
+			local parsed = parseLibrary(v, k, {})
+			if parsed then globals[k] = parsed end -- C side classes will still have a global table entry, but wont contain any members
 		elseif type == "function" then
 			local args = GetArgs(v)
 
@@ -120,16 +125,18 @@ for k, v in pairs(_G) do
 				globals._G[count] = globals._G[count]:sub(1, #globals._G[count] - 2)
 			end
 
-			count = count + 1
-			globals._G[count] = ") end\n\n"
+			globals._G[count + 1] = ") end\n\n"
+			count = count + 2
 		elseif type == "string" then
 			globals._G[count] = string.format("---@type %s\n%s = \"%s\"\n\n", type, k, v)
+			count = count + 1
 		elseif LITERAL_TYPES[type] then
 			globals._G[count] = string.format("---@type %s\n%s = %s\n\n", type, k, v)
+			count = count + 1
 		else
 			globals._G[count] = string.format("---@type %s\n%s = nil\n\n", type, k)
+			count = count + 1
 		end
-		count = count + 1
 	end
 end
 
