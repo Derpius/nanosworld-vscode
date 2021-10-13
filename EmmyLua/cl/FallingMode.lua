@@ -10,17 +10,17 @@ FallingMode.Falling = 4
 FallingMode.Parachuting = 6
 
 ---@type number
-FallingMode.Jumping = 1
+FallingMode.Climbing = 2
 
 ---@type number
-FallingMode.Vaulting = 3
+FallingMode.None = 0
 
 ---@type number
 FallingMode.HighFalling = 5
 
 ---@type number
-FallingMode.Climbing = 2
+FallingMode.Vaulting = 3
 
 ---@type number
-FallingMode.None = 0
+FallingMode.Jumping = 1
 

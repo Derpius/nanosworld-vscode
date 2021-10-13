@@ -5,10 +5,10 @@ function Assets(...) end
 local cls = Assets()
 
 ---@return any
-function cls:Unsubscribe(...) end
+function cls:Subscribe(...) end
 
 ---@return any
-function cls:Subscribe(...) end
+function cls:Unsubscribe(...) end
 
 ---@return any
 function cls:IsValid(...) end

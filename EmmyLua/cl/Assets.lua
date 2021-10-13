@@ -8,8 +8,8 @@ local cls = Assets()
 function cls:Subscribe(...) end
 
 ---@return any
-function cls:Unsubscribe(...) end
+function cls:IsValid(...) end
 
 ---@return any
-function cls:IsValid(...) end
+function cls:Unsubscribe(...) end
 

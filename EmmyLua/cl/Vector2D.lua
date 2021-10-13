@@ -1,40 +1,42 @@
-Vector2D = {}
+---@param _X any
+---@param _Y any
+---@return Vector2D
+function Vector2D(_X, _Y) end
+
+---@class Vector2D
+local cls = {}
+
+---@return any
+function cls:__tostring() end
+
+---@return any
+function cls:__unm() end
+
+---@param other any
+---@return any
+function cls:__eq(other) end
 
 ---@param _X any
 ---@param _Y any
----@return any
+---@return Vector2D
 function Vector2D.new(_X, _Y) end
 
----@param self any
+---@type table<string, any>
+Vector2D.__index = nil
+
 ---@param other any
 ---@return any
-function Vector2D.__mul(self, other) end
+function cls:__sub(other) end
 
----@param self any
----@return any
-function Vector2D.__tostring(self) end
-
----@param self any
 ---@param other any
 ---@return any
-function Vector2D.__sub(self, other) end
+function cls:__div(other) end
 
----@param self any
----@return any
-function Vector2D.__unm(self) end
-
----@param self any
 ---@param other any
 ---@return any
-function Vector2D.__eq(self, other) end
+function cls:__mul(other) end
 
----@param self any
 ---@param other any
 ---@return any
-function Vector2D.__div(self, other) end
-
----@param self any
----@param other any
----@return any
-function Vector2D.__add(self, other) end
+function cls:__add(other) end
 

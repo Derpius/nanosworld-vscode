@@ -1,41 +1,45 @@
-Quat = {}
+---@param _X any
+---@param _Y any
+---@param _Z any
+---@param _W any
+---@return Quat
+function Quat(_X, _Y, _Z, _W) end
 
----@param self any
----@param other any
----@return any
-function Quat.__add(self, other) end
-
----@param self any
----@return any
-function Quat.Inverse(self) end
-
----@param self any
----@param other any
----@return any
-function Quat.__mul(self, other) end
-
----@param self any
----@return any
-function Quat.__tostring(self) end
-
----@param self any
----@param other any
----@return any
-function Quat.__sub(self, other) end
-
----@param self any
----@return any
-function Quat.Rotator(self) end
-
----@param self any
----@param tolerance any
----@return any
-function Quat.Normalize(self, tolerance) end
+---@class Quat
+local cls = {}
 
 ---@param _X any
 ---@param _Y any
 ---@param _Z any
 ---@param _W any
----@return any
+---@return Quat
 function Quat.new(_X, _Y, _Z, _W) end
+
+---@type table<string, any>
+Quat.__index = nil
+
+---@param tolerance any
+---@return any
+function cls:Normalize(tolerance) end
+
+---@return any
+function cls:Inverse() end
+
+---@return any
+function cls:Rotator() end
+
+---@param other any
+---@return any
+function cls:__sub(other) end
+
+---@return any
+function cls:__tostring() end
+
+---@param other any
+---@return any
+function cls:__add(other) end
+
+---@param other any
+---@return any
+function cls:__mul(other) end
 

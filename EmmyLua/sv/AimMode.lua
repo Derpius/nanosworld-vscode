@@ -1,10 +1,7 @@
 AimMode = {}
 
 ---@type number
-AimMode.ADS = 1
-
----@type number
-AimMode.ZoomedFar = 4
+AimMode.Zoomed = 3
 
 ---@type number
 AimMode.None = 0
@@ -13,5 +10,8 @@ AimMode.None = 0
 AimMode.ZoomedZoom = 2
 
 ---@type number
-AimMode.Zoomed = 3
+AimMode.ZoomedFar = 4
+
+---@type number
+AimMode.ADS = 1
 

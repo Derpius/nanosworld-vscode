@@ -1,97 +1,88 @@
-Vector = {}
+---@param _X any
+---@param _Y any
+---@param _Z any
+---@return Vector
+function Vector(_X, _Y, _Z) end
 
----@param self any
+---@class Vector
+local cls = {}
+
 ---@return any
-function Vector.SizeSquared(self) end
+function cls:IsZero() end
 
----@param self any
----@param tolerance any
----@return any
-function Vector.IsNearlyZero(self, tolerance) end
-
----@param self any
----@param tolerance any
----@return any
-function Vector.GetSafeNormal(self, tolerance) end
-
----@param self any
----@return any
-function Vector.Rotation(self) end
-
----@param self any
 ---@param other any
 ---@return any
-function Vector.__sub(self, other) end
+function cls:__pow(other) end
 
----@param self any
 ---@param other any
 ---@return any
-function Vector.__add(self, other) end
+function cls:__eq(other) end
 
----@param self any
----@return any
-function Vector.__unm(self) end
-
----@param self any
----@return any
-function Vector.GetUnsafeNormal(self) end
-
----@param self any
----@param tolerance any
----@return any
-function Vector.Normalize(self, tolerance) end
-
----@param self any
 ---@param other any
 ---@return any
-function Vector.__mul(self, other) end
+function cls:Distance(other) end
 
----@param self any
----@param other any
----@return any
-function Vector.Distance(self, other) end
-
----@param self any
----@param other any
----@return any
-function Vector.__pow(self, other) end
-
----@param self any
----@return any
-function Vector.__tostring(self) end
-
----@param self any
----@return any
-function Vector.Size(self) end
-
----@param self any
----@param other any
----@return any
-function Vector.DistanceSquared(self, other) end
-
----@param self any
----@param other any
----@return any
-function Vector.__eq(self, other) end
-
----@param self any
 ---@param other any
 ---@param tolerance any
 ---@return any
-function Vector.Equals(self, other, tolerance) end
+function cls:Equals(other, tolerance) end
 
 ---@param _X any
 ---@param _Y any
 ---@param _Z any
----@return any
+---@return Vector
 function Vector.new(_X, _Y, _Z) end
 
----@param self any
 ---@return any
-function Vector.IsZero(self) end
+function cls:Rotation() end
 
----@param self any
+---@param tolerance any
+---@return any
+function cls:GetSafeNormal(tolerance) end
+
+---@return any
+function cls:GetUnsafeNormal() end
+
+---@param tolerance any
+---@return any
+function cls:Normalize(tolerance) end
+
+---@type table<string, any>
+Vector.__index = nil
+
+---@return any
+function cls:Size() end
+
+---@param tolerance any
+---@return any
+function cls:IsNearlyZero(tolerance) end
+
+---@return any
+function cls:__unm() end
+
 ---@param other any
 ---@return any
-function Vector.__div(self, other) end
+function cls:DistanceSquared(other) end
+
+---@param other any
+---@return any
+function cls:__sub(other) end
+
+---@param other any
+---@return any
+function cls:__mul(other) end
+
+---@param other any
+---@return any
+function cls:__div(other) end
+
+---@return any
+function cls:__tostring() end
+
+---@param other any
+---@return any
+function cls:__add(other) end
+
+---@return any
+function cls:SizeSquared() end
 

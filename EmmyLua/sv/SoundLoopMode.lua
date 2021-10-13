@@ -1,11 +1,11 @@
 SoundLoopMode = {}
 
 ---@type number
-SoundLoopMode.Never = 2
+SoundLoopMode.Default = 0
 
 ---@type number
 SoundLoopMode.Forever = 1
 
 ---@type number
-SoundLoopMode.Default = 0
+SoundLoopMode.Never = 2
 

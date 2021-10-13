@@ -1,25 +1,30 @@
-Matrix = {}
+---@param rotation any
+---@param origin any
+---@return Matrix
+function Matrix(rotation, origin) end
+
+---@class Matrix
+local cls = {}
+
+---@param vector any
+---@return any
+function cls:TransformVector4(vector) end
 
 ---@param rotation any
 ---@param origin any
----@return any
+---@return Matrix
 function Matrix.new(rotation, origin) end
 
----@param self any
+---@type table<string, any>
+Matrix.__index = nil
+
+---@return any
+function cls:__tostring() end
+
+---@return any
+function cls:GetTransposed() end
+
 ---@param vector any
 ---@return any
-function Matrix.TransformVector(self, vector) end
-
----@param self any
----@return any
-function Matrix.__tostring(self) end
-
----@param self any
----@return any
-function Matrix.GetTransposed(self) end
-
----@param self any
----@param vector any
----@return any
-function Matrix.TransformVector4(self, vector) end
+function cls:TransformVector(vector) end
 

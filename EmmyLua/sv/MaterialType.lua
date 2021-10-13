@@ -7,8 +7,8 @@ MaterialType.Masked = 1
 MaterialType.None = 0
 
 ---@type number
-MaterialType.Translucent = 2
+MaterialType.TranslucentDepth = 3
 
 ---@type number
-MaterialType.TranslucentDepth = 3
+MaterialType.Translucent = 2
 

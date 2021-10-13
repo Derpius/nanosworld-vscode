@@ -1,10 +1,10 @@
 SwimmingMode = {}
 
 ---@type number
-SwimmingMode.Surface = 1
+SwimmingMode.None = 0
 
 ---@type number
-SwimmingMode.None = 0
+SwimmingMode.Surface = 1
 
 ---@type number
 SwimmingMode.Underwater = 2
