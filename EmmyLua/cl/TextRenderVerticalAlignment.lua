@@ -7,8 +7,8 @@ TextRenderVerticalAlignment.Bottom = 3
 TextRenderVerticalAlignment.Center = 2
 
 ---@type number
-TextRenderVerticalAlignment.Top = 1
+TextRenderVerticalAlignment.FirstLine = 0
 
 ---@type number
-TextRenderVerticalAlignment.FirstLine = 0
+TextRenderVerticalAlignment.Top = 1
 

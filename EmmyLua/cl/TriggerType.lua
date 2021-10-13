@@ -1,8 +1,8 @@
 TriggerType = {}
 
 ---@type number
-TriggerType.Sphere = 0
+TriggerType.Box = 1
 
 ---@type number
-TriggerType.Box = 1
+TriggerType.Sphere = 0
 

@@ -1,10 +1,10 @@
 GaitMode = {}
 
 ---@type number
-GaitMode.None = 0
+GaitMode.Sprinting = 2
 
 ---@type number
-GaitMode.Sprinting = 2
+GaitMode.None = 0
 
 ---@type number
 GaitMode.Walking = 1

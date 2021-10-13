@@ -1,18 +1,41 @@
 Quat = {}
 
-function Quat.__add(self, other) end
-
-function Quat.Normalize(self, tolerance) end
-
+---@param self any
+---@return any
 function Quat.Rotator(self) end
 
-function Quat.__mul(self, other) end
+---@param self any
+---@param other any
+---@return any
+function Quat.__sub(self, other) end
 
-function Quat.new(_X, _Y, _Z, _W) end
-
+---@param self any
+---@return any
 function Quat.Inverse(self) end
 
-function Quat.__tostring(self) end
+---@param self any
+---@param other any
+---@return any
+function Quat.__add(self, other) end
 
-function Quat.__sub(self, other) end
+---@param _X any
+---@param _Y any
+---@param _Z any
+---@param _W any
+---@return any
+function Quat.new(_X, _Y, _Z, _W) end
+
+---@param self any
+---@param tolerance any
+---@return any
+function Quat.Normalize(self, tolerance) end
+
+---@param self any
+---@param other any
+---@return any
+function Quat.__mul(self, other) end
+
+---@param self any
+---@return any
+function Quat.__tostring(self) end
 

@@ -4,8 +4,8 @@ HighlightMode = {}
 HighlightMode.Always = 0
 
 ---@type number
-HighlightMode.OnlyHidden = 1
+HighlightMode.OnlyVisible = 2
 
 ---@type number
-HighlightMode.OnlyVisible = 2
+HighlightMode.OnlyHidden = 1
 

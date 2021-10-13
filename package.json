@@ -2,7 +2,7 @@
 	"name": "nanosworld",
 	"displayName": "NanosWorld",
 	"description": "Add Nanos World support to sumneko's lua language server (WORK IN PROGRESS)",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "Derpius",
 	"repository": "https://github.com/Derpius/nanosworld-vscode",
 	"icon": "nanos-world.png",

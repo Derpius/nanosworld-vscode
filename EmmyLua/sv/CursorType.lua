@@ -1,16 +1,7 @@
 CursorType = {}
 
 ---@type number
-CursorType.ResizeLeftRight = 3
-
----@type number
-CursorType.Crosshairs = 8
-
----@type number
-CursorType.None = 0
-
----@type number
-CursorType.TextEditBeam = 2
+CursorType.GrabHand = 10
 
 ---@type number
 CursorType.Default = 1
@@ -19,19 +10,19 @@ CursorType.Default = 1
 CursorType.GrabHandClosed = 11
 
 ---@type number
-CursorType.ResizeSouthWest = 6
+CursorType.ResizeUpDown = 4
 
 ---@type number
-CursorType.GrabHand = 10
+CursorType.ResizeLeftRight = 3
 
 ---@type number
 CursorType.Hand = 9
 
 ---@type number
-CursorType.EyeDropper = 13
+CursorType.SlashedCircle = 12
 
 ---@type number
-CursorType.SlashedCircle = 12
+CursorType.Crosshairs = 8
 
 ---@type number
 CursorType.ResizeSouthEast = 5
@@ -40,5 +31,14 @@ CursorType.ResizeSouthEast = 5
 CursorType.CardinalCross = 7
 
 ---@type number
-CursorType.ResizeUpDown = 4
+CursorType.ResizeSouthWest = 6
+
+---@type number
+CursorType.EyeDropper = 13
+
+---@type number
+CursorType.TextEditBeam = 2
+
+---@type number
+CursorType.None = 0
 
