@@ -1,19 +1,16 @@
 HandlingMode = {}
 
 ---@type number
-HandlingMode.SingleHandedMelee = 2
-
----@type number
-HandlingMode.DoubleHandedWeapon = 1
-
----@type number
 HandlingMode.SingleHandedWeapon = 0
 
 ---@type number
-HandlingMode.Box = 7
+HandlingMode.Torch = 5
 
 ---@type number
 HandlingMode.Barrel = 6
+
+---@type number
+HandlingMode.Box = 7
 
 ---@type number
 HandlingMode.Throwable = 4
@@ -22,5 +19,8 @@ HandlingMode.Throwable = 4
 HandlingMode.DoubleHandedMelee = 3
 
 ---@type number
-HandlingMode.Torch = 5
+HandlingMode.DoubleHandedWeapon = 1
+
+---@type number
+HandlingMode.SingleHandedMelee = 2
 

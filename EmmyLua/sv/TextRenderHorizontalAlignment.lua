@@ -4,8 +4,8 @@ TextRenderHorizontalAlignment = {}
 TextRenderHorizontalAlignment.Left = 0
 
 ---@type number
-TextRenderHorizontalAlignment.Right = 2
+TextRenderHorizontalAlignment.Center = 1
 
 ---@type number
-TextRenderHorizontalAlignment.Center = 1
+TextRenderHorizontalAlignment.Right = 2
 

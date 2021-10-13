@@ -4,8 +4,8 @@ CameraMode = {}
 CameraMode.FPSOnly = 1
 
 ---@type number
-CameraMode.FPSTPS = 0
+CameraMode.TPSOnly = 2
 
 ---@type number
-CameraMode.TPSOnly = 2
+CameraMode.FPSTPS = 0
 

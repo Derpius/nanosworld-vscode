@@ -4,8 +4,8 @@ SoundLoopMode = {}
 SoundLoopMode.Never = 2
 
 ---@type number
-SoundLoopMode.Default = 0
+SoundLoopMode.Forever = 1
 
 ---@type number
-SoundLoopMode.Forever = 1
+SoundLoopMode.Default = 0
 

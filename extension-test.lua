@@ -1,1 +1,2 @@
-Package.Log("Hey")
+local char = Character()
+char:SetCanPickupPickables(false)

@@ -1,20 +1,20 @@
 FontType = {}
 
 ---@type number
-FontType.GothicA1 = 1
+FontType.Oswald = 3
 
 ---@type number
-FontType.OpenSans = 5
+FontType.GothicA1 = 1
 
 ---@type number
 FontType.Roboto = 0
 
 ---@type number
-FontType.Oswald = 3
-
----@type number
-FontType.PoiretOne = 2
+FontType.OpenSans = 5
 
 ---@type number
 FontType.Roboto_Mono = 4
+
+---@type number
+FontType.PoiretOne = 2
 

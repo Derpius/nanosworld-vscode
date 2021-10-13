@@ -1,23 +1,8 @@
 Timer = {}
 
----@param func any
----@param run_once any
----@param time any
----@param args any
+---@param id any
 ---@return any
-function Timer.__set(func, run_once, time, args) end
-
-Timer.__timeouts = {}
-
----@param func any
----@param time any
----@return any
-function Timer.SetInterval(func, time) end
-
----@param func any
----@param time any
----@return any
-function Timer.SetTimeout(func, time) end
+function Timer.ClearTimeout(id) end
 
 ---@param id any
 ---@return any
@@ -28,11 +13,24 @@ function Timer.ClearInterval(id) end
 function Timer.IsValid(id) end
 
 ---@param id any
----@return any
-function Timer.ClearTimeout(id) end
-
----@param id any
 ---@param actor any
 ---@return any
 function Timer.Bind(id, actor) end
+
+---@param func any
+---@param time any
+---@return any
+function Timer.SetTimeout(func, time) end
+
+---@param func any
+---@param run_once any
+---@param time any
+---@param args any
+---@return any
+function Timer.__set(func, run_once, time, args) end
+
+---@param func any
+---@param time any
+---@return any
+function Timer.SetInterval(func, time) end
 
