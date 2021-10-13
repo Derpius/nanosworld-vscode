@@ -7,6 +7,7 @@ for library, data in pairs(Package.Require("Globals.lua")) do
 end
 
 local function OnClientDocgen(player, stubs)
+	Package.Log("Exporting clientside stubs")
 	for library, data in pairs(stubs) do
 		local f = assert(io.open(OUTPUT_PATH .. "EmmyLua\\cl\\" .. library .. ".lua", "w"))
 		f:write(data)

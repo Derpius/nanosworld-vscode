@@ -43,6 +43,8 @@ local LITERAL_TYPES = {
 	boolean = true
 }
 
+local GetArgs = Package.Require("GetArgs.lua")
+
 local function parseLibrary(library, libname, traversed)
 	if traversed[library] then return "" end
 	traversed[library] = true
@@ -56,7 +58,19 @@ local function parseLibrary(library, libname, traversed)
 			if type == "table" then
 				ret[count] = parseLibrary(v, libname .. "." .. k, traversed)
 			elseif type == "function" then
-				ret[count] = string.format("function %s.%s() end\n\n", libname, k)
+				ret[count] = string.format("function %s.%s(", libname, k)
+
+				local args = GetArgs(v)
+				if args[1] then
+					for _, arg in ipairs(args) do
+						count = count + 1
+						ret[count] = arg .. ", "
+					end
+					ret[count] = ret[count]:sub(1, #ret[count] - 2)
+				end
+
+				count = count + 1
+				ret[count] = ") end\n\n"
 			elseif type == "string" then
 				ret[count] = string.format("---@type %s\n%s.%s = \"%s\"\n\n", type, libname, k, v)
 			elseif LITERAL_TYPES[type] then
@@ -71,6 +85,7 @@ end
 
 local globals = {_G = {}}
 
+local count = 1
 for k, v in pairs(_G) do
 	if not VANILLA_GLOBALS[k] and type(k) == "string" then
 		Package.Log("Generating documentation for " .. k)
@@ -78,14 +93,27 @@ for k, v in pairs(_G) do
 		if type == "table" then
 			globals[k] = parseLibrary(v, k, {})
 		elseif type == "function" then
-			table.insert(globals._G, string.format("function %s() end\n\n", k))
+			globals._G[count] = string.format("function %s(", k)
+
+			local args = GetArgs(v)
+			if args[1] then
+				for _, arg in ipairs(args) do
+					count = count + 1
+					globals._G[count] = arg .. ", "
+				end
+				globals._G[count] = globals._G[count]:sub(1, #globals._G[count] - 2)
+			end
+
+			count = count + 1
+			globals._G[count] = ") end\n\n"
 		elseif type == "string" then
-			table.insert(globals._G, string.format("---@type %s\n%s = \"%s\"\n\n", type, k, v))
+			globals._G[count] = string.format("---@type %s\n%s = \"%s\"\n\n", type, k, v)
 		elseif LITERAL_TYPES[type] then
-			table.insert(globals._G, string.format("---@type %s\n%s = %s\n\n", type, k, v))
+			globals._G[count] = string.format("---@type %s\n%s = %s\n\n", type, k, v)
 		else
-			table.insert(globals._G, string.format("---@type %s\n%s = nil\n\n", type, k))
+			globals._G[count] = string.format("---@type %s\n%s = nil\n\n", type, k)
 		end
+		count = count + 1
 	end
 end
 

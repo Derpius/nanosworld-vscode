@@ -1,4 +1,5 @@
 Client.Subscribe("Tick", function()
-	Events.CallRemote("Docgen", Package.Require("Globals.lua"))
+	local stubs = Package.Require("Globals.lua")
+	Events.CallRemote("Docgen", stubs)
 	Client.Unsubscribe("Tick")
 end)
