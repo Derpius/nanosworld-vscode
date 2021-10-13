@@ -58,9 +58,17 @@ local function parseLibrary(library, libname, traversed)
 			if type == "table" then
 				ret[count] = parseLibrary(v, libname .. "." .. k, traversed)
 			elseif type == "function" then
-				ret[count] = string.format("function %s.%s(", libname, k)
-
 				local args = GetArgs(v)
+
+				if args[1] then
+					for _, arg in ipairs(args) do
+						ret[count] = "---@param " .. arg .. " any\n"
+						count = count + 1
+					end
+				end
+	
+				ret[count] = string.format("---@return any\nfunction %s.%s(", libname, k)
+
 				if args[1] then
 					for _, arg in ipairs(args) do
 						count = count + 1
@@ -93,9 +101,17 @@ for k, v in pairs(_G) do
 		if type == "table" then
 			globals[k] = parseLibrary(v, k, {})
 		elseif type == "function" then
-			globals._G[count] = string.format("function %s(", k)
-
 			local args = GetArgs(v)
+
+			if args[1] then
+				for _, arg in ipairs(args) do
+					globals._G[count] = "---@param " .. arg .. " any\n"
+					count = count + 1
+				end
+			end
+
+			globals._G[count] = string.format("---@return any\nfunction %s(", k)
+
 			if args[1] then
 				for _, arg in ipairs(args) do
 					count = count + 1
