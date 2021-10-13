@@ -1,8 +1,9 @@
 {
 	"name": "nanosworld",
 	"displayName": "NanosWorld",
-	"description": "Add Nanos World support to sumneko's lua language server",
+	"description": "Add Nanos World support to sumneko's lua language server (WORK IN PROGRESS)",
 	"version": "0.0.1",
+	"publisher": "Derpius",
 	"engines": {
 		"vscode": "^1.61.0"
 	},
