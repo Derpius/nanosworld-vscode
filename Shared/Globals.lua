@@ -144,8 +144,8 @@ local function parseLibrary(library, libname, traversed)
 	local ret, count = {libname .. " = {}\n\n"}, 1
 	local empty = true
 	for k, v in pairs(library) do
-		empty = false
 		if type(k) == "string" then
+			empty = false
 			count = count + 1
 
 			local type = type(v)
