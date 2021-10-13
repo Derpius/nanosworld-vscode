@@ -1,8 +1,8 @@
 AnimationSlotType = {}
 
 ---@type number
-AnimationSlotType.UpperBody = 1
+AnimationSlotType.FullBody = 0
 
 ---@type number
-AnimationSlotType.FullBody = 0
+AnimationSlotType.UpperBody = 1
 

@@ -1,12 +1,12 @@
 Matrix = {}
 
-function Matrix.TransformVector() end
+function Matrix.TransformVector(self, vector) end
 
-function Matrix.__tostring() end
+function Matrix.new(rotation, origin) end
 
-function Matrix.GetTransposed() end
+function Matrix.GetTransposed(self) end
 
-function Matrix.TransformVector4() end
+function Matrix.__tostring(self) end
 
-function Matrix.new() end
+function Matrix.TransformVector4(self, vector) end
 

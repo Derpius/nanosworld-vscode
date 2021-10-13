@@ -1,20 +1,20 @@
 NanosMath = {}
 
-function NanosMath.RInterpConstantTo() end
+function NanosMath.ClampAxis(angle) end
 
-function NanosMath.FInterpTo() end
+function NanosMath.Clamp(value, low, high) end
 
-function NanosMath.VInterpConstantTo() end
+function NanosMath.FInterpTo(current, target, delta_time, interp_speed) end
 
-function NanosMath.RInterpTo() end
+function NanosMath.VInterpConstantTo(current, target, delta_time, interp_speed) end
 
-function NanosMath.NormalizeAxis() end
+function NanosMath.RInterpConstantTo(current, target, delta_time, interp_speed) end
 
-function NanosMath.VInterpTo() end
+function NanosMath.Round(value) end
 
-function NanosMath.Clamp() end
+function NanosMath.NormalizeAxis(angle) end
 
-function NanosMath.Round() end
+function NanosMath.RInterpTo(current, target, delta_time, interp_speed) end
 
-function NanosMath.ClampAxis() end
+function NanosMath.VInterpTo(current, target, delta_time, interp_speed) end
 

@@ -1,18 +1,18 @@
 Quat = {}
 
-function Quat.Rotator() end
+function Quat.__add(self, other) end
 
-function Quat.Inverse() end
+function Quat.Normalize(self, tolerance) end
 
-function Quat.new() end
+function Quat.Rotator(self) end
 
-function Quat.__mul() end
+function Quat.__mul(self, other) end
 
-function Quat.__sub() end
+function Quat.new(_X, _Y, _Z, _W) end
 
-function Quat.__tostring() end
+function Quat.Inverse(self) end
 
-function Quat.__add() end
+function Quat.__tostring(self) end
 
-function Quat.Normalize() end
+function Quat.__sub(self, other) end
 

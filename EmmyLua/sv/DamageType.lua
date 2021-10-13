@@ -1,7 +1,7 @@
 DamageType = {}
 
 ---@type number
-DamageType.Explosion = 1
+DamageType.RunOverVehicle = 5
 
 ---@type number
 DamageType.Fall = 3
@@ -13,11 +13,11 @@ DamageType.Shot = 0
 DamageType.RunOverProp = 4
 
 ---@type number
-DamageType.Unknown = 6
-
----@type number
-DamageType.RunOverVehicle = 5
+DamageType.Explosion = 1
 
 ---@type number
 DamageType.Punch = 2
+
+---@type number
+DamageType.Unknown = 6
 

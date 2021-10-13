@@ -1,18 +1,18 @@
 Timer = {}
 
+function Timer.SetInterval(func, time) end
+
+function Timer.__set(func, run_once, time, args) end
+
+function Timer.SetTimeout(func, time) end
+
+function Timer.ClearInterval(id) end
+
+function Timer.IsValid(id) end
+
 Timer.__timeouts = {}
 
-function Timer.__set() end
+function Timer.Bind(id, actor) end
 
-function Timer.ClearInterval() end
-
-function Timer.IsValid() end
-
-function Timer.Bind() end
-
-function Timer.SetInterval() end
-
-function Timer.ClearTimeout() end
-
-function Timer.SetTimeout() end
+function Timer.ClearTimeout(id) end
 

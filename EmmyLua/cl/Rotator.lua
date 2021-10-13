@@ -1,32 +1,32 @@
 Rotator = {}
 
-function Rotator.Equals() end
+function Rotator.UnrotateVector(self, V) end
 
-function Rotator.new() end
+function Rotator.__sub(self, other) end
 
-function Rotator.__tostring() end
+function Rotator.Random(roll) end
 
-function Rotator.Normalize() end
+function Rotator.Quaternion(self) end
 
-function Rotator.IsZero() end
+function Rotator.__add(self, other) end
 
-function Rotator.GetForwardVector() end
+function Rotator.Normalize(self) end
 
-function Rotator.GetNormalized() end
+function Rotator.IsNearlyZero(self, tolerance) end
 
-function Rotator.UnrotateVector() end
+function Rotator.Equals(self, other, tolerance) end
 
-function Rotator.__mul() end
+function Rotator.__mul(self, other) end
 
-function Rotator.RotateVector() end
+function Rotator.new(_pitch, _yaw, _roll) end
 
-function Rotator.__sub() end
+function Rotator.RotateVector(self, V) end
 
-function Rotator.IsNearlyZero() end
+function Rotator.IsZero(self) end
 
-function Rotator.Random() end
+function Rotator.GetNormalized(self) end
 
-function Rotator.__add() end
+function Rotator.GetForwardVector(self) end
 
-function Rotator.Quaternion() end
+function Rotator.__tostring(self) end
 

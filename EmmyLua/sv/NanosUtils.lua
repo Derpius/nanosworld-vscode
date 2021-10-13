@@ -1,6 +1,6 @@
 NanosUtils = {}
 
-function NanosUtils.Dump() end
+function NanosUtils.IsA(object, class) end
 
-function NanosUtils.IsA() end
+function NanosUtils.Dump(full_object) end
 

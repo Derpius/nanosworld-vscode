@@ -1,10 +1,7 @@
 CollisionChannel = {}
 
 ---@type number
-CollisionChannel.Vehicle = 64
-
----@type number
-CollisionChannel.PhysicsBody = 32
+CollisionChannel.TracePrimitive = 65536
 
 ---@type number
 CollisionChannel.WorldStatic = 1
@@ -16,14 +13,17 @@ CollisionChannel.Mesh = 131072
 CollisionChannel.Foliage = 1048576
 
 ---@type number
-CollisionChannel.Pawn = 4
+CollisionChannel.PhysicsBody = 32
 
 ---@type number
-CollisionChannel.TracePrimitive = 65536
+CollisionChannel.WorldDynamic = 2
+
+---@type number
+CollisionChannel.Pawn = 4
 
 ---@type number
 CollisionChannel.Destructible = 128
 
 ---@type number
-CollisionChannel.WorldDynamic = 2
+CollisionChannel.Vehicle = 64
 

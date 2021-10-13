@@ -1,42 +1,42 @@
 Vector = {}
 
-function Vector.Equals() end
+function Vector.DistanceSquared(self, other) end
 
-function Vector.Distance() end
+function Vector.__pow(self, other) end
 
-function Vector.SizeSquared() end
+function Vector.__div(self, other) end
 
-function Vector.IsNearlyZero() end
+function Vector.__eq(self, other) end
 
-function Vector.__unm() end
+function Vector.Equals(self, other, tolerance) end
 
-function Vector.__pow() end
+function Vector.Rotation(self) end
 
-function Vector.Size() end
+function Vector.Distance(self, other) end
 
-function Vector.Normalize() end
+function Vector.__unm(self) end
 
-function Vector.IsZero() end
+function Vector.GetSafeNormal(self, tolerance) end
 
-function Vector.Rotation() end
+function Vector.Normalize(self, tolerance) end
 
-function Vector.GetSafeNormal() end
+function Vector.GetUnsafeNormal(self) end
 
-function Vector.new() end
+function Vector.__add(self, other) end
 
-function Vector.GetUnsafeNormal() end
+function Vector.IsZero(self) end
 
-function Vector.__tostring() end
+function Vector.new(_X, _Y, _Z) end
 
-function Vector.__mul() end
+function Vector.__sub(self, other) end
 
-function Vector.__div() end
+function Vector.__tostring(self) end
 
-function Vector.__sub() end
+function Vector.SizeSquared(self) end
 
-function Vector.DistanceSquared() end
+function Vector.Size(self) end
 
-function Vector.__add() end
+function Vector.IsNearlyZero(self, tolerance) end
 
-function Vector.__eq() end
+function Vector.__mul(self, other) end
 
