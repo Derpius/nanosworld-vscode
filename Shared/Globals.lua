@@ -53,7 +53,8 @@ local GetArgs = Package.Require("GetArgs.lua")
 ---@return string
 local function parseFuncArgs(funcName, func, accessor, returnType)
 	returnType = returnType or "any"
-	local args, ret, count = GetArgs(func), {}, 0
+	local args, numArgs = GetArgs(func)
+	local ret, count = {}, 0
 
 	if accessor ~= "" then
 		if args[1] == "self" then
@@ -64,7 +65,7 @@ local function parseFuncArgs(funcName, func, accessor, returnType)
 		end
 	end
 
-	if args[1] then
+	if numArgs > 0 then
 		for _, arg in ipairs(args) do
 			count = count + 1
 			ret[count] = "---@param " .. arg .. " any\n"
@@ -74,12 +75,15 @@ local function parseFuncArgs(funcName, func, accessor, returnType)
 	count = count + 1
 	ret[count] = string.format("---@return %s\nfunction %s%s(", returnType, accessor, funcName)
 
-	if args[1] then
+	if numArgs > 0 then
 		for _, arg in ipairs(args) do
 			count = count + 1
 			ret[count] = arg .. ", "
 		end
 		ret[count] = ret[count]:sub(1, #ret[count] - 2)
+	else --- If the function has no arguments, it could've encounted a C function (which we can't get the args of), so just assume it's a vararg
+		count = count + 1
+		ret[count] = "..."
 	end
 
 	count = count + 1
@@ -169,7 +173,7 @@ end
 
 local globals = {_G = {}}
 
-local count = 1
+local count = 0
 for k, v in pairs(_G) do
 	if not VANILLA_GLOBALS[k] and type(k) == "string" and k:sub(1, 2) ~= "__" then
 		Package.Log("Generating documentation for " .. k)
@@ -181,37 +185,17 @@ for k, v in pairs(_G) do
 				local parsed = parseLibrary(v, k, {})
 				if parsed then globals[k] = parsed end -- C side classes will still have a global table entry, but wont contain any members
 			end
-		elseif type == "function" then
-			local args = GetArgs(v)
-
-			if args[1] then
-				for _, arg in ipairs(args) do
-					globals._G[count] = "---@param " .. arg .. " any\n"
-					count = count + 1
-				end
-			end
-
-			globals._G[count] = string.format("---@return any\nfunction %s(", k)
-
-			if args[1] then
-				for _, arg in ipairs(args) do
-					count = count + 1
-					globals._G[count] = arg .. ", "
-				end
-				globals._G[count] = globals._G[count]:sub(1, #globals._G[count] - 2)
-			end
-
-			globals._G[count + 1] = ") end\n\n"
-			count = count + 2
-		elseif type == "string" then
-			globals._G[count] = string.format("---@type %s\n%s = \"%s\"\n\n", type, k, v)
-			count = count + 1
-		elseif LITERAL_TYPES[type] then
-			globals._G[count] = string.format("---@type %s\n%s = %s\n\n", type, k, v)
-			count = count + 1
 		else
-			globals._G[count] = string.format("---@type %s\n%s = nil\n\n", type, k)
 			count = count + 1
+			if type == "function" then
+				globals._G[count] = parseFuncArgs(k, v, "")
+			elseif type == "string" then
+				globals._G[count] = string.format("---@type %s\n%s = \"%s\"\n\n", type, k, v)
+			elseif LITERAL_TYPES[type] then
+				globals._G[count] = string.format("---@type %s\n%s = %s\n\n", type, k, v)
+			else
+				globals._G[count] = string.format("---@type %s\n%s = nil\n\n", type, k)
+			end
 		end
 	end
 end
