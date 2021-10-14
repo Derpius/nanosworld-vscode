@@ -1,6 +1,6 @@
 ---@type userdata
-Package_I = nil
+Timer_Inst = nil
 
 ---@type userdata
-Timer_Inst = nil
+Package_I = nil
 

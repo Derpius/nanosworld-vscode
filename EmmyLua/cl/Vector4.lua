@@ -8,6 +8,9 @@ function Vector4(_X, _Y, _Z, _W) end
 ---@class Vector4
 local cls = {}
 
+---@return any
+function cls:__tostrin) end
+
 ---@param _X any
 ---@param _Y any
 ---@param _Z any
@@ -17,7 +20,4 @@ function Vector4.new(_X, _Y, _Z, _W) end
 
 ---@type table<string, any>
 Vector4.__index = nil
-
----@return any
-function cls:__tostring() end
 

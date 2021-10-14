@@ -1,46 +1,25 @@
 NanosWorld = {}
 
 ---@return any
-function NanosWorld.GetVehicles() end
+function NanosWorld.GetLights(...) end
 
 ---@return any
-function NanosWorld.GetCables() end
+function NanosWorld.GetPlayers(...) end
 
 ---@return any
-function NanosWorld.GetParticles() end
+function NanosWorld.GetCharacters(...) end
 
 ---@return any
-function NanosWorld.GetCharacters() end
+function NanosWorld.GetParticles(...) end
 
 ---@return any
-function NanosWorld.GetPlayers() end
+function NanosWorld.GetStaticMeshes(...) end
 
 ---@return any
-function NanosWorld.GetGrenades() end
+function NanosWorld.GetTextRenders(...) end
 
 ---@return any
-function NanosWorld.GetStaticMeshes() end
-
----@return any
-function NanosWorld.IsA() end
-
----@return any
-function NanosWorld.GetTextRenders() end
-
----@return any
-function NanosWorld.Dump() end
-
----@return any
-function NanosWorld.GetProps() end
-
----@return any
-function NanosWorld.GetTriggers() end
-
----@return any
-function NanosWorld.GetLights() end
-
----@return any
-function NanosWorld.GetWeapons() end
+function NanosWorld.GetLocalPlayer(...) end
 
 ---@param event_name any
 ---@param func any
@@ -48,11 +27,32 @@ function NanosWorld.GetWeapons() end
 function NanosWorld.Subscribe(event_name, func) end
 
 ---@return any
-function NanosWorld.GetItems() end
+function NanosWorld.Dump(...) end
 
 ---@return any
-function NanosWorld.GetSounds() end
+function NanosWorld.GetGrenades(...) end
 
 ---@return any
-function NanosWorld.GetLocalPlayer() end
+function NanosWorld.GetCables(...) end
+
+---@return any
+function NanosWorld.IsA(...) end
+
+---@return any
+function NanosWorld.GetTriggers(...) end
+
+---@return any
+function NanosWorld.GetProps(...) end
+
+---@return any
+function NanosWorld.GetWeapons(...) end
+
+---@return any
+function NanosWorld.GetItems(...) end
+
+---@return any
+function NanosWorld.GetVehicles(...) end
+
+---@return any
+function NanosWorld.GetSounds(...) end
 

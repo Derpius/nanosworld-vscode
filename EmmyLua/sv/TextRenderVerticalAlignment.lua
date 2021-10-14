@@ -1,10 +1,10 @@
 TextRenderVerticalAlignment = {}
 
 ---@type number
-TextRenderVerticalAlignment.Bottom = 3
+TextRenderVerticalAlignment.FirstLine = 0
 
 ---@type number
-TextRenderVerticalAlignment.FirstLine = 0
+TextRenderVerticalAlignment.Bottom = 3
 
 ---@type number
 TextRenderVerticalAlignment.Center = 2
