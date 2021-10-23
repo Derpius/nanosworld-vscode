@@ -10,8 +10,9 @@ local STATICS = {
 }
 
 local INTERNAL = {
-	["Package_S"] = true,
-	["Timer_I"] = true
+	Package_S = true,
+	Timer_I = true,
+	Input_S = true
 }
 
 local classes = {}

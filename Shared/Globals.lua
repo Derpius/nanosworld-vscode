@@ -60,6 +60,7 @@ local function parseFuncArgs(funcName, func, accessor, returnType)
 		if args[1] == "self" then
 			accessor = accessor .. ":"
 			table.remove(args, 1)
+			numArgs = numArgs - 1
 		else
 			accessor = accessor .. "."
 		end

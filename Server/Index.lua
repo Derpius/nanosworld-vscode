@@ -1,4 +1,4 @@
-local OUTPUT_PATH = "D:\\Programming\\GitHub\\nanosworld\\" -- Path to output generated documentation to
+local OUTPUT_PATH = "D:\\Programming\\GitHub\\nanosworld-vscode\\" -- Path to output generated documentation to
 
 local sv_globals = Package.Require("Globals.lua")
 local sv_classes = Package.Require("Classes.lua")
