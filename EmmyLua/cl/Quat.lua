@@ -8,22 +8,19 @@ function Quat(_X, _Y, _Z, _W) end
 ---@class Quat
 local cls = {}
 
----@return any
-function cls:Rotato) end
-
----@return any
-function cls:__tostrin) end
-
----@param tolerance any
----@return any
-function cls:Normalize(tolerance) end
-
 ---@param other any
 ---@return any
 function cls:__sub(other) end
 
+---@param other any
+---@return any
+function cls:__mul(other) end
+
 ---@type table<string, any>
 Quat.__index = nil
+
+---@return any
+function cls:Rotator(...) end
 
 ---@param _X any
 ---@param _Y any
@@ -33,13 +30,16 @@ Quat.__index = nil
 function Quat.new(_X, _Y, _Z, _W) end
 
 ---@return any
-function cls:Invers) end
+function cls:__tostring(...) end
 
 ---@param other any
 ---@return any
 function cls:__add(other) end
 
----@param other any
 ---@return any
-function cls:__mul(other) end
+function cls:Inverse(...) end
+
+---@param tolerance any
+---@return any
+function cls:Normalize(tolerance) end
 

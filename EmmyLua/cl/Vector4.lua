@@ -9,7 +9,7 @@ function Vector4(_X, _Y, _Z, _W) end
 local cls = {}
 
 ---@return any
-function cls:__tostrin) end
+function cls:__tostring(...) end
 
 ---@param _X any
 ---@param _Y any

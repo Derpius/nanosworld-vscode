@@ -1,14 +1,23 @@
----@return Light
-function Light(...) end
+---@return Melee
+function Melee(...) end
 
----@class Light
-local cls = Light()
+---@class Melee
+local cls = Melee()
+
+---@return any
+function cls:PullUse(...) end
+
+---@return any
+function cls:GetBaseDamage(...) end
 
 ---@return any
 function cls:SetDefaultMaterial(...) end
 
 ---@return any
 function cls:GetCollision(...) end
+
+---@return any
+function cls:GetCooldown(...) end
 
 ---@return any
 function cls:SetNetworkAuthority(...) end
@@ -26,6 +35,12 @@ function cls:SetLifeSpan(...) end
 function cls:SetMaterialScalarParameter(...) end
 
 ---@return any
+function cls:SetCooldown(...) end
+
+---@return any
+function cls:Unsubscribe(...) end
+
+---@return any
 function cls:HasNetworkAuthority(...) end
 
 ---@return any
@@ -35,7 +50,19 @@ function cls:SetHighlightEnabled(...) end
 function cls:SetRelativeLocation(...) end
 
 ---@return any
+function cls:GetType(...) end
+
+---@return any
+function cls:ReleaseUse(...) end
+
+---@return any
+function cls:RemoveStaticMeshAttached(...) end
+
+---@return any
 function cls:GetScale(...) end
+
+---@return any
+function cls:AddStaticMeshAttached(...) end
 
 ---@return any
 function cls:SetRotation(...) end
@@ -45,6 +72,9 @@ function cls:GetInitialLocation(...) end
 
 ---@return any
 function cls:IsGravityEnabled(...) end
+
+---@return any
+function cls:RemoveSkeletalMeshAttached(...) end
 
 ---@return any
 function cls:GetRotation(...) end
@@ -59,16 +89,37 @@ function cls:SetForce(...) end
 function cls:SetMaterial(...) end
 
 ---@return any
+function cls:SetBaseDamage(...) end
+
+---@return any
 function cls:AddImpulse(...) end
 
 ---@return any
 function cls:SetCollision(...) end
 
 ---@return any
+function cls:SetSoundUse(...) end
+
+---@return any
+function cls:SetAnimationCharacterUse(...) end
+
+---@return any
+function cls:SetCrosshairMaterial(...) end
+
+---@return any
+function cls:SetMaterialColorParameter(...) end
+
+---@return any
+function cls:SetMaterialVectorParameter(...) end
+
+---@return any
 function cls:GetVelocity(...) end
 
 ---@return any
-function cls:SetTextureLightProfile(...) end
+function cls:SetDamageSettings(...) end
+
+---@return any
+function cls:AddSkeletalMeshAttached(...) end
 
 ---@return any
 function cls:GetAttachedTo(...) end
@@ -80,13 +131,13 @@ function cls:SetMaterialTextureParameter(...) end
 function cls:IsValid(...) end
 
 ---@return any
-function cls:SetMaterialColorParameter(...) end
+function cls:GetHandler(...) end
 
 ---@return any
-function cls:SetMaterialVectorParameter(...) end
+function cls:GetAssetName(...) end
 
 ---@return any
-function cls:SetColor(...) end
+function cls:SetGravityEnabled(...) end
 
 ---@return any
 function cls:Destroy(...) end
@@ -98,7 +149,7 @@ function cls:AttachTo(...) end
 function cls:RotateTo(...) end
 
 ---@return any
-function cls:GetType(...) end
+function cls:GetAnimationCharacterUse(...) end
 
 ---@return any
 function cls:IsInWater(...) end
@@ -113,7 +164,7 @@ function cls:GetLocation(...) end
 function cls:GetLifeSpan(...) end
 
 ---@return any
-function cls:Unsubscribe(...) end
+function cls:GetSoundUse(...) end
 
 ---@return any
 function cls:GetValue(...) end
@@ -137,7 +188,7 @@ function cls:TranslateTo(...) end
 function cls:IsNetworkDistributed(...) end
 
 ---@return any
-function cls:SetGravityEnabled(...) end
+function cls:SetCrosshairSetting(...) end
 
 ---@return any
 function cls:GetAttachedEntities(...) end

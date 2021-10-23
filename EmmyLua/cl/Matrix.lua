@@ -6,6 +6,16 @@ function Matrix(rotation, origin) end
 ---@class Matrix
 local cls = {}
 
+---@return any
+function cls:GetTransposed(...) end
+
+---@param vector any
+---@return any
+function cls:TransformVector4(vector) end
+
+---@type table<string, any>
+Matrix.__index = nil
+
 ---@param vector any
 ---@return any
 function cls:TransformVector(vector) end
@@ -16,15 +26,5 @@ function cls:TransformVector(vector) end
 function Matrix.new(rotation, origin) end
 
 ---@return any
-function cls:__tostrin) end
-
----@return any
-function cls:GetTranspose) end
-
----@param vector any
----@return any
-function cls:TransformVector4(vector) end
-
----@type table<string, any>
-Matrix.__index = nil
+function cls:__tostring(...) end
 

@@ -1,11 +1,11 @@
 LightType = {}
 
 ---@type number
-LightType.React = 2
+LightType.Spot = 1
 
 ---@type number
 LightType.Point = 0
 
 ---@type number
-LightType.Spot = 1
+LightType.React = 2
 

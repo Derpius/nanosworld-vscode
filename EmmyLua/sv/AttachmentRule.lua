@@ -4,8 +4,8 @@ AttachmentRule = {}
 AttachmentRule.KeepRelative = 0
 
 ---@type number
-AttachmentRule.SnapToTarget = 2
+AttachmentRule.KeepWorld = 1
 
 ---@type number
-AttachmentRule.KeepWorld = 1
+AttachmentRule.SnapToTarget = 2
 

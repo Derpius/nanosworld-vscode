@@ -1,13 +1,13 @@
 JSON = {}
 
----@param str any
+---@param val any
 ---@return any
-function JSON.parse(str) end
+function JSON.stringify(val) end
 
 ---@type string
 JSON._version = "0.1.2"
 
----@param val any
+---@param str any
 ---@return any
-function JSON.stringify(val) end
+function JSON.parse(str) end
 

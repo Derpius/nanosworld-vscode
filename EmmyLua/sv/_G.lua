@@ -1,6 +1,9 @@
 ---@type userdata
-Package_I = nil
+Timer_Inst = nil
+
+---@return any
+function Item(...) end
 
 ---@type userdata
-Timer_Inst = nil
+Package_I = nil
 

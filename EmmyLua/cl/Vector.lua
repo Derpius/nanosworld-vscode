@@ -7,21 +7,24 @@ function Vector(_X, _Y, _Z) end
 ---@class Vector
 local cls = {}
 
+---@param other any
 ---@return any
-function cls:Siz) end
-
----@return any
-function cls:__un) end
+function cls:__sub(other) end
 
 ---@param other any
 ---@return any
-function cls:DistanceSquared(other) end
-
----@return any
-function cls:GetUnsafeNorma) end
+function cls:__mul(other) end
 
 ---@type table<string, any>
 Vector.__index = nil
+
+---@param other any
+---@param tolerance any
+---@return any
+function cls:Equals(other, tolerance) end
+
+---@return any
+function cls:IsZero(...) end
 
 ---@param _X any
 ---@param _Y any
@@ -29,30 +32,36 @@ Vector.__index = nil
 ---@return Vector
 function Vector.new(_X, _Y, _Z) end
 
+---@return any
+function cls:Size(...) end
+
+---@return any
+function cls:__tostring(...) end
+
+---@param tolerance any
+---@return any
+function cls:IsNearlyZero(tolerance) end
+
 ---@param other any
 ---@return any
 function cls:__add(other) end
 
----@param other any
 ---@return any
-function cls:__div(other) end
-
----@return any
-function cls:IsZer) end
-
----@return any
-function cls:__tostrin) end
+function cls:__unm(...) end
 
 ---@param other any
 ---@return any
-function cls:__pow(other) end
+function cls:DistanceSquared(other) end
+
+---@return any
+function cls:GetUnsafeNormal(...) end
 
 ---@param other any
 ---@return any
-function cls:__sub(other) end
+function cls:__eq(other) end
 
 ---@return any
-function cls:Rotatio) end
+function cls:Rotation(...) end
 
 ---@param tolerance any
 ---@return any
@@ -68,21 +77,12 @@ function cls:Distance(other) end
 
 ---@param other any
 ---@return any
-function cls:__eq(other) end
+function cls:__pow(other) end
+
+---@return any
+function cls:SizeSquared(...) end
 
 ---@param other any
 ---@return any
-function cls:__mul(other) end
-
----@param other any
----@param tolerance any
----@return any
-function cls:Equals(other, tolerance) end
-
----@return any
-function cls:SizeSquare) end
-
----@param tolerance any
----@return any
-function cls:IsNearlyZero(tolerance) end
+function cls:__div(other) end
 
