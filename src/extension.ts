@@ -44,4 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate(context: vscode.ExtensionContext) {
+	setExternalLibrary(context.extension, "EmmyLua", false);
+	console.log("Nanos World sumneko bindings unloaded");
+}
