@@ -1,9 +1,6 @@
 ---@type userdata
 Input_I = nil
 
----@return any
-function Item(...) end
-
 ---@type userdata
 Package_I = nil
 

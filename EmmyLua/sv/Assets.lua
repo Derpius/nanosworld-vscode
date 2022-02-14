@@ -4,8 +4,11 @@ Assets = {}
 function Assets.IsValid(...) end
 
 ---@return any
+function Assets.Unsubscribe(...) end
+
+---@return any
 function Assets.Subscribe(...) end
 
 ---@return any
-function Assets.Unsubscribe(...) end
+function Assets.Super(...) end
 

@@ -1,8 +1,8 @@
 InputEvent = {}
 
 ---@type number
-InputEvent.Pressed = 0
+InputEvent.Released = 1
 
 ---@type number
-InputEvent.Released = 1
+InputEvent.Pressed = 0
 

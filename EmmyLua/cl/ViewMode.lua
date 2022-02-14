@@ -1,7 +1,7 @@
 ViewMode = {}
 
 ---@type number
-ViewMode.TPS2 = 2
+ViewMode.TopDown = 4
 
 ---@type number
 ViewMode.TPS1 = 1
@@ -11,4 +11,7 @@ ViewMode.FPS = 0
 
 ---@type number
 ViewMode.TPS3 = 3
+
+---@type number
+ViewMode.TPS2 = 2
 

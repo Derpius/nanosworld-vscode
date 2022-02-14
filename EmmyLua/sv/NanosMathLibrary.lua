@@ -1,13 +1,13 @@
 NanosMathLibrary = {}
 
 ---@return any
-function NanosMathLibrary.DeprecationNotice(...) end
-
----@return any
 function NanosMathLibrary.RInterpConstantTo(...) end
 
 ---@return any
-function NanosMathLibrary.FInterpTo(...) end
+function NanosMathLibrary.RInterpTo(...) end
+
+---@return any
+function NanosMathLibrary.DeprecationNotice(...) end
 
 ---@return any
 function NanosMathLibrary.VInterpTo(...) end
@@ -19,7 +19,7 @@ function NanosMathLibrary.VInterpConstantTo(...) end
 function NanosMathLibrary.ClampAxis(...) end
 
 ---@return any
-function NanosMathLibrary.RInterpTo(...) end
+function NanosMathLibrary.FInterpTo(...) end
 
 ---@return any
 function NanosMathLibrary.NormalizeAxis(...) end

@@ -5,40 +5,49 @@ function WebUI(...) end
 local cls = WebUI()
 
 ---@return any
-function cls:Unsubscribe(...) end
+function cls:GetID(...) end
 
 ---@return any
-function cls:GetType(...) end
+function cls:Destroy(...) end
+
+---@return any
+function cls:Unsubscribe(...) end
 
 ---@return any
 function cls:GetValue(...) end
 
 ---@return any
-function cls:Subscribe(...) end
-
----@return any
-function cls:LoadURL(...) end
+function cls:GetType(...) end
 
 ---@return any
 function cls:Resize(...) end
 
 ---@return any
-function cls:IsVisible(...) end
+function cls:CallEvent(...) end
 
 ---@return any
-function cls:SetFreeze(...) end
+function cls:SetValue(...) end
+
+---@return any
+function cls:SetVisible(...) end
+
+---@return any
+function cls:Super(...) end
+
+---@return any
+function cls:IsVisible(...) end
 
 ---@return any
 function cls:IsValid(...) end
 
 ---@return any
-function cls:GetID(...) end
-
----@return any
 function cls:SetAutoResize(...) end
 
 ---@return any
-function cls:SetVisible(...) end
+function cls:Subscribe(...) end
+
+---@return any
+function cls:SetFreeze(...) end
 
 ---@return any
 function cls:SetFocus(...) end
@@ -47,11 +56,5 @@ function cls:SetFocus(...) end
 function cls:BringToFront(...) end
 
 ---@return any
-function cls:Destroy(...) end
-
----@return any
-function cls:CallEvent(...) end
-
----@return any
-function cls:SetValue(...) end
+function cls:LoadURL(...) end
 
