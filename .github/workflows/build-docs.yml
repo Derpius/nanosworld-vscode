@@ -42,4 +42,4 @@ jobs:
           publish_branch: docgen-output
           publish_dir: ./docs
           enable_jekyll: true
-        if: steps.docgen.outcome == "success"
+        if: steps.docgen.outcome == 'success'
