@@ -113,7 +113,9 @@ async function buildDocs() {
 			return;
 		}
 
+		console.log(entry.path);
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
+			console.log("TEST");
 			output += generateClassAnnotations(fileContents);
 			return;
 		}
