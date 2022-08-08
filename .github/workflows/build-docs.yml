@@ -48,8 +48,8 @@ jobs:
         if: steps.docgen.outcome == 'success'
 
       - name: Deploy
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ github.token }}
-        branch: refs/heads/docgen-output
-      if: steps.commit.outcome == 'success'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ github.token }}
+          branch: refs/heads/docgen-output
+        if: steps.commit.outcome == 'success'
