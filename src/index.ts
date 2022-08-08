@@ -40,12 +40,12 @@ function generateClassAnnotations(cls: DocClass): string {
 	}
 
 	let constructor = "";
-	if (cls["constructor"] !== undefined) {
+	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
 		console.log(cls.constructor);
 		let params = "";
 		let paramNames = "";
 
-		cls.constructor.forEach(function (param) {
+		cls.constructor!.forEach(function (param) {
 			params += `\n---@param ${param.name} ${param.type} ${param.description ? param.description + " " : ""}`;
 			if (param.default !== undefined) params += `(Default: ${param.default})`;
 
