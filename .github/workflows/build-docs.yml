@@ -38,11 +38,9 @@ jobs:
       - name: Commit
         id: commit
         run: |
-          mkdir ./docs
+          git clone -b docgen-output ${{ github.server_url }}/${{ github.repository }}.git docs
           mv ./annotations.lua ./docs/annotations.lua
           cd ./docs
-          git config --global init.defaultBranch docgen-output
-          git init
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add ./annotations.lua
