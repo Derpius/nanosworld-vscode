@@ -38,11 +38,16 @@ jobs:
       - name: Commit
         id: commit
         run: |
+          echo Cloning Repository
           git clone -b docgen-output ${{ github.server_url }}/${{ github.repository }}.git docs
+          echo Moving Annotations In
+          rm -f ./docs/annotations.lua
           mv ./annotations.lua ./docs/annotations.lua
           cd ./docs
+          echo Configuring Git
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          echo Committing
           git add ./annotations.lua
           git commit -m "deploy: ${{ github.sha }}" -a
         if: steps.docgen.outcome == 'success'
