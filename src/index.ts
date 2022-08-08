@@ -116,6 +116,7 @@ async function buildDocs() {
 		}
 	});
 
+	console.log(output);
 	await fs.promises.writeFile("./annotations.lua", output);
 }
 
