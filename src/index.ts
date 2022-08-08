@@ -85,39 +85,40 @@ async function buildDocs() {
 		recursive: "1"
 	});
 
-	response.data.tree.filter(function (entry) {
+	const promises = response.data.tree.filter(function (entry) {
 		return entry.type === "blob" && entry.path?.endsWith(".json");
-	}).forEach(function (entry) {
+	}).map((entry) => (async () => {
 		if (entry.path === undefined) return;
 	
-		octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
+		const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
 			accept: "application/vnd.github+json",
 			owner: REPO_OWNER,
 			repo: REPO_NAME,
 			path: entry.path,
 			ref: REPO_BRANCH
-		}).then((response) => {
-			// Process file
-			const file: any = response.data;
-			if (file.content === undefined) return;
-
-			const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
-
-			// Write annotations
-			if (entry.path === "Enums.json") {
-				//output += generateEnumAnnotations(fileContents);
-				return;
-			}
-
-			if (entry.path!.startsWith("Classes") || entry.path!.startsWith("StaticClasses")) {
-				output += generateClassAnnotations(fileContents);
-				console.log(output.length);
-				return;
-			}
 		});
-	});
 
-	console.log(output);
+		// Process file
+		const file: any = response.data;
+		if (file.content === undefined) return;
+
+		const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
+
+		// Write annotations
+		if (entry.path === "Enums.json") {
+			//output += generateEnumAnnotations(fileContents);
+			return;
+		}
+
+		if (entry.path!.startsWith("Classes") || entry.path!.startsWith("StaticClasses")) {
+			output += generateClassAnnotations(fileContents);
+			console.log(output.length);
+			return;
+		}
+	})());
+
+	console.log(promises);
+	await Promise.all(promises);
 	await fs.promises.writeFile("./annotations.lua", output);
 }
 

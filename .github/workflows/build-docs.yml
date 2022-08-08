@@ -35,27 +35,11 @@ jobs:
           repository-branch: "main"
           github-token: ${{ github.token }}
 
-      - name: Commit
-        id: commit
-        run: |
-          echo Cloning Repository
-          git clone -b docgen-output ${{ github.server_url }}/${{ github.repository }}.git docs
-          echo Moving Annotations In
-          cat ./annotations.lua
-          mv ./annotations.lua ./docs/annotations.lua
-          cd ./docs
-          echo Configuring Git
-          git fetch
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          echo Committing
-          git add ./annotations.lua
-          git commit -m "deploy: ${{ github.sha }}" -a
-        if: steps.docgen.outcome == 'success'
-
       - name: Deploy
-        uses: ad-m/github-push-action@master
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ github.token }}
-          branch: refs/heads/docgen-output
-        if: steps.commit.outcome == 'success'
+          publish_branch: docgen-output
+          publish_dir: ./docs
+          enable_jekyll: true
+        if: steps.docgen.outcome == 'success'
