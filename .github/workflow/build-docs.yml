@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - docgen
+  workflow_dispatch:
 
 jobs:
   run-action:
