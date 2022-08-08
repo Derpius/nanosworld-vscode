@@ -1,7 +1,14 @@
+export enum Authority {
+	Server = "server",
+	Client = "client",
+	Authority = "authority",
+	Both = "both"
+}
+
 export interface DocParameter {
 	type: string,
 	name: string,
-	description: string,
+	description?: string,
 	default?: string
 }
 
@@ -27,7 +34,8 @@ export interface DocEvent {
 export interface DocClass {
 	name: string,
 	description: string,
-	authority: string,
+	authority: Authority,
+	inheritance?: string[],
 	constructor?: DocParameter[],
 	functions?: DocFunction[],
 	static_functions?: DocFunction[],
