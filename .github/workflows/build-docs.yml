@@ -26,8 +26,15 @@ jobs:
       - name: Build
         run: npm run compile
 
-      - name: Run my action
+      - name: Run docgen
         uses: ./
         with:
           repository-path: "nanos-world/api"
           github-token: ${{ github.token }}
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ github.token }}
+          publish_branch: docgen-output
+          publish_dir: ./docs
