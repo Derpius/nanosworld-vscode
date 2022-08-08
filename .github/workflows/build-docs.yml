@@ -36,7 +36,7 @@ jobs:
           github-token: ${{ github.token }}
         
       - name: Debug
-        run: ls /home/runner/work/nanosworld-vscode/
+        run: ls /home/runner/work/nanosworld-vscode/nanosworld-vscode/docs/
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
