@@ -1,0 +1,15 @@
+name: Nanos World EmmyLua Docgen
+author: Derpius
+description: GitHub action to build EmmyLua annotations from the Nanos World JSON documentation
+
+inputs:
+  repository-path:
+    description: Path to GitHub repository in the format author/name
+    required: true
+  github-token:
+    description: GitHub access token
+    required: true
+
+runs:
+  using: "node16"
+  main: "out/index.js"
