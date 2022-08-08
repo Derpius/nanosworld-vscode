@@ -40,7 +40,7 @@ function generateClassAnnotations(cls: DocClass): string {
 	}
 
 	let constructor = "";
-	if (cls.constructor !== undefined) {
+	if (cls["constructor"] !== undefined) {
 		console.log(cls.constructor);
 		let params = "";
 		let paramNames = "";
