@@ -119,8 +119,7 @@ async function buildDocs() {
 		}
 	});
 
-	await fs.promises.mkdir("./docs");
-	await fs.promises.writeFile("./docs/annotations.lua", output);
+	await fs.promises.writeFile("./annotations.lua", output);
 }
 
 buildDocs().then(() => console.log("Build finished")).catch((exception) => console.log(`Error building documentation: ${exception}`));

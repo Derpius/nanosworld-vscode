@@ -34,15 +34,14 @@ jobs:
           repository-name: "api"
           repository-branch: "main"
           github-token: ${{ github.token }}
-        
-      - name: Debug
-        run: ls /home/runner/work/nanosworld-vscode/nanosworld-vscode/docs/
       
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ github.token }}
-          publish_branch: docgen-output
-          publish_dir: ./docs
-          enable_jekyll: true
+        run: |
+          git clone -b docgen-output ${{ github.repositoryUrl }} docs
+          mv ./annotations.lua ./docs/annotations.lua
+          cd ./docs
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "deploy: ${{ github.sha }}" -a
+          git push
         if: steps.docgen.outcome == 'success'
