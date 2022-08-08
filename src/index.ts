@@ -10,4 +10,4 @@ console.log(`Path: ${REPO_PATH}`);
 
 console.log(`${context.serverUrl}/${context.repo.owner}/${context.repo.repo}`);
 
-console.log("Build finished.");
+console.log("Build finished");
