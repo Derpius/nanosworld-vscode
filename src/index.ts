@@ -109,7 +109,15 @@ async function buildDocs() {
 		const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
 
 		// Write annotations
-		output += generateClassAnnotations(fileContents);
+		if (entry.path === "Enums.json") {
+			//output += generateEnumAnnotations(fileContents);
+			return;
+		}
+
+		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
+			output += generateClassAnnotations(fileContents);
+			return;
+		}
 	});
 
 	await fs.promises.mkdir("./docs");
