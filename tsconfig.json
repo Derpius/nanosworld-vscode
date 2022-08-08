@@ -4,7 +4,7 @@
 		"target": "ES2021",
 		"outDir": "out",
 		"lib": [
-			"ES2020",
+			"ES2021",
 			"DOM"
 		],
 		"sourceMap": true,
