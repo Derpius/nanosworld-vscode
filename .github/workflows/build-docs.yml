@@ -47,9 +47,9 @@ jobs:
           git commit -m "deploy: ${{ github.sha }}" -a
         if: steps.docgen.outcome == 'success'
 
-        - name: Deploy
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ github.token }}
-          branch: refs/heads/docgen-output
-        if: steps.commit.outcome == 'success'
+      - name: Deploy
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ github.token }}
+        branch: refs/heads/docgen-output
+      if: steps.commit.outcome == 'success'
