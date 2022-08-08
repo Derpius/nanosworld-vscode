@@ -35,13 +35,21 @@ jobs:
           repository-branch: "main"
           github-token: ${{ github.token }}
       
-      - name: Deploy
+      - name: Commit
+        id: commit
         run: |
-          git clone -b docgen-output ${{ github.repositoryUrl }} docs
+          mkdir ./docs
           mv ./annotations.lua ./docs/annotations.lua
           cd ./docs
+          git init
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git commit -m "deploy: ${{ github.sha }}" -a
-          git push
         if: steps.docgen.outcome == 'success'
+
+        - name: Deploy
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ github.token }}
+          branch: refs/heads/docgen-output
+        if: steps.commit.outcome == 'success'
