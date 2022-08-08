@@ -35,7 +35,7 @@ jobs:
           repository-branch: "main"
           github-token: ${{ github.token }}
         
-        name: Debug:
+        name: Debug
         run: ls ./
       
       - name: Deploy
