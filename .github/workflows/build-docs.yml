@@ -34,6 +34,9 @@ jobs:
           repository-name: "api"
           repository-branch: "main"
           github-token: ${{ github.token }}
+        
+        name: Debug:
+        run: ls ./
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
