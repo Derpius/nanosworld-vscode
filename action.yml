@@ -3,8 +3,14 @@ author: Derpius
 description: GitHub action to build EmmyLua annotations from the Nanos World JSON documentation
 
 inputs:
-  repository-path:
-    description: Path to GitHub repository in the format author/name
+  repository-owner:
+    description: Name of the user that owns the repository (as displayed in the URL)
+    required: true
+  repository-name:
+    description: Name of the repository
+    required: true
+  repository-branch:
+    description: Branch to get the docs from
     required: true
   github-token:
     description: GitHub access token

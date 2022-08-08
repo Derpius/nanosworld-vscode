@@ -29,7 +29,9 @@ jobs:
       - name: Run docgen
         uses: ./
         with:
-          repository-path: "nanos-world/api"
+          repository-owner: "nanos-world"
+          repository-name: "api"
+          repository-branch: "main"
           github-token: ${{ github.token }}
       
       - name: Deploy
