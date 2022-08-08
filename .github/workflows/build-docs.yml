@@ -38,3 +38,4 @@ jobs:
           github_token: ${{ github.token }}
           publish_branch: docgen-output
           publish_dir: ./docs
+          enable_jekyll: true
