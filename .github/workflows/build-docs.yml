@@ -34,7 +34,7 @@ jobs:
           repository-name: "api"
           repository-branch: "main"
           github-token: ${{ github.token }}
-      
+
       - name: Commit
         id: commit
         run: |
