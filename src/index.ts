@@ -117,9 +117,11 @@ async function buildDocs() {
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
 			console.log("TEST");
 			output += generateClassAnnotations(fileContents);
+			console.log(output);
 			return;
 		}
 	});
+	console.log(output);
 
 	await fs.promises.writeFile("./annotations.lua", output);
 }
