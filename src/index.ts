@@ -87,33 +87,33 @@ async function buildDocs() {
 
 	response.data.tree.filter(function (entry) {
 		return entry.type === "blob" && entry.path?.endsWith(".json");
-	}).forEach(async function (entry) {
+	}).forEach(function (entry) {
 		if (entry.path === undefined) return;
 	
-		const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
+		octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
 			accept: "application/vnd.github+json",
 			owner: REPO_OWNER,
 			repo: REPO_NAME,
 			path: entry.path,
 			ref: REPO_BRANCH
+		}).then((response) => {
+			// Process file
+			const file: any = response.data;
+			if (file.content === undefined) return;
+
+			const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
+
+			// Write annotations
+			if (entry.path === "Enums.json") {
+				//output += generateEnumAnnotations(fileContents);
+				return;
+			}
+
+			if (entry.path!.startsWith("Classes") || entry.path!.startsWith("StaticClasses")) {
+				output += generateClassAnnotations(fileContents);
+				return;
+			}
 		});
-
-		// Process file
-		const file: any = response.data;
-		if (file.content === undefined) return;
-
-		const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
-
-		// Write annotations
-		if (entry.path === "Enums.json") {
-			//output += generateEnumAnnotations(fileContents);
-			return;
-		}
-
-		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
-			output += generateClassAnnotations(fileContents);
-			return;
-		}
 	});
 
 	console.log(output);
