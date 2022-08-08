@@ -102,7 +102,7 @@ async function buildDocs() {
 		});
 
 		// Process file
-		const file = response.data;
+		const file: any = response.data;
 		if (file.content === undefined) return;
 
 		const fileContents = JSON.parse(atob(file.content.replaceAll("\n", "")));
