@@ -2,7 +2,7 @@ name: Build Documentation
 on:
   push:
     branches:
-      - main
+      - docgen
 
 jobs:
   run-action:
