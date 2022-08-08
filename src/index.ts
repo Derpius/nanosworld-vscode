@@ -52,12 +52,12 @@ function generateClassAnnotations(cls: DocClass): string {
 		});
 
 		constructor = `
+
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${cls.description}${params}
 ---@return ${cls.name}
-local function ${cls.name}(${paramNames.slice(0, -2)}) end
-`;
+local function ${cls.name}(${paramNames.slice(0, -2)}) end`;
 	}
 
 	let staticFunctions = "";
@@ -67,19 +67,16 @@ local function ${cls.name}(${paramNames.slice(0, -2)}) end
 	let events = "";
 
 	return `
+
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${cls.description.replaceAll("\n", "\n---\n---")}
 ---@class ${cls.name}${inheritance}
-local ${cls.name}_meta = {}
-${constructor}
-${staticFunctions}
-${functions}
-${events}`;
+local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
 
 async function buildDocs() {
-	let output = "---@meta\n";
+	let output = "---@meta";
 
 	const response = await octokit.request("GET /repos/{owner}/{repo}/git/trees/{tree_sha}", {
 		owner: REPO_OWNER,
@@ -113,15 +110,11 @@ async function buildDocs() {
 			return;
 		}
 
-		console.log(entry.path);
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
-			console.log("TEST");
 			output += generateClassAnnotations(fileContents);
-			console.log(output);
 			return;
 		}
 	});
-	console.log(output);
 
 	await fs.promises.writeFile("./annotations.lua", output);
 }

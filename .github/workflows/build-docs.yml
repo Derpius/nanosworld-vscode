@@ -41,6 +41,7 @@ jobs:
           echo Cloning Repository
           git clone -b docgen-output ${{ github.server_url }}/${{ github.repository }}.git docs
           echo Moving Annotations In
+          cat ./annotations.lua
           rm -f ./docs/annotations.lua
           mv ./annotations.lua ./docs/annotations.lua
           cd ./docs
