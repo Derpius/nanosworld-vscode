@@ -31,7 +31,6 @@ function generateAuthorityString(authority: Authority) {
 }
 
 function generateClassAnnotations(cls: DocClass): string {
-	console.log(cls);
 	let inheritance = "";
 	if (cls.inheritance !== undefined) {
 		inheritance = ` : ${cls.inheritance[0]}`;
@@ -42,6 +41,7 @@ function generateClassAnnotations(cls: DocClass): string {
 
 	let constructor = "";
 	if (cls.constructor !== undefined) {
+		console.log(cls.constructor);
 		let params = "";
 		let paramNames = "";
 
