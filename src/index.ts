@@ -41,7 +41,6 @@ function generateClassAnnotations(cls: DocClass): string {
 
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
-		console.log(cls.constructor);
 		let params = "";
 		let paramNames = "";
 

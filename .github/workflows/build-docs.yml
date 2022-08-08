@@ -27,6 +27,7 @@ jobs:
         run: npm run compile
 
       - name: Run docgen
+        id: docgen
         uses: ./
         with:
           repository-owner: "nanos-world"
@@ -41,3 +42,4 @@ jobs:
           publish_branch: docgen-output
           publish_dir: ./docs
           enable_jekyll: true
+        if: steps.docgen.outcome == "success"
