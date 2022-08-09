@@ -112,7 +112,6 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		cls.events.forEach((event) => {
 			combinedEvents[event.name] = event;
 		});
-		console.log(combinedEvents);
 
 		// Generate overloads
 		let subOverloads = "";
