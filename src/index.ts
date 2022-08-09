@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, DocClass } from "./schema";
+import { Authority, DocClass, DocFunction, DocParameter } from "./schema";
 
 console.log("Building documentation...");
 
@@ -30,6 +30,32 @@ function generateAuthorityString(authority: Authority) {
 	}
 }
 
+function generateParams(params: DocParameter[] | undefined): {string: string, names: string} {
+	let ret = {string: "", names: ""};
+	if (params === undefined) return ret;
+
+	params.forEach(function (param) {
+		ret.string += `\n---@param ${param.name} ${param.type} ${param.description ? param.description + " " : ""}`;
+		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
+
+		ret.names += param.name + ", ";
+	});
+
+	ret.names = ret.names.slice(0, -2);
+	return ret;
+}
+
+function generateFunction(fun: DocFunction, accessor: string = ""): string {
+	const params = generateParams(fun.parameters);
+	return `
+
+---${generateAuthorityString(fun.authority)}
+---
+---${fun.description}${params.string}
+---@return ${fun.return.type} @${fun.return.description}
+local function ${accessor}${fun.name}(${params.names}) end`;
+}
+
 function generateClassAnnotations(cls: DocClass): string {
 	let inheritance = "";
 	if (cls.inheritance !== undefined) {
@@ -41,28 +67,28 @@ function generateClassAnnotations(cls: DocClass): string {
 
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
-		let params = "";
-		let paramNames = "";
-
-		cls.constructor!.forEach(function (param) {
-			params += `\n---@param ${param.name} ${param.type} ${param.description ? param.description + " " : ""}`;
-			if (param.default !== undefined) params += `(Default: ${param.default})`;
-
-			paramNames += param.name + ", ";
+		const params = generateParams(cls.constructor!);
+		constructor = generateFunction({
+			name: cls.name,
+			authority: cls.authority,
+			description: cls.description,
+			return: {type: cls.name, description: `Instance of ${cls.name}`}
 		});
-
-		constructor = `
-
----${generateAuthorityString(cls.authority)}
----
----${cls.description}${params}
----@return ${cls.name}
-local function ${cls.name}(${paramNames.slice(0, -2)}) end`;
 	}
 
 	let staticFunctions = "";
+	if (cls.static_functions !== undefined) {
+		cls.static_functions.forEach((fun) => {
+			staticFunctions += generateFunction(fun, `${cls.name}_meta.`);
+		});
+	}
 
 	let functions = "";
+	if (cls.functions !== undefined) {
+		cls.functions.forEach((fun) => {
+			functions += generateFunction(fun, `${cls.name}_meta:`);
+		});
+	}
 
 	let events = "";
 
@@ -89,6 +115,7 @@ async function buildDocs() {
 		return entry.type === "blob" && entry.path?.endsWith(".json");
 	}).map((entry) => (async () => {
 		if (entry.path === undefined) return;
+		console.log(`Processing ${entry.path}...`);
 	
 		const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
 			accept: "application/vnd.github+json",
@@ -112,12 +139,10 @@ async function buildDocs() {
 
 		if (entry.path!.startsWith("Classes") || entry.path!.startsWith("StaticClasses")) {
 			output += generateClassAnnotations(fileContents);
-			console.log(output.length);
 			return;
 		}
 	})());
 
-	console.log(promises);
 	await Promise.all(promises);
 	await fs.promises.mkdir("./docs");
 	await fs.promises.writeFile("./docs/annotations.lua", output);

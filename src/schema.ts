@@ -19,7 +19,7 @@ export interface DocReturn {
 
 export interface DocFunction {
 	name: string,
-	authority: string,
+	authority: Authority,
 	description: string,
 	parameters?: DocParameter[],
 	return: DocReturn
