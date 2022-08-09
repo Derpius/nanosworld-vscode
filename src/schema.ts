@@ -15,9 +15,7 @@ export interface DocAuthority {
 }
 
 export interface DocTyped {
-	type: string,
-	is_array?: boolean,
-	nullable?: boolean
+	type: string
 }
 
 export interface DocParameter extends DocDescriptive, DocTyped {

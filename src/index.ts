@@ -43,24 +43,64 @@ function generateInlineDocstring(descriptive: DocDescriptive): string {
 
 function generateParamDocstring(param: DocParameter): string {
 	let docstring = generateInlineDocstring(param);
-	if (param.default !== undefined && param.default !== "nil") docstring += `${docstring.length > 0 ? " " : "@"}(Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
+	if (param.default !== undefined) docstring += `${docstring.length > 0 ? " " : "@"}(Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
 	return docstring;
 }
 
-function generateType(typed: DocTyped): string {
-	let type = typed.type.endsWith("Path") ? "string" : typed.type;
+interface Type {
+	name: string,
+	array: boolean
+}
 
-	if (typed.is_array === true) type += "[]";
-	if (typed.nullable === true) type += "?";
+class ComplexType {
+	optional: boolean = false;
+	typenames: Type[] = [];
 
-	return type;
+	toString = (): string => {
+		let ret = "";
+		this.typenames.forEach((type) => {
+			ret += type.name;
+			if (type.array) ret += "[]";
+		});
+		return this.optional ? ret + "?" : ret;
+	};
+}
+
+function generateType(typed: DocTyped): ComplexType {
+	let complexType: ComplexType = {
+		optional: false,
+		typenames: []
+	};
+
+	let typeString = typed.type;
+	if (typeString.endsWith("?")) {
+		complexType.optional = true;
+		typeString = typeString.slice(0, -1);
+	}
+
+	typeString.split("|").forEach((typename) => {
+		let type: Type = {
+			name: "undefined",
+			array: false
+		};
+
+		if (typename.endsWith("[]")) {
+			type.array = true;
+			typename = typename.slice(0, -2);
+		}
+
+		type.name = typename.endsWith("Path") ? "string" : typename;
+		complexType.typenames.push(type);
+	});
+
+	return complexType;
 }
 
 function generateReturn(ret?: DocReturn): string {
 	if (ret === undefined) return "";
 
 	return `
----@return ${generateType(ret)} @${generateDocstring(ret)}`;
+---@return ${generateType(ret).toString()} @${generateDocstring(ret)}`;
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -70,7 +110,8 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name}${param.default === "nil" ? "?" : ""} ${generateType(param)} ${generateParamDocstring(param)}`;
+		const type = generateType(param);
+		ret.string += `\n---@param ${param.name}${type.optional ? "?" : ""} ${type.optional ? type.toString().slice(0, -1) : type.toString()} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
@@ -96,9 +137,10 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
-		let signature = cls.constructor!.map(
-			(param) => `${param.name}: ${generateType(param)}`
-		).join(", ");
+		let signature = cls.constructor!.map((param) => {
+			const type = generateType(param);
+			return `${param.name}${type.optional ? "?" : ""}: ${type.optional ? type.toString().slice(0, -1) : type.toString()}`;
+		}).join(", ");
 
 		constructor = `
 ---@overload fun(${signature}): ${cls.name}`;
@@ -141,10 +183,10 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
 			let callbackSig = event.arguments.map(
-				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param) : cls.name}`
+				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param).toString() : cls.name}`
 			).join(", ");
 			callbackSig = `fun(${callbackSig})`;
-			if (event.return !== undefined) callbackSig += `: ${generateType(event.return)}`;
+			if (event.return !== undefined) callbackSig += `: ${generateType(event.return).toString()}`;
 
 			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}): ${callbackSig} ${generateInlineDocstring(event)}`;
 			unsubOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}) ${generateInlineDocstring(event)}`;
@@ -167,7 +209,7 @@ function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callba
 	let fields = "";
 	if (cls.properties !== undefined) {
 		cls.properties.forEach((prop) => {
-			fields += `\n---@field ${prop.name} ${generateType(prop)} ${generateInlineDocstring(prop)}`;
+			fields += `\n---@field ${prop.name} ${generateType(prop).toString()} ${generateInlineDocstring(prop)}`;
 		});
 	}
 
