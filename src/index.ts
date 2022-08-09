@@ -159,7 +159,7 @@ function generateEnum(name: string, values: DocEnumValue[]): string {
 	return `
 
 ---@enum ${name}
-local ${name} = {${valuesString}
+${name} = {${valuesString}
 }`;
 }
 
