@@ -1,92 +1,18 @@
 ---@meta
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----HTTP Requests Interface.
----@class HTTP
-HTTP = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Makes an asynchronous HTTP Request.<br/><br/>The request will be made asynchronously and returned safetly in the same thread in the callback provided when it's done.<br/><br/><b>Note:</b> If a request is still running when unloading packages, the server will freeze until it's finished, then the package will unload.
----@param uri string @The main URI
----@param endpoint string @The endpoint (Default: /)
----@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
----@param data string @Payload (Default: "")
----@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
----@param compress boolean @Whether or not to compress the content with gzip (Default: false)
----@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
----@param callback? function @The result will be called in the format `function(status, data)`
-function HTTP.Request(uri, endpoint, method, data, content_type, compress, headers, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Makes a synchronous HTTP Request.<br/><br/>The request will be made synchronously and will freeze the server until it's done.
----@param uri string @The main URI
----@param endpoint string @The endpoint (Default: /)
----@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
----@param data string @Payload (Default: "")
----@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
----@param compress boolean @Whether or not to compress the content with gzip (Default: false)
----@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
----@return table @the data in the format { Status, Data }
-function HTTP.RequestSync(uri, endpoint, method, data, content_type, compress, headers) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Subscribe for user-defined Events.
----@class Events
-Events = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Calls an Event which will be triggered in all Local Packages
----@param event_name string @The Event Name to trigger the event
----@param ...? any @Arguments to pass to the event
-function Events.Call(event_name, ...) end
-
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
 ---
----Calls an Event if on Client which will be triggered in all Server Packages
----@param event_name string @The Event Name to trigger the event
----@param ...? any @Arguments to pass to the event
-function Events.CallRemote(event_name, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Calls an Event if on Server which will be triggered in all Client's Packages of a specific Player
----@param event_name string @The Event Name to trigger the event
----@param player Player @The remote player to send this event
----@param ...? any @Arguments to pass to the event
-function Events.CallRemote(event_name, player, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Calls an Event on Server which will be triggered in all Client's Packages of all Players
----@param event_name string @The Event Name to trigger the event
----@param ...? any @Arguments to pass to the event
-function Events.BroadcastRemote(event_name, ...) end
+---Class for playing in-game 2D and 3D sounds
+---@class Sound : Actor
+---@overload fun(): Sound
+Sound = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----Subscribes for an user-created event which will be triggered for both local or remote called events
----@param event_name string @The Event Name to subscribe
----@param callback function @The callback function to execute
----@return function @the subscribed callback itself
-function Events.Subscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Unsubscribes from all subscribed events in this Package with that event name, optionally passing the function to unsubscribe only that callback
----@param event_name string @The Event Name to unsubscribe
----@param callback? function @The callback function to unsubscribe
-function Events.Unsubscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----The Database entity provides programmers a way to access SQL databases easily through scripting.
----@class Database
-Database = {}
+---A Light represents a Lighting source.
+---@class Light : Actor
+---@overload fun(): Light
+Light = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -157,19 +83,165 @@ function Assets.GetStaticMeshes(asset_pack_path) end
 ---@return table @array of strings
 function Assets.GetOthers(asset_pack_path) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Class for spawning a dynamic Web Browser
----@class WebUI
----@overload fun(): WebUI
-WebUI = {}
+---A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
+---@class Cable : Actor, Paintable
+---@overload fun(location: Vector, enable_visuals: boolean): Cable
+Cable = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Attached the beginning of this cable to another Actor at a specific bone or relative location
+---@param other Actor 
+---@param relative_location Vector @(Default: Vector(0, 0, 0))
+---@param bone_name string @(Default: "")
+function Cable:AttachStartTo(other, relative_location, bone_name) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Attached the end of this cable to another Actor at a specific bone or relative location
+---@param other Actor 
+---@param relative_location Vector @(Default: Vector(0, 0, 0))
+---@param bone_name string @(Default: "")
+function Cable:AttachEndTo(other, relative_location, bone_name) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Detaches the End of this Cable
+function Cable:DetachEnd() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Detaches the Start of this Cable
+function Cable:DetachStart() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----A Light represents a Lighting source.
----@class Light : Actor
----@overload fun(): Light
-Light = {}
+---Set the overall settings for this cable (visuals only)
+---@param length number @Rest length of the cable. Default is 100
+---@param num_segments number @How many segments the cable has. Default is 10
+---@param solver_iterations number @The number of solver iterations controls how 'stiff' the cable is. Default is 0
+function Cable:SetCableSettings(length, num_segments, solver_iterations) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Set the forces the cable has applied (visuals only)
+---@param force Vector @Force vector (world space) applied to all particles in cable. Default is Vector(0, 0, 0)
+---@param gravity_scale number @Scaling applied to world gravity affecting this cable. Default is 1 (Default: 1)
+function Cable:SetForces(force, gravity_scale) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Sets the Physics Angular Limits of this cable
+---@param swing_1_motion ConstraintMotion @Indicates whether the Swing1 limit is used
+---@param swing_2_motion ConstraintMotion @Indicates whether the Swing2 limit is used
+---@param twist_motion ConstraintMotion @Indicates whether the Twist limit is used
+---@param swing_1_limit number @Angle of movement along the XY plane. This defines the first symmetric angle of the cone (Default: 0)
+---@param swing_2_limit number @Angle of movement along the XZ plane. This defines the second symmetric angle of the cone (Default: 0)
+---@param twist_limit number @Symmetric angle of roll along the X-axis (Default: 0)
+function Cable:SetAngularLimits(swing_1_motion, swing_2_motion, twist_motion, swing_1_limit, swing_2_limit, twist_limit) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Sets the Physics Linear Limits of this cable. If use_soft_constraint is enabled, then stiffness and damping will be used, otherwise restitution will be used.
+---@param x_motion ConstraintMotion @Indicates the linear constraint applied along the X-axis. Free implies no constraint at all. Locked implies no movement along X is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
+---@param y_motion ConstraintMotion @Indicates the linear constraint applied along the Y-axis. Free implies no constraint at all. Locked implies no movement along Y is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
+---@param z_motion ConstraintMotion @Indicates the linear constraint applied along theZX-axis. Free implies no constraint at all. Locked implies no movement along Z is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
+---@param limit number @The distance allowed between between the two joint reference frames. Distance applies on all axes enabled (one axis means line, two axes implies circle, three axes implies sphere) (Default: 0)
+---@param restitution number @Controls the amount of bounce when the constraint is violated. A restitution value of 1 will bounce back with the same velocity the limit was hit. A value of 0 will stop dead (Default: 0)
+---@param use_soft_constraint boolean @Whether we want to use a soft constraint (spring) (Default: false)
+---@param stiffness number @Stiffness of the soft constraint. Only used when Soft Constraint is on (Default: 0)
+---@param damping number @Damping of the soft constraint. Only used when Soft Constraint is on (Default: 0)
+function Cable:SetLinearLimits(x_motion, y_motion, z_motion, limit, restitution, use_soft_constraint, stiffness, damping) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Set the rendering settings of this cable (visuals only)
+---@param width number @How wide the cable geometry is. Default is 6
+---@param num_sides number @Number of sides of the cable geometry. Default is 4
+---@param tile_material number @How many times to repeat the material along the length of the cable. Default is 1
+function Cable:SetRenderingSettings(width, num_sides, tile_material) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Actor attached to Start
+---@return Actor @the Actor or nil
+function Cable:GetAttachedStartTo() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Actor attached to End
+---@return Actor @the Actor or nil
+function Cable:GetAttachedEndTo() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Base class for all Paintable entities. It shares methods for customizing it's materials.
+---@class Paintable
+Paintable = {}
+
+---Subscribe to an event
+---@param event_name string @Name of the event to subscribe to
+---@param callback function @Function to call when the event is triggered
+---@return function @The callback function passed
+function Paintable:Subscribe(event_name, callback) end
+
+---Unsubscribe from an event
+---@param event_name string @Name of the event to unsubscribe from
+---@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
+function Paintable:Unsubscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---A Billboard is a 2D Material that will be rendered always facing the camera.
+---@class Billboard : Actor, Paintable
+---@overload fun(location: Vector, rotation: Rotator, material_asset: string): Billboard
+Billboard = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
+---@class StaticMesh : Actor, Paintable
+---@overload fun(location: Vector, rotation: Rotator, static_mesh_asset: string, collision_type: CollisionType): StaticMesh
+StaticMesh = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Asset path mesh used
+---@return string @asset path
+function StaticMesh:GetMesh() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Gets if this StaticMesh is from the Level
+---@return boolean @if this StaticMesh is from the level
+function StaticMesh:IsFromLevel() end
+
+---Subscribe to an event
+---@param event_name string @Name of the event to subscribe to
+---@param callback function @Function to call when the event is triggered
+---@return function @The callback function passed
+---@overload fun(self: StaticMesh, event_name: "Destroy", callback: fun(self: StaticMesh)): fun(self: StaticMesh) @Triggered when an Actor is destroyed
+---@overload fun(self: StaticMesh, event_name: "Spawn", callback: fun(self: StaticMesh)): fun(self: StaticMesh) @Triggered when an Actor is spawned/created
+---@overload fun(self: StaticMesh, event_name: "ValueChange", callback: fun(self: StaticMesh, key: string, value: any)): fun(self: StaticMesh, key: string, value: any) @Triggered when an Actor has a value changed with <code>:SetValue()</code>
+---@overload fun(self: StaticMesh, event_name: "TakeDamage", callback: fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any)): fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any) @Called when a StaticMesh takes Damage
+function StaticMesh:Subscribe(event_name, callback) end
+
+---Unsubscribe from an event
+---@param event_name string @Name of the event to unsubscribe from
+---@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
+---@overload fun(self: StaticMesh, event_name: "Destroy", callback: fun(self: StaticMesh)) @Triggered when an Actor is destroyed
+---@overload fun(self: StaticMesh, event_name: "Spawn", callback: fun(self: StaticMesh)) @Triggered when an Actor is spawned/created
+---@overload fun(self: StaticMesh, event_name: "ValueChange", callback: fun(self: StaticMesh, key: string, value: any)) @Triggered when an Actor has a value changed with <code>:SetValue()</code>
+---@overload fun(self: StaticMesh, event_name: "TakeDamage", callback: fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any)) @Called when a StaticMesh takes Damage
+function StaticMesh:Unsubscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Players are Entities that represents the individual behind the mouse and keyboard. Players are spawned automatically when connected to the server.
+---@class Player
+Player = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -177,160 +249,6 @@ Light = {}
 ---@class Particle : Actor
 ---@overload fun(): Particle
 Particle = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Class for playing in-game 2D and 3D sounds
----@class Sound : Actor
----@overload fun(): Sound
-Sound = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A File represents an entry to a system file.
----@class File
----@overload fun(file_path: string, truncate: boolean): File
-File = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Returns when a file was last modified in Unix time
----@param path string @Path to file
----@return number @the last update time in unix time
-function File.Time(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Creates a Directory (for every folder passed)
----@param path string @Path to folder
----@return boolean @if succeeded
-function File.CreateDirectory(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Deletes a folder or file
----@param path string @Path to file or folder
----@return number @amount of files deleted
-function File.Remove(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Verifies if a entry exists in the file system
----@param path string @Path to file or folder
----@return boolean @if exists
-function File.Exists(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if a path is a directory
----@param path string @Path to folder
----@return boolean @if is a directory
-function File.IsDirectory(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if a path is a file
----@param path string @Path to filey
----@return boolean @if is a regular file
-function File.IsRegularFile(path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Closes the file and destroys the entity
-function File:Close() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Flushes content to the file
-function File:Flush() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if the file status is End of File
----@return boolean @if is EOF
-function File:IsEOF() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if the file status is Bad
----@return boolean @if status is Bad
-function File:IsBad() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if the file status is Good
----@return boolean @if status is Good
-function File:IsGood() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Checks if the last operation has Failed
----@return boolean @if last operation failed
-function File:HasFailed() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Reads characters from the File and returns it. Also moves the file pointer to the latest read position. Pass 0 to read the whole file
----@param length number @Length to be read from file (Default: 0)
----@return string @file data
-function File:Read(length) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Reads characters from the File asynchronously.
----@param length number @Length to be read from file
----@param callback function @Callback with the file read
-function File:ReadAsync(length, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Reads and returns the next file line
----@return string @file line data
-function File:ReadLine() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Sets the file pointer to a specific position
----@param position number @Position to offset the file pointer
-function File:Seek(position) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Returns the size of the file
----@return number @file size
-function File:Size() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Skips n (amount) positions from the current file pointer position
----@param amount number @Amount to offset the file pointer
-function File:Skip(amount) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Returns the current file pointer position
----@return number @current file pointer position
-function File:Tell() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Writes the Data at the current position of the file
----@param data string @Data to write to the file
-function File:Write(data) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Trigger class is a utility class to trigger events when any Entity enters an Area.
----@class Trigger : Actor
----@overload fun(): Trigger
-Trigger = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Chad Grenade
----@class Grenade : Actor, Paintable, Pickable
----@overload fun(): Grenade
-Grenade = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
 ---
@@ -454,6 +372,89 @@ function Canvas:Subscribe(event_name, callback) end
 ---@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
 ---@overload fun(self: Canvas, event_name: "Update", callback: fun(self: Canvas, width: number, height: number)) @Called when the Canvas needs to be painted<br/><br/>You can only call <code>:Draw...()</code> methods from inside this event
 function Canvas:Unsubscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
+---@class SceneCapture : Actor
+---@overload fun(location: Vector, rotation: Rotator, width: number, height: number, render_rate: number, view_distance: number, fov_angle: number): SceneCapture
+SceneCapture = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Stops or Restore Capturing
+---@param freeze boolean 
+function SceneCapture:SetFreeze(freeze) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Sets the FOV
+---@param angle number 
+function SceneCapture:SetFOVAngle(angle) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Change the output Texture size<br>Note: too high texture will make the capture slower and will affect game performance
+---@param width number 
+---@param height number 
+function SceneCapture:Resize(width, height) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Set how frequent is the capture<br>Note: Setting to 0 will make it capture every frame
+---@param render_rate number 
+function SceneCapture:SetRenderRate(render_rate) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
+---@class Decal : Actor, Paintable
+---@overload fun(location: Vector, rotation: Rotator, material_asset: string, size: Vector, lifespan: number, fade_screen_size: number): Decal
+Decal = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---The Database entity provides programmers a way to access SQL databases easily through scripting.
+---@class Database
+Database = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Chad Grenade
+---@class Grenade : Actor, Paintable, Pickable
+---@overload fun(): Grenade
+Grenade = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Class for spawning a dynamic Web Browser
+---@class WebUI
+---@overload fun(): WebUI
+WebUI = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
+---@class Weapon : Actor, Paintable, Pickable
+---@overload fun(): Weapon
+Weapon = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Base class for all Pickable entities. It shares methods in common to all Pickable entities (Weapons, Grenades, Melee, etc).
+---@class Pickable
+Pickable = {}
+
+---Subscribe to an event
+---@param event_name string @Name of the event to subscribe to
+---@param callback function @Function to call when the event is triggered
+---@return function @The callback function passed
+function Pickable:Subscribe(event_name, callback) end
+
+---Unsubscribe from an event
+---@param event_name string @Name of the event to unsubscribe from
+---@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
+function Pickable:Unsubscribe(event_name, callback) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -784,90 +785,85 @@ Prop = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----Floating point Quaternion that can represent a rotation about an axis in 3-D space
----@class Quat
----@field X number @The quaternion's X-component
----@field Y number @The quaternion's Y-component
----@field Z number @The quaternion's Z-component
----@field W number @The quaternion's W-component
----@overload fun(X: number, Y: number, Z: number, W: number): Quat
-Quat = {}
+---A color composed of components (R, G, B, A) with floating point precision.
+---@class Color
+---@field R number @Red color percentage (0-1)
+---@field G number @Green color percentage (0-1)
+---@field B number @Blue color percentage (0-1)
+---@field A number @Alpha transparency percentage (0-1)
+---@overload fun(R: number, G: number, B: number, A: number): Color
+Color = {}
 
 ---Invalid authority "undefined" in documentation
 ---
----In place normalize this Quaternion
-function Quat:Normalize() end
+---Returns a random color from Color Palette
+---@param includes_black boolean @Includes blacks in the scope (Default: true)
+---@return Color @Random color from Color Palette
+function Color.RandomPalette(includes_black) end
 
 ---Invalid authority "undefined" in documentation
 ---
----Get the Rotator representation of this Quaternion
----@return Rotator @Rotator representation of this Quaternion
-function Quat:Rotator() end
+---Returns a random color from all color scope
+---@return Color @Random color from all color scope
+function Color.Random() end
 
 ---Invalid authority "undefined" in documentation
 ---
----Returns the inverse of this Quaternion
----@return Quat @Inverse of this Quaternion
-function Quat:Inverse() end
+---Returns the color from 0-255 range values
+---@param r number @Red (Default: 0)
+---@param g number @Green (Default: 0)
+---@param b number @Blue (Default: 0)
+---@param a number @Alpha (Default: 0)
+---@return Color @Final Color
+function Color.FromRGBA(r, g, b, a) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---Invalid authority "undefined" in documentation
 ---
----Base class for all Pickable entities. It shares methods in common to all Pickable entities (Weapons, Grenades, Melee, etc).
----@class Pickable
-Pickable = {}
+---Returns a color from the CYMK format
+---@param c number @Cyan (Default: 0)
+---@param y number @Yellow (Default: 0)
+---@param m number @Magenta (Default: 0)
+---@param k number @Black (Default: 0)
+---@param a number @Alpha (Default: 0)
+---@return Color @Final Color
+function Color.FromCYMK(c, y, m, k, a) end
 
----Subscribe to an event
----@param event_name string @Name of the event to subscribe to
----@param callback function @Function to call when the event is triggered
----@return function @The callback function passed
-function Pickable:Subscribe(event_name, callback) end
-
----Unsubscribe from an event
----@param event_name string @Name of the event to unsubscribe from
----@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
-function Pickable:Unsubscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---Invalid authority "undefined" in documentation
 ---
----Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
----@class Weapon : Actor, Paintable, Pickable
----@overload fun(): Weapon
-Weapon = {}
+---Returns a color from the HSL format
+---@param h number @Hue (Default: 0)
+---@param s number @Saturation (Default: 0)
+---@param l number @Lightness (Default: 0)
+---@return Color @Final Color
+function Color.FromHSL(h, s, l) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---Invalid authority "undefined" in documentation
 ---
----A Billboard is a 2D Material that will be rendered always facing the camera.
----@class Billboard : Actor, Paintable
----@overload fun(location: Vector, rotation: Rotator, material_asset: MaterialPath): Billboard
-Billboard = {}
+---Returns a color from the HSV format
+---@param h number @Hue (Default: 0)
+---@param s number @Saturation (Default: 0)
+---@param v number @Value (Default: 0)
+---@return Color @Final Color
+function Color.FromHSV(h, s, v) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---Invalid authority "undefined" in documentation
 ---
----A Vector2D composed of components (X, Y) with floating point precision. Used mainly for HUD and Drawing on screen.
----@class Vector2D
----@field X number @X Coordinate
----@field Y number @Y Coordinate
----@overload fun(X: number, Y: number): Vector2D
-Vector2D = {}
+---Returns a color from the Hexadecimal format
+---@param hex string @Hexadecimal
+---@return Color @Final Color
+function Color.FromHEX(hex) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---Invalid authority "undefined" in documentation
 ---
----A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
----@class Melee : Actor, Paintable, Pickable
----@overload fun(): Melee
-Melee = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Players are Entities that represents the individual behind the mouse and keyboard. Players are spawned automatically when connected to the server.
----@class Player
-Player = {}
+---Gets the Hexadecimal representation of this Color
+---@return string @Hexadecimal representation of this Color
+function Color:ToHex() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
 ---A Blueprint Class allows spawning any Unreal Blueprint Actor in nanos world.
 ---@class Blueprint : Actor, Paintable
----@overload fun(location: Vector, rotation: Rotator, blueprint_asset: BlueprintPath): Blueprint
+---@overload fun(location: Vector, rotation: Rotator, blueprint_asset: string): Blueprint
 Blueprint = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
@@ -876,100 +872,6 @@ Blueprint = {}
 ---@param event_name string @Event or Function name
 ---@param ...? any @Sequence of arguments to pass to the event
 function Blueprint:CallBlueprintEvent(event_name, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
----@class SceneCapture : Actor
----@overload fun(location: Vector, rotation: Rotator, width: number, height: number, render_rate: number, view_distance: number, fov_angle: number): SceneCapture
-SceneCapture = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Stops or Restore Capturing
----@param freeze boolean 
-function SceneCapture:SetFreeze(freeze) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Sets the FOV
----@param angle number 
-function SceneCapture:SetFOVAngle(angle) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Change the output Texture size<br>Note: too high texture will make the capture slower and will affect game performance
----@param width number 
----@param height number 
-function SceneCapture:Resize(width, height) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Set how frequent is the capture<br>Note: Setting to 0 will make it capture every frame
----@param render_rate number 
-function SceneCapture:SetRenderRate(render_rate) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
----@class StaticMesh : Actor, Paintable
----@overload fun(location: Vector, rotation: Rotator, static_mesh_asset: StaticMeshPath, collision_type: CollisionType): StaticMesh
-StaticMesh = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets the Asset path mesh used
----@return StaticMeshPath @asset path
-function StaticMesh:GetMesh() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Gets if this StaticMesh is from the Level
----@return boolean @if this StaticMesh is from the level
-function StaticMesh:IsFromLevel() end
-
----Subscribe to an event
----@param event_name string @Name of the event to subscribe to
----@param callback function @Function to call when the event is triggered
----@return function @The callback function passed
----@overload fun(self: StaticMesh, event_name: "Destroy", callback: fun(self: StaticMesh)): fun(self: StaticMesh) @Triggered when an Actor is destroyed
----@overload fun(self: StaticMesh, event_name: "Spawn", callback: fun(self: StaticMesh)): fun(self: StaticMesh) @Triggered when an Actor is spawned/created
----@overload fun(self: StaticMesh, event_name: "ValueChange", callback: fun(self: StaticMesh, key: string, value: any)): fun(self: StaticMesh, key: string, value: any) @Triggered when an Actor has a value changed with <code>:SetValue()</code>
----@overload fun(self: StaticMesh, event_name: "TakeDamage", callback: fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any)): fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any) @Called when a StaticMesh takes Damage
-function StaticMesh:Subscribe(event_name, callback) end
-
----Unsubscribe from an event
----@param event_name string @Name of the event to unsubscribe from
----@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
----@overload fun(self: StaticMesh, event_name: "Destroy", callback: fun(self: StaticMesh)) @Triggered when an Actor is destroyed
----@overload fun(self: StaticMesh, event_name: "Spawn", callback: fun(self: StaticMesh)) @Triggered when an Actor is spawned/created
----@overload fun(self: StaticMesh, event_name: "ValueChange", callback: fun(self: StaticMesh, key: string, value: any)) @Triggered when an Actor has a value changed with <code>:SetValue()</code>
----@overload fun(self: StaticMesh, event_name: "TakeDamage", callback: fun(self: StaticMesh, damage: number, bone: string, type: DamageType, from_direction: Vector, instigator: Player, causer: any)) @Called when a StaticMesh takes Damage
-function StaticMesh:Unsubscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Base class for all Paintable entities. It shares methods for customizing it's materials.
----@class Paintable
-Paintable = {}
-
----Subscribe to an event
----@param event_name string @Name of the event to subscribe to
----@param callback function @Function to call when the event is triggered
----@return function @The callback function passed
-function Paintable:Subscribe(event_name, callback) end
-
----Unsubscribe from an event
----@param event_name string @Name of the event to unsubscribe from
----@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)
-function Paintable:Unsubscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Vehicles are wheeled entities which Characters can possesses and drive.
----@class Vehicle : Actor, Paintable
----@overload fun(): Vehicle
-Vehicle = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -1052,186 +954,244 @@ function Vector:SizeSquared() end
 ---@return Rotator @The orientation of the vector
 function Vector:Rotation() end
 
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Vehicles are wheeled entities which Characters can possesses and drive.
+---@class Vehicle : Actor, Paintable
+---@overload fun(): Vehicle
+Vehicle = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Subscribe for user-defined Events.
+---@class Events
+Events = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Calls an Event which will be triggered in all Local Packages
+---@param event_name string @The Event Name to trigger the event
+---@param ...? any @Arguments to pass to the event
+function Events.Call(event_name, ...) end
+
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
 ---
----Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
----@class Decal : Actor, Paintable
----@overload fun(location: Vector, rotation: Rotator, material_asset: MaterialPath, size: Vector, lifespan: number, fade_screen_size: number): Decal
-Decal = {}
+---Calls an Event if on Client which will be triggered in all Server Packages
+---@param event_name string @The Event Name to trigger the event
+---@param ...? any @Arguments to pass to the event
+function Events.CallRemote(event_name, ...) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
----@class Cable : Actor, Paintable
----@overload fun(location: Vector, enable_visuals: boolean): Cable
-Cable = {}
+---Calls an Event if on Server which will be triggered in all Client's Packages of a specific Player
+---@param event_name string @The Event Name to trigger the event
+---@param player Player @The remote player to send this event
+---@param ...? any @Arguments to pass to the event
+function Events.CallRemote(event_name, player, ...) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Attached the beginning of this cable to another Actor at a specific bone or relative location
----@param other Actor 
----@param relative_location Vector @(Default: Vector(0, 0, 0))
----@param bone_name string @(Default: "")
-function Cable:AttachStartTo(other, relative_location, bone_name) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Attached the end of this cable to another Actor at a specific bone or relative location
----@param other Actor 
----@param relative_location Vector @(Default: Vector(0, 0, 0))
----@param bone_name string @(Default: "")
-function Cable:AttachEndTo(other, relative_location, bone_name) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Detaches the End of this Cable
-function Cable:DetachEnd() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Detaches the Start of this Cable
-function Cable:DetachStart() end
+---Calls an Event on Server which will be triggered in all Client's Packages of all Players
+---@param event_name string @The Event Name to trigger the event
+---@param ...? any @Arguments to pass to the event
+function Events.BroadcastRemote(event_name, ...) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----Set the overall settings for this cable (visuals only)
----@param length number @Rest length of the cable. Default is 100
----@param num_segments number @How many segments the cable has. Default is 10
----@param solver_iterations number @The number of solver iterations controls how 'stiff' the cable is. Default is 0
-function Cable:SetCableSettings(length, num_segments, solver_iterations) end
+---Subscribes for an user-created event which will be triggered for both local or remote called events
+---@param event_name string @The Event Name to subscribe
+---@param callback function @The callback function to execute
+---@return function @the subscribed callback itself
+function Events.Subscribe(event_name, callback) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----Set the forces the cable has applied (visuals only)
----@param force Vector @Force vector (world space) applied to all particles in cable. Default is Vector(0, 0, 0)
----@param gravity_scale number @Scaling applied to world gravity affecting this cable. Default is 1 (Default: 1)
-function Cable:SetForces(force, gravity_scale) end
+---Unsubscribes from all subscribed events in this Package with that event name, optionally passing the function to unsubscribe only that callback
+---@param event_name string @The Event Name to unsubscribe
+---@param callback? function @The callback function to unsubscribe
+function Events.Unsubscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Vector2D composed of components (X, Y) with floating point precision. Used mainly for HUD and Drawing on screen.
+---@class Vector2D
+---@field X number @X Coordinate
+---@field Y number @Y Coordinate
+---@overload fun(X: number, Y: number): Vector2D
+Vector2D = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Matrix is an array of numbers this can be used for geometric and positional calculations
+---@class Matrix
+---@overload fun(rotation: Rotation, origin: Vector): Matrix
+Matrix = {}
+
+---Invalid authority "undefined" in documentation
+---
+---Transform the vector with the matrix
+---@param vector Vector @The vector who will be transformed
+---@return Vector @The new vector
+function Matrix:TransformVector(vector) end
+
+---Invalid authority "undefined" in documentation
+---
+---Transform the vector with the matrix
+---@param vector Vector4 @The vector4 who will be transformed
+---@return Vector4 @The new vector4
+function Matrix:TransformVector4(vector) end
+
+---Invalid authority "undefined" in documentation
+---
+---Returns a new matrix transposed (https://en.wikipedia.org/wiki/Transpose)
+---@return Matrix @The matrix transpoosed
+function Matrix:GetTransposed() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Sets the Physics Angular Limits of this cable
----@param swing_1_motion ConstraintMotion @Indicates whether the Swing1 limit is used
----@param swing_2_motion ConstraintMotion @Indicates whether the Swing2 limit is used
----@param twist_motion ConstraintMotion @Indicates whether the Twist limit is used
----@param swing_1_limit number @Angle of movement along the XY plane. This defines the first symmetric angle of the cone (Default: 0)
----@param swing_2_limit number @Angle of movement along the XZ plane. This defines the second symmetric angle of the cone (Default: 0)
----@param twist_limit number @Symmetric angle of roll along the X-axis (Default: 0)
-function Cable:SetAngularLimits(swing_1_motion, swing_2_motion, twist_motion, swing_1_limit, swing_2_limit, twist_limit) end
+---A Trigger class is a utility class to trigger events when any Entity enters an Area.
+---@class Trigger : Actor
+---@overload fun(): Trigger
+Trigger = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Sets the Physics Linear Limits of this cable. If use_soft_constraint is enabled, then stiffness and damping will be used, otherwise restitution will be used.
----@param x_motion ConstraintMotion @Indicates the linear constraint applied along the X-axis. Free implies no constraint at all. Locked implies no movement along X is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
----@param y_motion ConstraintMotion @Indicates the linear constraint applied along the Y-axis. Free implies no constraint at all. Locked implies no movement along Y is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
----@param z_motion ConstraintMotion @Indicates the linear constraint applied along theZX-axis. Free implies no constraint at all. Locked implies no movement along Z is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided
----@param limit number @The distance allowed between between the two joint reference frames. Distance applies on all axes enabled (one axis means line, two axes implies circle, three axes implies sphere) (Default: 0)
----@param restitution number @Controls the amount of bounce when the constraint is violated. A restitution value of 1 will bounce back with the same velocity the limit was hit. A value of 0 will stop dead (Default: 0)
----@param use_soft_constraint boolean @Whether we want to use a soft constraint (spring) (Default: false)
----@param stiffness number @Stiffness of the soft constraint. Only used when Soft Constraint is on (Default: 0)
----@param damping number @Damping of the soft constraint. Only used when Soft Constraint is on (Default: 0)
-function Cable:SetLinearLimits(x_motion, y_motion, z_motion, limit, restitution, use_soft_constraint, stiffness, damping) end
+---A File represents an entry to a system file.
+---@class File
+---@overload fun(file_path: string, truncate: boolean): File
+File = {}
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Set the rendering settings of this cable (visuals only)
----@param width number @How wide the cable geometry is. Default is 6
----@param num_sides number @Number of sides of the cable geometry. Default is 4
----@param tile_material number @How many times to repeat the material along the length of the cable. Default is 1
-function Cable:SetRenderingSettings(width, num_sides, tile_material) end
+---Returns when a file was last modified in Unix time
+---@param path string @Path to file
+---@return number @the last update time in unix time
+function File.Time(path) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Gets the Actor attached to Start
----@return Actor @the Actor or nil
-function Cable:GetAttachedStartTo() end
+---Creates a Directory (for every folder passed)
+---@param path string @Path to folder
+---@return boolean @if succeeded
+function File.CreateDirectory(path) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Gets the Actor attached to End
----@return Actor @the Actor or nil
-function Cable:GetAttachedEndTo() end
+---Deletes a folder or file
+---@param path string @Path to file or folder
+---@return number @amount of files deleted
+function File.Remove(path) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----A color composed of components (R, G, B, A) with floating point precision.
----@class Color
----@field R number @Red color percentage (0-1)
----@field G number @Green color percentage (0-1)
----@field B number @Blue color percentage (0-1)
----@field A number @Alpha transparency percentage (0-1)
----@overload fun(R: number, G: number, B: number, A: number): Color
-Color = {}
+---Verifies if a entry exists in the file system
+---@param path string @Path to file or folder
+---@return boolean @if exists
+function File.Exists(path) end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a random color from Color Palette
----@param includes_black boolean @Includes blacks in the scope (Default: true)
----@return Color @Random color from Color Palette
-function Color.RandomPalette(includes_black) end
+---Checks if a path is a directory
+---@param path string @Path to folder
+---@return boolean @if is a directory
+function File.IsDirectory(path) end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a random color from all color scope
----@return Color @Random color from all color scope
-function Color.Random() end
+---Checks if a path is a file
+---@param path string @Path to filey
+---@return boolean @if is a regular file
+function File.IsRegularFile(path) end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns the color from 0-255 range values
----@param r number @Red (Default: 0)
----@param g number @Green (Default: 0)
----@param b number @Blue (Default: 0)
----@param a number @Alpha (Default: 0)
----@return Color @Final Color
-function Color.FromRGBA(r, g, b, a) end
+---Closes the file and destroys the entity
+function File:Close() end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a color from the CYMK format
----@param c number @Cyan (Default: 0)
----@param y number @Yellow (Default: 0)
----@param m number @Magenta (Default: 0)
----@param k number @Black (Default: 0)
----@param a number @Alpha (Default: 0)
----@return Color @Final Color
-function Color.FromCYMK(c, y, m, k, a) end
+---Flushes content to the file
+function File:Flush() end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a color from the HSL format
----@param h number @Hue (Default: 0)
----@param s number @Saturation (Default: 0)
----@param l number @Lightness (Default: 0)
----@return Color @Final Color
-function Color.FromHSL(h, s, l) end
+---Checks if the file status is End of File
+---@return boolean @if is EOF
+function File:IsEOF() end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a color from the HSV format
----@param h number @Hue (Default: 0)
----@param s number @Saturation (Default: 0)
----@param v number @Value (Default: 0)
----@return Color @Final Color
-function Color.FromHSV(h, s, v) end
+---Checks if the file status is Bad
+---@return boolean @if status is Bad
+function File:IsBad() end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a color from the Hexadecimal format
----@param hex string @Hexadecimal
----@return Color @Final Color
-function Color.FromHEX(hex) end
+---Checks if the file status is Good
+---@return boolean @if status is Good
+function File:IsGood() end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Gets the Hexadecimal representation of this Color
----@return string @Hexadecimal representation of this Color
-function Color:ToHex() end
+---Checks if the last operation has Failed
+---@return boolean @if last operation failed
+function File:HasFailed() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Reads characters from the File and returns it. Also moves the file pointer to the latest read position. Pass 0 to read the whole file
+---@param length number @Length to be read from file (Default: 0)
+---@return string @file data
+function File:Read(length) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Reads characters from the File asynchronously.
+---@param length number @Length to be read from file
+---@param callback function @Callback with the file read
+function File:ReadAsync(length, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Reads and returns the next file line
+---@return string @file line data
+function File:ReadLine() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Sets the file pointer to a specific position
+---@param position number @Position to offset the file pointer
+function File:Seek(position) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Returns the size of the file
+---@return number @file size
+function File:Size() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Skips n (amount) positions from the current file pointer position
+---@param amount number @Amount to offset the file pointer
+function File:Skip(amount) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Returns the current file pointer position
+---@return number @current file pointer position
+function File:Tell() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Writes the Data at the current position of the file
+---@param data string @Data to write to the file
+function File:Write(data) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
 ---Characters represents Actors which can be possessed, can move and interact with world. They are the default Skeletal Mesh Character built for nanos world.
 ---@class Character : Actor, Paintable
----@overload fun(location: Vector, rotation: Rotator, skeletal_mesh: SkeletalMeshPath, collision_type: CollisionType, gravity_enabled: boolean, health/max_health: number, death_sound: SoundPath, pain_sound: SoundPath): Character
+---@overload fun(location: Vector, rotation: Rotator, skeletal_mesh: string, collision_type: CollisionType, gravity_enabled: boolean, health/max_health: number, death_sound: string, pain_sound: string): Character
 Character = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
@@ -1830,7 +1790,7 @@ function Character:GetMaxHealth() end
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
 ---Gets the Skeletal Mesh Asset
----@return SkeletalMeshPath @the Skeletal Mesh Asset
+---@return string @the Skeletal Mesh Asset
 function Character:GetMesh() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
@@ -1976,32 +1936,44 @@ function Character:Subscribe(event_name, callback) end
 ---@overload fun(self: Character, event_name: "WeaponAimModeChanged", callback: fun(self: Character, old_state: AimMode, new_state: AimMode)) @Called when Weapon Aim Mode changes
 function Character:Unsubscribe(event_name, callback) end
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----A Matrix is an array of numbers this can be used for geometric and positional calculations
----@class Matrix
----@overload fun(rotation: Rotation, origin: Vector): Matrix
-Matrix = {}
+---HTTP Requests Interface.
+---@class HTTP
+HTTP = {}
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Transform the vector with the matrix
----@param vector Vector @The vector who will be transformed
----@return Vector @The new vector
-function Matrix:TransformVector(vector) end
+---Makes an asynchronous HTTP Request.<br/><br/>The request will be made asynchronously and returned safetly in the same thread in the callback provided when it's done.<br/><br/><b>Note:</b> If a request is still running when unloading packages, the server will freeze until it's finished, then the package will unload.
+---@param uri string @The main URI
+---@param endpoint string @The endpoint (Default: /)
+---@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
+---@param data string @Payload (Default: "")
+---@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
+---@param compress boolean @Whether or not to compress the content with gzip (Default: false)
+---@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
+---@param callback? function @The result will be called in the format `function(status, data)`
+function HTTP.Request(uri, endpoint, method, data, content_type, compress, headers, callback) end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Transform the vector with the matrix
----@param vector Vector4 @The vector4 who will be transformed
----@return Vector4 @The new vector4
-function Matrix:TransformVector4(vector) end
+---Makes a synchronous HTTP Request.<br/><br/>The request will be made synchronously and will freeze the server until it's done.
+---@param uri string @The main URI
+---@param endpoint string @The endpoint (Default: /)
+---@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
+---@param data string @Payload (Default: "")
+---@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
+---@param compress boolean @Whether or not to compress the content with gzip (Default: false)
+---@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
+---@return table @the data in the format { Status, Data }
+function HTTP.RequestSync(uri, endpoint, method, data, content_type, compress, headers) end
 
----Invalid authority "undefined" in documentation
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----Returns a new matrix transposed (https://en.wikipedia.org/wiki/Transpose)
----@return Matrix @The matrix transpoosed
-function Matrix:GetTransposed() end
+---A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
+---@class Melee : Actor, Paintable, Pickable
+---@overload fun(): Melee
+Melee = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -2061,6 +2033,34 @@ function TextRender:SetText(text) end
 ---@param horizontal_alignment TextRenderHorizontalAlignment @(Default: TextRenderHorizontalAlignment.Center)
 ---@param vertical_alignment TextRenderVerticalAlignment @(Default: 0TextRenderVerticalAlignment.Center)
 function TextRender:SetTextSettings(kerning, line_spacing, word_spacing, horizontal_alignment, vertical_alignment) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Floating point Quaternion that can represent a rotation about an axis in 3-D space
+---@class Quat
+---@field X number @The quaternion's X-component
+---@field Y number @The quaternion's Y-component
+---@field Z number @The quaternion's Z-component
+---@field W number @The quaternion's W-component
+---@overload fun(X: number, Y: number, Z: number, W: number): Quat
+Quat = {}
+
+---Invalid authority "undefined" in documentation
+---
+---In place normalize this Quaternion
+function Quat:Normalize() end
+
+---Invalid authority "undefined" in documentation
+---
+---Get the Rotator representation of this Quaternion
+---@return Rotator @Rotator representation of this Quaternion
+function Quat:Rotator() end
+
+---Invalid authority "undefined" in documentation
+---
+---Returns the inverse of this Quaternion
+---@return Quat @Inverse of this Quaternion
+function Quat:Inverse() end
 
 ---@enum AimMode
 AimMode = {
