@@ -85,6 +85,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 
 	if (cls.static_functions !== undefined) {
 		cls.static_functions.forEach((fun) => {
+			if ((fun.name === "Subscribe" || fun.name === "Unsubscribe") && cls.name !== "Events") return;
 			staticFunctions += generateFunction(fun, `${cls.name}_meta.`);
 		});
 	}
@@ -92,6 +93,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	let functions = "";
 	if (cls.functions !== undefined) {
 		cls.functions.forEach((fun) => {
+			if ((fun.name === "Subscribe" || fun.name === "Unsubscribe") && cls.name !== "Events") return;
 			functions += generateFunction(fun, `${cls.name}_meta:`);
 		});
 	}
