@@ -44,7 +44,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name} ${param.type} ${param.description ? param.description.replaceAll("\n", " ") + " " : ""}`;
+		ret.string += `\n---@param ${param.name} ${param.type} @${param.description ? param.description.replaceAll("\n", " ") + " " : ""}`;
 		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
 
 		ret.names += param.name + ", ";
@@ -144,9 +144,9 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 			let callbackSig = event.arguments.map((param) => `${param.name}: ${param.type}`).join(", ");
 
 			subOverloads += `
----@overload fun(${subscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig})`;
+---@overload fun(${subscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) @${event.description}`;
 			unsubOverloads += `
----@overload fun(${unsubscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig}))`;
+---@overload fun(${unsubscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})) @${event.description}`;
 		});
 
 		events = `
