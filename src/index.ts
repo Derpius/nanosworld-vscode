@@ -145,7 +145,7 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, c
 ---
 ---${cls.description.replaceAll("\n", "\n---\n---")}
 ---@class ${cls.name}${inheritance}
-${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
+local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
 
 async function buildDocs() {
