@@ -43,7 +43,7 @@ function generateInlineDocstring(descriptive: DocDescriptive): string {
 
 function generateParamDocstring(param: DocParameter): string {
 	let docstring = generateInlineDocstring(param);
-	if (param.default !== undefined && param.default !== "nil") docstring += ` (Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
+	if (param.default !== undefined && param.default !== "nil") docstring += `${docstring.length > 0 ? " " : "@"}(Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
 	return docstring;
 }
 
@@ -128,8 +128,6 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		});
 
 		// Generate overloads
-		let subOverloadsStatic = "";
-		let unsubOverloadsStatic = "";
 		let subOverloads = "";
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
@@ -137,13 +135,8 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? param.type : cls.name}`
 			).join(", ");
 
-			subOverloadsStatic += `\n---@overload fun(event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) @${generateInlineDocstring(event)}`;
-			unsubOverloadsStatic += `\n---@overload fun(event_name: "${event.name}", callback: fun(${callbackSig})) @${generateInlineDocstring(event)}`;
-
-			if (!cls.staticClass) {
-				subOverloads += `\n---@overload fun(self: ${cls.name}, event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) ${generateInlineDocstring(event)}`;
-				unsubOverloads += `\n---@overload fun(self: ${cls.name}, event_name: "${event.name}", callback: fun(${callbackSig})) @${generateInlineDocstring(event)}`;
-			}
+			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) ${generateInlineDocstring(event)}`;
+			unsubOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})) ${generateInlineDocstring(event)}`;
 		});
 
 		events = `
@@ -151,13 +144,13 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 ---Subscribe to an event
 ---@param event_name string @Name of the event to subscribe to
 ---@param callback function @Function to call when the event is triggered
----@return function @The callback function passed${subOverloadsStatic}${subOverloads}
-function ${cls.name}.Subscribe(event_name, callback) end
+---@return function @The callback function passed${subOverloads}
+function ${cls.name}${cls.staticClass ? "." : ":"}Subscribe(event_name, callback) end
 
 ---Unsubscribe from an event
 ---@param event_name string @Name of the event to unsubscribe from
----@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)${unsubOverloadsStatic}${unsubOverloads}
-function ${cls.name}.Unsubscribe(event_name, callback) end`;
+---@param callback? function @Optional callback to unsubscribe (if no callback is passed then all callbacks in this Package will be unsubscribed from this event)${unsubOverloads}
+function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callback) end`;
 	}
 
 	let fields = "";
