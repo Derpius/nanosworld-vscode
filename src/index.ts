@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, Docs, DocClass, DocFunction, DocParameter } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent } from "./schema";
 
 console.log("Building documentation...");
 
@@ -30,14 +30,21 @@ function generateAuthorityString(authority: Authority) {
 	}
 }
 
-function generateParams(params: DocParameter[] | undefined): {string: string, names: string} {
+function generateReturn(ret?: DocReturn): string {
+	if (ret === undefined) return "";
+
+	return `
+---@return ${ret.type} @${ret.description}`;
+}
+
+function generateParams(params?: DocParameter[]): {string: string, names: string} {
 	let ret = {string: "", names: ""};
 	if (params === undefined) return ret;
 
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name} ${param.type} ${param.description ? param.description + " " : ""}`;
+		ret.string += `\n---@param ${param.name} ${param.type} ${param.description ? param.description.replaceAll("\n", " ") + " " : ""}`;
 		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
 
 		ret.names += param.name + ", ";
@@ -49,16 +56,11 @@ function generateParams(params: DocParameter[] | undefined): {string: string, na
 
 function generateFunction(fun: DocFunction, accessor: string = ""): string {
 	const params = generateParams(fun.parameters);
-	let retSig = "";
-	if (fun.return !== undefined) {
-		retSig = `
----@return ${fun.return.type} @${fun.return.description}`;
-	}
 	return `
 
 ---${generateAuthorityString(fun.authority)}
 ---
----${fun.description}${params.string}${retSig}
+---${fun.description.replaceAll("\n", "\n---\n---")}${params.string}${generateReturn(fun.return)}
 function ${accessor}${fun.name}(${params.names}) end`;
 }
 
@@ -79,9 +81,26 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		});
 	}
 
+	let subscribeFun: DocFunction | undefined;
+	let subscribeFunStatic: boolean | undefined;
+
+	let unsubscribeFun: DocFunction | undefined;
+	let unsubscribeFunStatic: boolean | undefined;
+
 	let staticFunctions = "";
+
 	if (cls.static_functions !== undefined) {
 		cls.static_functions.forEach((fun) => {
+			if (fun.name === "Subscribe") {
+				subscribeFun = fun;
+				subscribeFunStatic = true;
+				if (cls.name !== "Events") return;
+			} else if (fun.name === "Unsubscribe") {
+				unsubscribeFun = fun;
+				unsubscribeFunStatic = true;
+				if (cls.name !== "Events") return;
+			}
+
 			staticFunctions += generateFunction(fun, `${cls.name}_meta.`);
 		});
 	}
@@ -89,11 +108,60 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	let functions = "";
 	if (cls.functions !== undefined) {
 		cls.functions.forEach((fun) => {
+			if (fun.name === "Subscribe") {
+				subscribeFun = fun;
+				subscribeFunStatic = false;
+				if (cls.name !== "Events") return;
+			} else if (fun.name === "Unsubscribe") {
+				unsubscribeFun = fun;
+				unsubscribeFunStatic = false;
+				if (cls.name !== "Events") return;
+			}
+
 			functions += generateFunction(fun, `${cls.name}_meta:`);
 		});
 	}
 
 	let events = "";
+	if (cls.events !== undefined && subscribeFun !== undefined && unsubscribeFun !== undefined) {
+		// Handle inheritance
+		let combinedEvents: {[key: string]: DocEvent} = {};
+		if (cls.inheritance !== undefined) {
+			cls.inheritance.forEach((clsName) => {
+				classes[clsName].events?.forEach((inheritedEvent) => {
+					combinedEvents[inheritedEvent.name] = inheritedEvent;
+				});
+			});
+		}
+		cls.events.forEach((event) => {
+			combinedEvents[event.name] = event;
+		});
+
+		// Generate overloads
+		let subOverloads = "";
+		let unsubOverloads = "";
+		Object.entries(combinedEvents).forEach(([_, event]) => {
+			let callbackSig = event.arguments.map((param) => `${param.name}: ${param.type}`).join(", ");
+
+			subOverloads += `
+---@overload fun(${subscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig})`;
+			unsubOverloads += `
+---@overload fun(${unsubscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig}))`;
+		});
+
+		events = `
+
+---${subscribeFun.description.replaceAll("\n", "\n---\n---")}
+---@param event_name string @Name of the event to subscribe to
+---@param callback function @The callback function to execute
+---@return function @The callback function passed${subOverloads}
+function ${cls.name}_meta${subscribeFunStatic ? "." : ":"}Subscribe(event_name, callback) end
+
+---${unsubscribeFun.description.replaceAll("\n", "\n---\n---")}
+---@param event_name string @Name of the event to subscribe to
+---@param callback function @The callback function to execute${unsubOverloads}
+function ${cls.name}_meta${unsubscribeFunStatic ? "." : ":"}Unsubscribe(event_name, callback) end`;
+	}
 
 	return `
 
