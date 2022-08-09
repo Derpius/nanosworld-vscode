@@ -1,5 +1,4 @@
-# Docgen package for the extension
+# Docgen for the extension
 
-## Usage
-
-Install this into Nanos World, start a server, and join with at least one client, the generator will then begin scraping the global table etc into stubs for the extension.  
+This generates EmmyLua annotations from the Nanos World API repository via a GitHub workflow and pushes them to the `docgen-output` branch  
+Right now this runs only when this branch is pushed to, however the final version will periodically check the latest commit to the API to see if the docs need rebuilding
