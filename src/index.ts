@@ -24,9 +24,8 @@ function generateAuthorityString(authority: Authority) {
 		case Authority.Authority:
 			return "<img src=\"https://github.com/Derpius/nanosworld-vscode/blob/master/assets/authority-only.png?raw=true\" height=\"10\"> `Authority Side`";
 		case Authority.Both:
-			return "<img src=\"https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true\" height=\"10\"> `Client/Server Side`";
 		default:
-			return `Invalid authority "${authority}" in documentation`;
+			return "<img src=\"https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true\" height=\"10\"> `Client/Server Side`";
 	}
 }
 
@@ -182,9 +181,12 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		let subOverloads = "";
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
-			let callbackSig = event.arguments.map(
-				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param).toString() : cls.name}`
-			).join(", ");
+			let callbackSig = "";
+			if (event.arguments !== undefined) {
+				callbackSig = event.arguments.map(
+					(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param).toString() : cls.name}`
+				).join(", ");
+			}
 			callbackSig = `fun(${callbackSig})`;
 			if (event.return !== undefined) callbackSig += `: ${generateType(event.return).toString()}`;
 
@@ -277,8 +279,6 @@ async function buildDocs() {
 
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses") || entry.path.startsWith("Structs")) {
 			fileContents.staticClass = entry.path.startsWith("StaticClasses");
-			if (fileContents.authority === undefined) fileContents.authority = Authority.Both;
-
 			docs.classes[fileContents.name] = fileContents;
 			return;
 		}
