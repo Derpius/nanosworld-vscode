@@ -35,6 +35,8 @@ function generateParams(params: DocParameter[] | undefined): {string: string, na
 	if (params === undefined) return ret;
 
 	params.forEach(function (param) {
+		if (param.name.endsWith("...")) param.name = "...";
+
 		ret.string += `\n---@param ${param.name} ${param.type} ${param.description ? param.description + " " : ""}`;
 		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
 
@@ -57,7 +59,7 @@ function generateFunction(fun: DocFunction, accessor: string = ""): string {
 ---${generateAuthorityString(fun.authority)}
 ---
 ---${fun.description}${params.string}${retSig}
-local function ${accessor}${fun.name}(${params.names}) end`;
+function ${accessor}${fun.name}(${params.names}) end`;
 }
 
 function generateClassAnnotations(cls: DocClass): string {
@@ -102,7 +104,7 @@ function generateClassAnnotations(cls: DocClass): string {
 ---
 ---${cls.description.replaceAll("\n", "\n---\n---")}
 ---@class ${cls.name}${inheritance}
-local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
+${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
 
 async function buildDocs() {
