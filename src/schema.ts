@@ -22,7 +22,7 @@ export interface DocFunction {
 	authority: Authority,
 	description: string,
 	parameters?: DocParameter[],
-	return: DocReturn
+	return?: DocReturn
 }
 
 export interface DocEvent {

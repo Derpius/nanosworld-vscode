@@ -47,12 +47,16 @@ function generateParams(params: DocParameter[] | undefined): {string: string, na
 
 function generateFunction(fun: DocFunction, accessor: string = ""): string {
 	const params = generateParams(fun.parameters);
+	let retSig = "";
+	if (fun.return !== undefined) {
+		retSig = `
+---@return ${fun.return.type} @${fun.return.description}`;
+	}
 	return `
 
 ---${generateAuthorityString(fun.authority)}
 ---
----${fun.description}${params.string}
----@return ${fun.return.type} @${fun.return.description}
+---${fun.description}${params.string}${retSig}
 local function ${accessor}${fun.name}(${params.names}) end`;
 }
 
