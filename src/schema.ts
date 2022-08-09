@@ -32,6 +32,11 @@ export interface DocEvent extends DocDescriptive {
 	arguments: DocParameter[]
 }
 
+export interface DocProperty extends DocDescriptive {
+	type: string,
+	name: string
+}
+
 export interface DocClass extends DocDescriptive {
 	name: string,
 	authority: Authority,
@@ -40,6 +45,7 @@ export interface DocClass extends DocDescriptive {
 	functions?: DocFunction[],
 	static_functions?: DocFunction[],
 	events?: DocEvent[],
+	properties?: DocProperty[],
 	staticClass: boolean
 }
 

@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue, DocDescriptive } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue, DocDescriptive, DocProperty } from "./schema";
 
 console.log("Building documentation...");
 
@@ -46,6 +46,11 @@ function generateReturn(ret?: DocReturn): string {
 function generateParamDocstring(param: DocParameter): string {
 	let docstring = generateDocstring(param);
 	if (param.default !== undefined) docstring += ` (Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
+	return docstring.length > 0 ? `@${docstring}` : "";
+}
+
+function generatePropDocstring(param: DocProperty): string {
+	let docstring = generateDocstring(param);
 	return docstring.length > 0 ? `@${docstring}` : "";
 }
 
@@ -151,12 +156,19 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Subscribe(event_name, cal
 function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callback) end`;
 	}
 
+	let fields = "";
+	if (cls.properties !== undefined) {
+		cls.properties.forEach((prop) => {
+			fields += `\n---@field ${prop.name} ${prop.type} ${generatePropDocstring(prop)}`;
+		});
+	}
+
 	return `
 
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${generateDocstring(cls)}
----@class ${cls.name}${inheritance}
+---@class ${cls.name}${inheritance}${fields}
 local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
 
@@ -213,8 +225,10 @@ async function buildDocs() {
 			return;
 		}
 
-		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
+		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses") || entry.path.startsWith("Structs")) {
 			fileContents.staticClass = entry.path.startsWith("StaticClasses");
+			if (fileContents.authority === undefined) fileContents.authority = Authority.Both;
+
 			docs.classes[fileContents.name] = fileContents;
 			return;
 		}
