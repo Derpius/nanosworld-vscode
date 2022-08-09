@@ -87,13 +87,12 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
-		const params = generateParams(cls.constructor!);
-		constructor = generateFunction({
-			name: cls.name,
-			authority: cls.authority,
-			description: cls.description,
-			return: {type: cls.name, description: `Instance of ${cls.name}`}
-		});
+		let signature = cls.constructor!.map(
+			(param) => `${param.name}: ${param.type}`
+		).join(", ");
+
+		constructor = `
+---@overload fun(${signature}): ${cls.name}`;
 	}
 
 	let staticFunctions = "";
@@ -168,8 +167,8 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, c
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${generateDocstring(cls)}
----@class ${cls.name}${inheritance}${fields}
-local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
+---@class ${cls.name}${inheritance}${fields}${constructor}
+local ${cls.name} = {}${staticFunctions}${functions}${events}`;
 }
 
 function generateEnum(name: string, values: DocEnumValue[]): string {
