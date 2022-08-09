@@ -217,6 +217,7 @@ async function buildDocs() {
 			return;
 		}
 	})());
+	await Promise.all(promises);
 
 	let output = "---@meta";
 
@@ -224,7 +225,6 @@ async function buildDocs() {
 		output += generateClassAnnotations(docs.classes, cls);
 	});
 
-	await Promise.all(promises);
 	await fs.promises.mkdir("./docs");
 	await fs.promises.writeFile("./docs/annotations.lua", output);
 }
