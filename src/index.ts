@@ -43,6 +43,12 @@ function generateReturn(ret?: DocReturn): string {
 ---@return ${ret.type} @${generateDocstring(ret)}`;
 }
 
+function generateParamDocstring(param: DocParameter): string {
+	let docstring = generateDocstring(param);
+	if (param.default !== undefined) docstring += ` (Default: ${param.default.length === 0 ? "\"\"" : param.default})`;
+	return docstring.length > 0 ? `@${docstring}` : "";
+}
+
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
 	let ret = {string: "", names: ""};
 	if (params === undefined) return ret;
@@ -50,9 +56,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name} ${param.type} @${generateDocstring(param)}`;
-		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
-
+		ret.string += `\n---@param ${param.name} ${param.type} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
