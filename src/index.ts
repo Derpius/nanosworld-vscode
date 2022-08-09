@@ -81,26 +81,10 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		});
 	}
 
-	let subscribeFun: DocFunction | undefined;
-	let subscribeFunStatic: boolean | undefined;
-
-	let unsubscribeFun: DocFunction | undefined;
-	let unsubscribeFunStatic: boolean | undefined;
-
 	let staticFunctions = "";
 
 	if (cls.static_functions !== undefined) {
 		cls.static_functions.forEach((fun) => {
-			if (fun.name === "Subscribe") {
-				subscribeFun = fun;
-				subscribeFunStatic = true;
-				if (cls.name !== "Events") return;
-			} else if (fun.name === "Unsubscribe") {
-				unsubscribeFun = fun;
-				unsubscribeFunStatic = true;
-				if (cls.name !== "Events") return;
-			}
-
 			staticFunctions += generateFunction(fun, `${cls.name}_meta.`);
 		});
 	}
@@ -108,23 +92,12 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	let functions = "";
 	if (cls.functions !== undefined) {
 		cls.functions.forEach((fun) => {
-			if (fun.name === "Subscribe") {
-				subscribeFun = fun;
-				subscribeFunStatic = false;
-				if (cls.name !== "Events") return;
-			} else if (fun.name === "Unsubscribe") {
-				unsubscribeFun = fun;
-				unsubscribeFunStatic = false;
-				if (cls.name !== "Events") return;
-			}
-
 			functions += generateFunction(fun, `${cls.name}_meta:`);
 		});
 	}
 
 	let events = "";
-	if (cls.events !== undefined && subscribeFun !== undefined && unsubscribeFun !== undefined) {
-		console.log("Generating events");
+	if (cls.events !== undefined) {
 		// Handle inheritance
 		let combinedEvents: {[key: string]: DocEvent} = {};
 		if (cls.inheritance !== undefined) {
@@ -146,23 +119,23 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 			let callbackSig = event.arguments.map((param) => `${param.name}: ${param.type}`).join(", ");
 
 			subOverloads += `
----@overload fun(${subscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) @${event.description}`;
+---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) @${event.description}`;
 			unsubOverloads += `
----@overload fun(${unsubscribeFunStatic ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})) @${event.description}`;
+---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})) @${event.description}`;
 		});
 
 		events = `
 
----${subscribeFun.description.replaceAll("\n", "\n---\n---")}
+---Subscribe to an event
 ---@param event_name string @Name of the event to subscribe to
 ---@param callback function @The callback function to execute
 ---@return function @The callback function passed${subOverloads}
-function ${cls.name}_meta${subscribeFunStatic ? "." : ":"}Subscribe(event_name, callback) end
+function ${cls.name}_meta${cls.staticClass ? "." : ":"}Subscribe(event_name, callback) end
 
----${unsubscribeFun.description.replaceAll("\n", "\n---\n---")}
+---Unsubscribe from an event
 ---@param event_name string @Name of the event to subscribe to
 ---@param callback function @The callback function to execute${unsubOverloads}
-function ${cls.name}_meta${unsubscribeFunStatic ? "." : ":"}Unsubscribe(event_name, callback) end`;
+function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callback) end`;
 	}
 
 	return `
@@ -215,6 +188,7 @@ async function buildDocs() {
 		}
 
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
+			fileContents.staticClass = entry.path.startsWith("StaticClasses");
 			docs.classes[fileContents.name] = fileContents;
 			return;
 		}

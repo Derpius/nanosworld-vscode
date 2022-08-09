@@ -39,7 +39,8 @@ export interface DocClass {
 	constructor?: DocParameter[],
 	functions?: DocFunction[],
 	static_functions?: DocFunction[],
-	events?: DocEvent[]
+	events?: DocEvent[],
+	staticClass: boolean
 }
 
 export interface Docs {
