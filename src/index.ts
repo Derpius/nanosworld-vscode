@@ -51,7 +51,7 @@ function generateReturn(ret?: DocReturn): string {
 	if (ret === undefined) return "";
 
 	return `
----@return ${ret.type} @${generateDocstring(ret)}`;
+---@return ${ret.type.endsWith("Path") ? "string" : ret.type} @${generateDocstring(ret)}`;
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -88,7 +88,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
 		let signature = cls.constructor!.map(
-			(param) => `${param.name}: ${param.type}`
+			(param) => `${param.name}: ${param.type.endsWith("Path") ? "string" : param.type}`
 		).join(", ");
 
 		constructor = `
@@ -132,7 +132,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
 			let callbackSig = event.arguments.map(
-				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? param.type : cls.name}`
+				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? (param.type.endsWith("Path") ? "string" : param.type) : cls.name}`
 			).join(", ");
 
 			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) ${generateInlineDocstring(event)}`;
@@ -156,7 +156,7 @@ function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callba
 	let fields = "";
 	if (cls.properties !== undefined) {
 		cls.properties.forEach((prop) => {
-			fields += `\n---@field ${prop.name} ${prop.type} ${generateInlineDocstring(prop)}`;
+			fields += `\n---@field ${prop.name} ${prop.type.endsWith("Path") ? "string" : prop.type} ${generateInlineDocstring(prop)}`;
 		});
 	}
 
