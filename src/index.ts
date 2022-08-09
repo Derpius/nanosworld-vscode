@@ -100,7 +100,7 @@ function generateReturn(ret?: DocReturn): string {
 	if (ret === undefined) return "";
 
 	return `
----@return ${generateType(ret).toString()} @${generateDocstring(ret)}`;
+---@return ${generateType(ret).toString()} ${generateInlineDocstring(ret)}`;
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
