@@ -100,7 +100,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	if (cls.static_functions !== undefined) {
 		cls.static_functions.forEach((fun) => {
 			if ((fun.name === "Subscribe" || fun.name === "Unsubscribe") && cls.name !== "Events") return;
-			staticFunctions += generateFunction(fun, `${cls.name}_meta.`);
+			staticFunctions += generateFunction(fun, `${cls.name}.`);
 		});
 	}
 
@@ -108,7 +108,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	if (cls.functions !== undefined) {
 		cls.functions.forEach((fun) => {
 			if ((fun.name === "Subscribe" || fun.name === "Unsubscribe") && cls.name !== "Events") return;
-			functions += generateFunction(fun, `${cls.name}_meta:`);
+			functions += generateFunction(fun, `${cls.name}:`);
 		});
 	}
 
@@ -147,12 +147,12 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 ---@param event_name string @Name of the event to subscribe to
 ---@param callback function @The callback function to execute
 ---@return function @The callback function passed${subOverloads}
-function ${cls.name}_meta${cls.staticClass ? "." : ":"}Subscribe(event_name, callback) end
+function ${cls.name}${cls.staticClass ? "." : ":"}Subscribe(event_name, callback) end
 
 ---Unsubscribe from an event
 ---@param event_name string @Name of the event to subscribe to
 ---@param callback function @The callback function to execute${unsubOverloads}
-function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callback) end`;
+function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callback) end`;
 	}
 
 	let fields = "";
