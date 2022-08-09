@@ -2,524 +2,9 @@
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----A Text Render class is useful for spawning Texts in 3D world, you can even attach it to other entities.
----@class TextRender : Actor, Paintable
-TextRender_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A Text Render class is useful for spawning Texts in 3D world, you can even attach it to other entities.
----@return TextRender @Instance of TextRender
-function TextRender() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Color
----@param color Color @
-function TextRender_meta:SetColor(color) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Font
----@param font_type FontType @
-function TextRender_meta:SetFont(font_type) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Freeze mesh rebuild, to avoid unnecessary mesh rebuilds when setting a few properties together
----@param freeze boolean @
-function TextRender_meta:SetFreeze(freeze) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Glyph representation settings to generate the 3D Mesh for this text render
----@param extrude number @(Default: 0)
----@param level number @(Default: 0)
----@param bevel_type TextRenderBevelType @(Default: TextRenderBevelType.Convex)
----@param bevel_segments number @(Default: 8)
----@param outline boolean @(Default: false)
-function TextRender_meta:SetGlyphSettings(extrude, level, bevel_type, bevel_segments, outline) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Max Size of the TextRender, optionally scaling it proportionally
----@param max_width number @(Default: 0)
----@param max_height number @(Default: 0)
----@param scale_proportionally boolean @(Default: true)
-function TextRender_meta:SetMaxSize(max_width, max_height, scale_proportionally) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Text
----@param text string @
-function TextRender_meta:SetText(text) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Sets the Text & Font settings for this text render
----@param kerning number @(Default: 0)
----@param line_spacing number @(Default: 0)
----@param word_spacing number @(Default: 0)
----@param horizontal_alignment TextRenderHorizontalAlignment @(Default: TextRenderHorizontalAlignment.Center)
----@param vertical_alignment TextRenderVerticalAlignment @(Default: 0TextRenderVerticalAlignment.Center)
-function TextRender_meta:SetTextSettings(kerning, line_spacing, word_spacing, horizontal_alignment, vertical_alignment) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
----@class StaticMesh : Actor, Paintable
-StaticMesh_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
----@return StaticMesh @Instance of StaticMesh
-function StaticMesh() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets the Asset path mesh used
----@return StaticMeshPath @asset path
-function StaticMesh_meta:GetMesh() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Gets if this StaticMesh is from the Level
----@return boolean @if this StaticMesh is from the level
-function StaticMesh_meta:IsFromLevel() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Chad Grenade
----@class Grenade : Actor, Paintable, Pickable
-Grenade_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Chad Grenade
----@return Grenade @Instance of Grenade
-function Grenade() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Canvas is an entity which you can draw onto it.
----@class Canvas
-Canvas_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Canvas is an entity which you can draw onto it.
----@return Canvas @Instance of Canvas
-function Canvas() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
----@class SceneCapture : Actor
-SceneCapture_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
----@return SceneCapture @Instance of SceneCapture
-function SceneCapture() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Stops or Restore Capturing
----@param freeze boolean @
-function SceneCapture_meta:SetFreeze(freeze) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Sets the FOV
----@param angle number @
-function SceneCapture_meta:SetFOVAngle(angle) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Change the output Texture size
----
----Note: too high texture will make the capture slower and will affect game performance
----@param width number @
----@param height number @
-function SceneCapture_meta:Resize(width, height) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Set how frequent is the capture
----
----Note: Setting to 0 will make it capture every frame
----@param render_rate number @
-function SceneCapture_meta:SetRenderRate(render_rate) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
----@class Melee : Actor, Paintable, Pickable
-Melee_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
----@return Melee @Instance of Melee
-function Melee() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----A Billboard is a 2D Material that will be rendered always facing the camera.
----@class Billboard : Actor, Paintable
-Billboard_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----A Billboard is a 2D Material that will be rendered always facing the camera.
----@return Billboard @Instance of Billboard
-function Billboard() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Vehicles are wheeled entities which Characters can possesses and drive.
----@class Vehicle : Actor, Paintable
-Vehicle_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Vehicles are wheeled entities which Characters can possesses and drive.
----@return Vehicle @Instance of Vehicle
-function Vehicle() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Players are Entities that represents the individual behind the mouse and keyboard. Players are spawned automatically when connected to the server.
----@class Player
-Player_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Particle Entity.
----@class Particle : Actor
-Particle_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Particle Entity.
----@return Particle @Instance of Particle
-function Particle() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----HTTP Requests Interface.
----@class HTTP
-HTTP_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Makes an asynchronous HTTP Request
----@param uri string @The main URI 
----@param endpoint string @The endpoint (Default: /)
----@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
----@param data string @Payload (Default: )
----@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
----@param compress boolean @Whether or not to compress the content with gzip (Default: false)
----@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
----@param callback function @The result will be called in the format `function(status, data)` (Default: nil)
-function HTTP_meta.Request(uri, endpoint, method, data, content_type, compress, headers, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Makes a synchronous HTTP Request.<br/><br/>The request will be made synchronously and will freeze the server until it's done.
----@param uri string @The main URI 
----@param endpoint string @The endpoint (Default: /)
----@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
----@param data string @Payload (Default: )
----@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
----@param compress boolean @Whether or not to compress the content with gzip (Default: false)
----@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
----@return table @the data in the format { Status, Data }
-function HTTP_meta.RequestSync(uri, endpoint, method, data, content_type, compress, headers) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Trigger class is a utility class to trigger events when any Entity enters an Area.
----@class Trigger : Actor
-Trigger_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Trigger class is a utility class to trigger events when any Entity enters an Area.
----@return Trigger @Instance of Trigger
-function Trigger() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
----@class Weapon : Actor, Paintable, Pickable
-Weapon_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
----@return Weapon @Instance of Weapon
-function Weapon() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A Light represents a Lighting source.
----@class Light : Actor
-Light_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----A Light represents a Lighting source.
----@return Light @Instance of Light
-function Light() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Retrieve Assets Data from Asset Packs.
----@class Assets
-Assets_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing information about all loaded Asset Packs
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @in the format <code>[{Name, Path, Author, Version}, ...]</code>
-function Assets_meta.GetAssetPacks(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Animation Assets Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetAnimations(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Map Asset Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetMaps(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Materials Asset Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetMaterials(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Particle Assets Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetParticles(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Sound Assets Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetSounds(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Skeletal Mesh Asset Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetSkeletalMeshes(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Static Mesh Assets Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetStaticMeshes(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets a list containing all Other Assets Keys from an AssetPack
----@param asset_pack_path string @The Asset Pack path to get the assets 
----@return table @array of strings
-function Assets_meta.GetOthers(asset_pack_path) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
----@class Decal : Actor, Paintable
-Decal_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
----@return Decal @Instance of Decal
-function Decal() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Subscribe for user-defined Events.
----@class Events
-Events_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Calls an Event which will be triggered in all Local Packages
----@param event_name string @The Event Name to trigger the event 
----@param ... any @Arguments to pass to the event (Default: nil)
-function Events_meta.Call(event_name, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Calls an Event if on Client which will be triggered in all Server Packages
----@param event_name string @The Event Name to trigger the event 
----@param ... any @Arguments to pass to the event (Default: nil)
-function Events_meta.CallRemote(event_name, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Calls an Event if on Server which will be triggered in all Client's Packages of a specific Player
----@param event_name string @The Event Name to trigger the event 
----@param player Player @The remote player to send this event 
----@param ... any @Arguments to pass to the event (Default: nil)
-function Events_meta.CallRemote(event_name, player, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Calls an Event on Server which will be triggered in all Client's Packages of all Players
----@param event_name string @The Event Name to trigger the event 
----@param ... any @Arguments to pass to the event (Default: nil)
-function Events_meta.BroadcastRemote(event_name, ...) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Subscribes for an user-created event which will be triggered for both local or remote called events
----@param event_name string @The Event Name to subscribe 
----@param callback function @The callback function to execute 
----@return function @the subscribed callback itself
-function Events_meta.Subscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Unsubscribes from all subscribed events in this Package with that event name, optionally passing the function to unsubscribe only that callback
----@param event_name string @The Event Name to unsubscribe 
----@param callback function @The callback function to unsubscribe (Default: nil)
-function Events_meta.Unsubscribe(event_name, callback) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Base class for all Paintable entities.
----@class Paintable
-Paintable_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Base class for all Pickable entities.
----@class Pickable
-Pickable_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----The Database entity provides programmers a way to access SQL databases easily through scripting.
----@class Database
-Database_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
----@class Cable : Actor, Paintable
-Cable_meta = {}
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
----@return Cable @Instance of Cable
-function Cable() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Attached the beginning of this cable to another Actor at a specific bone or relative location
----@param other Actor @
----@param relative_location Vector @(Default: Vector(0, 0, 0))
----@param bone_name string @(Default: )
-function Cable_meta:AttachStartTo(other, relative_location, bone_name) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Attached the end of this cable to another Actor at a specific bone or relative location
----@param other Actor @
----@param relative_location Vector @(Default: Vector(0, 0, 0))
----@param bone_name string @(Default: )
-function Cable_meta:AttachEndTo(other, relative_location, bone_name) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Detaches the End of this Cable
-function Cable_meta:DetachEnd() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Detaches the Start of this Cable
-function Cable_meta:DetachStart() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Set the overall settings for this cable (visuals only)
----@param length number @Rest length of the cable. Default is 100 
----@param num_segments number @How many segments the cable has. Default is 10 
----@param solver_iterations number @The number of solver iterations controls how 'stiff' the cable is. Default is 0 
-function Cable_meta:SetCableSettings(length, num_segments, solver_iterations) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Set the forces the cable has applied (visuals only)
----@param force Vector @Force vector (world space) applied to all particles in cable. Default is Vector(0, 0, 0) 
----@param gravity_scale number @Scaling applied to world gravity affecting this cable. Default is 1 (Default: 1)
-function Cable_meta:SetForces(force, gravity_scale) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Sets the Physics Angular Limits of this cable
----@param swing_1_motion ConstraintMotion @Indicates whether the Swing1 limit is used 
----@param swing_2_motion ConstraintMotion @Indicates whether the Swing2 limit is used 
----@param twist_motion ConstraintMotion @Indicates whether the Twist limit is used 
----@param swing_1_limit number @Angle of movement along the XY plane. This defines the first symmetric angle of the cone (Default: 0)
----@param swing_2_limit number @Angle of movement along the XZ plane. This defines the second symmetric angle of the cone (Default: 0)
----@param twist_limit number @Symmetric angle of roll along the X-axis (Default: 0)
-function Cable_meta:SetAngularLimits(swing_1_motion, swing_2_motion, twist_motion, swing_1_limit, swing_2_limit, twist_limit) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
----
----Sets the Physics Linear Limits of this cable
----@param x_motion ConstraintMotion @Indicates the linear constraint applied along the X-axis. Free implies no constraint at all. Locked implies no movement along X is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
----@param y_motion ConstraintMotion @Indicates the linear constraint applied along the Y-axis. Free implies no constraint at all. Locked implies no movement along Y is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
----@param z_motion ConstraintMotion @Indicates the linear constraint applied along theZX-axis. Free implies no constraint at all. Locked implies no movement along Z is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
----@param limit number @The distance allowed between between the two joint reference frames. Distance applies on all axes enabled (one axis means line, two axes implies circle, three axes implies sphere) (Default: 0)
----@param restitution number @Controls the amount of bounce when the constraint is violated. A restitution value of 1 will bounce back with the same velocity the limit was hit. A value of 0 will stop dead (Default: 0)
----@param use_soft_constraint boolean @Whether we want to use a soft constraint (spring) (Default: false)
----@param stiffness number @Stiffness of the soft constraint. Only used when Soft Constraint is on (Default: 0)
----@param damping number @Damping of the soft constraint. Only used when Soft Constraint is on (Default: 0)
-function Cable_meta:SetLinearLimits(x_motion, y_motion, z_motion, limit, restitution, use_soft_constraint, stiffness, damping) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Set the rendering settings of this cable (visuals only)
----@param width number @How wide the cable geometry is. Default is 6 
----@param num_sides number @Number of sides of the cable geometry. Default is 4 
----@param tile_material number @How many times to repeat the material along the length of the cable. Default is 1 
-function Cable_meta:SetRenderingSettings(width, num_sides, tile_material) end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets the Actor attached to Start
----@return Actor @the Actor or nil
-function Cable_meta:GetAttachedStartTo() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
----
----Gets the Actor attached to End
----@return Actor @the Actor or nil
-function Cable_meta:GetAttachedEndTo() end
+---Base class for all Actor entities.
+---@class Actor
+Actor_meta = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
@@ -542,27 +27,39 @@ function Blueprint_meta:CallBlueprintEvent(event_name, ...) end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----A Prop represents a Dynamic Mesh which can be spawned in the world, can be grabbed around by characters and have physics.
----@class Prop : Actor, Paintable
-Prop_meta = {}
+---Base class for all Pickable entities.
+---@class Pickable
+Pickable_meta = {}
 
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
----A Prop represents a Dynamic Mesh which can be spawned in the world, can be grabbed around by characters and have physics.
----@return Prop @Instance of Prop
-function Prop() end
-
----<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
----
----Class for playing in-game 2D and 3D sounds
----@class Sound : Actor
-Sound_meta = {}
+---The Database entity provides programmers a way to access SQL databases easily through scripting.
+---@class Database
+Database_meta = {}
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
 ---
----Class for playing in-game 2D and 3D sounds
----@return Sound @Instance of Sound
-function Sound() end
+---A Billboard is a 2D Material that will be rendered always facing the camera.
+---@class Billboard : Actor, Paintable
+Billboard_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---A Billboard is a 2D Material that will be rendered always facing the camera.
+---@return Billboard @Instance of Billboard
+function Billboard() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Canvas is an entity which you can draw onto it.
+---@class Canvas
+Canvas_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Canvas is an entity which you can draw onto it.
+---@return Canvas @Instance of Canvas
+function Canvas() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
@@ -702,6 +199,287 @@ function File_meta:Tell() end
 ---@param data string @Data to write to the file 
 function File_meta:Write(data) end
 
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Vehicles are wheeled entities which Characters can possesses and drive.
+---@class Vehicle : Actor, Paintable
+Vehicle_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Vehicles are wheeled entities which Characters can possesses and drive.
+---@return Vehicle @Instance of Vehicle
+function Vehicle() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Base class for all Paintable entities.
+---@class Paintable
+Paintable_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Players are Entities that represents the individual behind the mouse and keyboard. Players are spawned automatically when connected to the server.
+---@class Player
+Player_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
+---@class Cable : Actor, Paintable
+Cable_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Cable represents a Physics Constraint which joins two Actors with a rope-like visual representation between them.
+---@return Cable @Instance of Cable
+function Cable() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Attached the beginning of this cable to another Actor at a specific bone or relative location
+---@param other Actor @
+---@param relative_location Vector @(Default: Vector(0, 0, 0))
+---@param bone_name string @(Default: )
+function Cable_meta:AttachStartTo(other, relative_location, bone_name) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Attached the end of this cable to another Actor at a specific bone or relative location
+---@param other Actor @
+---@param relative_location Vector @(Default: Vector(0, 0, 0))
+---@param bone_name string @(Default: )
+function Cable_meta:AttachEndTo(other, relative_location, bone_name) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Detaches the End of this Cable
+function Cable_meta:DetachEnd() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Detaches the Start of this Cable
+function Cable_meta:DetachStart() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Set the overall settings for this cable (visuals only)
+---@param length number @Rest length of the cable. Default is 100 
+---@param num_segments number @How many segments the cable has. Default is 10 
+---@param solver_iterations number @The number of solver iterations controls how 'stiff' the cable is. Default is 0 
+function Cable_meta:SetCableSettings(length, num_segments, solver_iterations) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Set the forces the cable has applied (visuals only)
+---@param force Vector @Force vector (world space) applied to all particles in cable. Default is Vector(0, 0, 0) 
+---@param gravity_scale number @Scaling applied to world gravity affecting this cable. Default is 1 (Default: 1)
+function Cable_meta:SetForces(force, gravity_scale) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Sets the Physics Angular Limits of this cable
+---@param swing_1_motion ConstraintMotion @Indicates whether the Swing1 limit is used 
+---@param swing_2_motion ConstraintMotion @Indicates whether the Swing2 limit is used 
+---@param twist_motion ConstraintMotion @Indicates whether the Twist limit is used 
+---@param swing_1_limit number @Angle of movement along the XY plane. This defines the first symmetric angle of the cone (Default: 0)
+---@param swing_2_limit number @Angle of movement along the XZ plane. This defines the second symmetric angle of the cone (Default: 0)
+---@param twist_limit number @Symmetric angle of roll along the X-axis (Default: 0)
+function Cable_meta:SetAngularLimits(swing_1_motion, swing_2_motion, twist_motion, swing_1_limit, swing_2_limit, twist_limit) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Sets the Physics Linear Limits of this cable
+---@param x_motion ConstraintMotion @Indicates the linear constraint applied along the X-axis. Free implies no constraint at all. Locked implies no movement along X is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
+---@param y_motion ConstraintMotion @Indicates the linear constraint applied along the Y-axis. Free implies no constraint at all. Locked implies no movement along Y is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
+---@param z_motion ConstraintMotion @Indicates the linear constraint applied along theZX-axis. Free implies no constraint at all. Locked implies no movement along Z is allowed. Limited implies the distance in the joint along all active axes must be less than the Distance provided 
+---@param limit number @The distance allowed between between the two joint reference frames. Distance applies on all axes enabled (one axis means line, two axes implies circle, three axes implies sphere) (Default: 0)
+---@param restitution number @Controls the amount of bounce when the constraint is violated. A restitution value of 1 will bounce back with the same velocity the limit was hit. A value of 0 will stop dead (Default: 0)
+---@param use_soft_constraint boolean @Whether we want to use a soft constraint (spring) (Default: false)
+---@param stiffness number @Stiffness of the soft constraint. Only used when Soft Constraint is on (Default: 0)
+---@param damping number @Damping of the soft constraint. Only used when Soft Constraint is on (Default: 0)
+function Cable_meta:SetLinearLimits(x_motion, y_motion, z_motion, limit, restitution, use_soft_constraint, stiffness, damping) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Set the rendering settings of this cable (visuals only)
+---@param width number @How wide the cable geometry is. Default is 6 
+---@param num_sides number @Number of sides of the cable geometry. Default is 4 
+---@param tile_material number @How many times to repeat the material along the length of the cable. Default is 1 
+function Cable_meta:SetRenderingSettings(width, num_sides, tile_material) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Actor attached to Start
+---@return Actor @the Actor or nil
+function Cable_meta:GetAttachedStartTo() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Actor attached to End
+---@return Actor @the Actor or nil
+function Cable_meta:GetAttachedEndTo() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Chad Grenade
+---@class Grenade : Actor, Paintable, Pickable
+Grenade_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Chad Grenade
+---@return Grenade @Instance of Grenade
+function Grenade() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
+---@class Decal : Actor, Paintable
+Decal_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Decals are Materials that are projected onto meshes in your level, including Static Meshes and Skeletal Meshes.
+---@return Decal @Instance of Decal
+function Decal() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Prop represents a Dynamic Mesh which can be spawned in the world, can be grabbed around by characters and have physics.
+---@class Prop : Actor, Paintable
+Prop_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Prop represents a Dynamic Mesh which can be spawned in the world, can be grabbed around by characters and have physics.
+---@return Prop @Instance of Prop
+function Prop() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Trigger class is a utility class to trigger events when any Entity enters an Area.
+---@class Trigger : Actor
+Trigger_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Trigger class is a utility class to trigger events when any Entity enters an Area.
+---@return Trigger @Instance of Trigger
+function Trigger() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Particle Entity.
+---@class Particle : Actor
+Particle_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Particle Entity.
+---@return Particle @Instance of Particle
+function Particle() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Text Render class is useful for spawning Texts in 3D world, you can even attach it to other entities.
+---@class TextRender : Actor, Paintable
+TextRender_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Text Render class is useful for spawning Texts in 3D world, you can even attach it to other entities.
+---@return TextRender @Instance of TextRender
+function TextRender() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Color
+---@param color Color @
+function TextRender_meta:SetColor(color) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Font
+---@param font_type FontType @
+function TextRender_meta:SetFont(font_type) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Freeze mesh rebuild, to avoid unnecessary mesh rebuilds when setting a few properties together
+---@param freeze boolean @
+function TextRender_meta:SetFreeze(freeze) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Glyph representation settings to generate the 3D Mesh for this text render
+---@param extrude number @(Default: 0)
+---@param level number @(Default: 0)
+---@param bevel_type TextRenderBevelType @(Default: TextRenderBevelType.Convex)
+---@param bevel_segments number @(Default: 8)
+---@param outline boolean @(Default: false)
+function TextRender_meta:SetGlyphSettings(extrude, level, bevel_type, bevel_segments, outline) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Max Size of the TextRender, optionally scaling it proportionally
+---@param max_width number @(Default: 0)
+---@param max_height number @(Default: 0)
+---@param scale_proportionally boolean @(Default: true)
+function TextRender_meta:SetMaxSize(max_width, max_height, scale_proportionally) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Text
+---@param text string @
+function TextRender_meta:SetText(text) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Sets the Text & Font settings for this text render
+---@param kerning number @(Default: 0)
+---@param line_spacing number @(Default: 0)
+---@param word_spacing number @(Default: 0)
+---@param horizontal_alignment TextRenderHorizontalAlignment @(Default: TextRenderHorizontalAlignment.Center)
+---@param vertical_alignment TextRenderVerticalAlignment @(Default: 0TextRenderVerticalAlignment.Center)
+function TextRender_meta:SetTextSettings(kerning, line_spacing, word_spacing, horizontal_alignment, vertical_alignment) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Class for playing in-game 2D and 3D sounds
+---@class Sound : Actor
+Sound_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Class for playing in-game 2D and 3D sounds
+---@return Sound @Instance of Sound
+function Sound() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
+---@class Melee : Actor, Paintable, Pickable
+Melee_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Charactes can hold it with hands with pre-defined handling modes.
+---@return Melee @Instance of Melee
+function Melee() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
+---@class Weapon : Actor, Paintable, Pickable
+Weapon_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Weapons are fully customizable, all pieces of the weapon can be changed with immense possibility of creation
+---@return Weapon @Instance of Weapon
+function Weapon() end
+
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
 ---
 ---Class for spawning a dynamic Web Browser
@@ -713,6 +491,178 @@ WebUI_meta = {}
 ---Class for spawning a dynamic Web Browser
 ---@return WebUI @Instance of WebUI
 function WebUI() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Retrieve Assets Data from Asset Packs.
+---@class Assets
+Assets_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing information about all loaded Asset Packs
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @in the format <code>[{Name, Path, Author, Version}, ...]</code>
+function Assets_meta.GetAssetPacks(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Animation Assets Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetAnimations(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Map Asset Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetMaps(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Materials Asset Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetMaterials(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Particle Assets Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetParticles(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Sound Assets Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetSounds(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Skeletal Mesh Asset Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetSkeletalMeshes(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Static Mesh Assets Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetStaticMeshes(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets a list containing all Other Assets Keys from an AssetPack
+---@param asset_pack_path string @The Asset Pack path to get the assets 
+---@return table @array of strings
+function Assets_meta.GetOthers(asset_pack_path) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Subscribe for user-defined Events.
+---@class Events
+Events_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Calls an Event which will be triggered in all Local Packages
+---@param event_name string @The Event Name to trigger the event 
+---@param ... any @Arguments to pass to the event (Default: nil)
+function Events_meta.Call(event_name, ...) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Calls an Event if on Client which will be triggered in all Server Packages
+---@param event_name string @The Event Name to trigger the event 
+---@param ... any @Arguments to pass to the event (Default: nil)
+function Events_meta.CallRemote(event_name, ...) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Calls an Event if on Server which will be triggered in all Client's Packages of a specific Player
+---@param event_name string @The Event Name to trigger the event 
+---@param player Player @The remote player to send this event 
+---@param ... any @Arguments to pass to the event (Default: nil)
+function Events_meta.CallRemote(event_name, player, ...) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Calls an Event on Server which will be triggered in all Client's Packages of all Players
+---@param event_name string @The Event Name to trigger the event 
+---@param ... any @Arguments to pass to the event (Default: nil)
+function Events_meta.BroadcastRemote(event_name, ...) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Subscribes for an user-created event which will be triggered for both local or remote called events
+---@param event_name string @The Event Name to subscribe 
+---@param callback function @The callback function to execute 
+---@return function @the subscribed callback itself
+function Events_meta.Subscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Unsubscribes from all subscribed events in this Package with that event name, optionally passing the function to unsubscribe only that callback
+---@param event_name string @The Event Name to unsubscribe 
+---@param callback function @The callback function to unsubscribe (Default: nil)
+function Events_meta.Unsubscribe(event_name, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
+---@class SceneCapture : Actor
+SceneCapture_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Scene Capture is an Actor which captures a fully dynamic image of the scene into a Texture. It captures the scene from its view frustum, stores that view as an image, which is then used within a Material.
+---@return SceneCapture @Instance of SceneCapture
+function SceneCapture() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Stops or Restore Capturing
+---@param freeze boolean @
+function SceneCapture_meta:SetFreeze(freeze) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Sets the FOV
+---@param angle number @
+function SceneCapture_meta:SetFOVAngle(angle) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Change the output Texture size
+---
+---Note: too high texture will make the capture slower and will affect game performance
+---@param width number @
+---@param height number @
+function SceneCapture_meta:Resize(width, height) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Set how frequent is the capture
+---
+---Note: Setting to 0 will make it capture every frame
+---@param render_rate number @
+function SceneCapture_meta:SetRenderRate(render_rate) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Light represents a Lighting source.
+---@class Light : Actor
+Light_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A Light represents a Lighting source.
+---@return Light @Instance of Light
+function Light() end
 
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
 ---
@@ -1391,8 +1341,58 @@ function Character_meta:GetViewMode() end
 ---@return AimMode @the AimMode
 function Character_meta:GetWeaponAimMode() end
 
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---HTTP Requests Interface.
+---@class HTTP
+HTTP_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Makes an asynchronous HTTP Request
+---@param uri string @The main URI 
+---@param endpoint string @The endpoint (Default: /)
+---@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
+---@param data string @Payload (Default: )
+---@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
+---@param compress boolean @Whether or not to compress the content with gzip (Default: false)
+---@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
+---@param callback function @The result will be called in the format `function(status, data)` (Default: nil)
+function HTTP_meta.Request(uri, endpoint, method, data, content_type, compress, headers, callback) end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/server-only.png?raw=true" height="10"> `Server Side`
+---
+---Makes a synchronous HTTP Request.<br/><br/>The request will be made synchronously and will freeze the server until it's done.
+---@param uri string @The main URI 
+---@param endpoint string @The endpoint (Default: /)
+---@param method string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods'>HTTP Method</a> to be used (Default: GET)
+---@param data string @Payload (Default: )
+---@param content_type string @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>Content Type</a> to be used (Default: application/json)
+---@param compress boolean @Whether or not to compress the content with gzip (Default: false)
+---@param headers table @The <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers'>Headers</a> to be used (Default: {})
+---@return table @the data in the format { Status, Data }
+function HTTP_meta.RequestSync(uri, endpoint, method, data, content_type, compress, headers) end
+
 ---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
 ---
----Base class for all Actor entities.
----@class Actor
-Actor_meta = {}
+---A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
+---@class StaticMesh : Actor, Paintable
+StaticMesh_meta = {}
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---A StaticMesh entity represents a Mesh which can be spawned in the world, can't move and is more optimized for using in decorating the world.
+---@return StaticMesh @Instance of StaticMesh
+function StaticMesh() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/both.png?raw=true" height="10"> `Client/Server Side`
+---
+---Gets the Asset path mesh used
+---@return StaticMeshPath @asset path
+function StaticMesh_meta:GetMesh() end
+
+---<img src="https://github.com/Derpius/nanosworld-vscode/blob/master/assets/client-only.png?raw=true" height="10"> `Client Side`
+---
+---Gets if this StaticMesh is from the Level
+---@return boolean @if this StaticMesh is from the level
+function StaticMesh_meta:IsFromLevel() end
