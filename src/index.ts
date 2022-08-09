@@ -143,9 +143,11 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 			let callbackSig = event.arguments.map(
 				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param) : cls.name}`
 			).join(", ");
+			callbackSig = `fun(${callbackSig})`;
+			if (event.return !== undefined) callbackSig += `: ${generateType(event.return)}`;
 
-			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) ${generateInlineDocstring(event)}`;
-			unsubOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})) ${generateInlineDocstring(event)}`;
+			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}): ${callbackSig} ${generateInlineDocstring(event)}`;
+			unsubOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}) ${generateInlineDocstring(event)}`;
 		});
 
 		events = `

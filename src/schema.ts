@@ -36,7 +36,8 @@ export interface DocFunction extends DocDescriptive, DocAuthority {
 
 export interface DocEvent extends DocDescriptive {
 	name: string,
-	arguments: DocParameter[]
+	arguments: DocParameter[],
+	return?: DocReturn
 }
 
 export interface DocProperty extends DocDescriptive, DocTyped {
