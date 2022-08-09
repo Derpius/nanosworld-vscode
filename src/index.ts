@@ -124,6 +124,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 
 	let events = "";
 	if (cls.events !== undefined && subscribeFun !== undefined && unsubscribeFun !== undefined) {
+		console.log("Generating events");
 		// Handle inheritance
 		let combinedEvents: {[key: string]: DocEvent} = {};
 		if (cls.inheritance !== undefined) {
@@ -136,6 +137,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		cls.events.forEach((event) => {
 			combinedEvents[event.name] = event;
 		});
+		console.log(combinedEvents);
 
 		// Generate overloads
 		let subOverloads = "";
