@@ -61,7 +61,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name}${param.default === "nil" ? "?" : ""} ${param.type} ${generateParamDocstring(param)}`;
+		ret.string += `\n---@param ${param.name}${param.default === "nil" ? "?" : ""} ${param.type.endsWith("Path") ? "string" : param.type} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
