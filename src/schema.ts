@@ -41,3 +41,8 @@ export interface DocClass {
 	static_functions?: DocFunction[],
 	events?: DocEvent[]
 }
+
+export interface Docs {
+	classes: {[key: string]: DocClass},
+	enums: object
+}

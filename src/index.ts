@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, DocClass, DocFunction, DocParameter } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter } from "./schema";
 
 console.log("Building documentation...");
 
@@ -62,13 +62,10 @@ function generateFunction(fun: DocFunction, accessor: string = ""): string {
 function ${accessor}${fun.name}(${params.names}) end`;
 }
 
-function generateClassAnnotations(cls: DocClass): string {
+function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocClass): string {
 	let inheritance = "";
 	if (cls.inheritance !== undefined) {
-		inheritance = ` : ${cls.inheritance[0]}`;
-		for (let i = 1; i < cls.inheritance.length; i++) {
-			inheritance += `, ${cls.inheritance[i]}`;
-		}
+		inheritance = ` : ${cls.inheritance.join(", ")}`;
 	}
 
 	let constructor = "";
@@ -108,7 +105,6 @@ ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
 
 async function buildDocs() {
-	let output = "---@meta";
 
 	const response = await octokit.request("GET /repos/{owner}/{repo}/git/trees/{tree_sha}", {
 		owner: REPO_OWNER,
@@ -116,6 +112,11 @@ async function buildDocs() {
 		tree_sha: REPO_BRANCH,
 		recursive: "1"
 	});
+
+	let docs: Docs = {
+		classes: {},
+		enums: {}
+	};
 
 	const promises = response.data.tree.filter(function (entry) {
 		return entry.type === "blob" && entry.path?.endsWith(".json");
@@ -139,15 +140,21 @@ async function buildDocs() {
 
 		// Write annotations
 		if (entry.path === "Enums.json") {
-			//output += generateEnumAnnotations(fileContents);
+			docs.enums = fileContents;
 			return;
 		}
 
-		if (entry.path!.startsWith("Classes") || entry.path!.startsWith("StaticClasses")) {
-			output += generateClassAnnotations(fileContents);
+		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses")) {
+			docs.classes[fileContents.name] = fileContents;
 			return;
 		}
 	})());
+
+	let output = "---@meta";
+
+	Object.entries(docs.classes).forEach(([_, cls]) => {
+		output += generateClassAnnotations(docs.classes, cls);
+	});
 
 	await Promise.all(promises);
 	await fs.promises.mkdir("./docs");
