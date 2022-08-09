@@ -43,7 +43,11 @@ export interface DocClass {
 	staticClass: boolean
 }
 
+export interface DocEnumValue {
+	key: string,
+	value: string
+}
 export interface Docs {
 	classes: {[key: string]: DocClass},
-	enums: object
+	enums: {[key: string]: DocEnumValue[]}
 }

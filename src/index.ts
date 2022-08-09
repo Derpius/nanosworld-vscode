@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue } from "./schema";
 
 console.log("Building documentation...");
 
@@ -117,7 +117,9 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		let subOverloads = "";
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
-			let callbackSig = event.arguments.map((param) => `${param.name}: ${param.type}`).join(", ");
+			let callbackSig = event.arguments.map(
+				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? param.type : cls.name}`
+			).join(", ");
 
 			subOverloads += `
 ---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) @${event.description}`;
@@ -146,6 +148,18 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, c
 ---${cls.description.replaceAll("\n", "\n---\n---")}
 ---@class ${cls.name}${inheritance}
 local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
+}
+
+function generateEnum(name: string, values: DocEnumValue[]): string {
+	let valuesString = "";
+	values.forEach((value) => {
+		valuesString += `\n["${value.key}"] = ${value.value}`;
+	});
+
+	return `
+
+---@enum ${name}
+local ${name} = {${valuesString}}`;
 }
 
 async function buildDocs() {
@@ -200,6 +214,9 @@ async function buildDocs() {
 
 	Object.entries(docs.classes).forEach(([_, cls]) => {
 		output += generateClassAnnotations(docs.classes, cls);
+	});
+	Object.entries(docs.enums).forEach(([name, values]) => {
+		output += generateEnum(name, values);
 	});
 
 	await fs.promises.mkdir("./docs");
