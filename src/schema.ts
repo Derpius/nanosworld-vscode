@@ -10,19 +10,26 @@ export interface DocDescriptive {
 	description_long?: string
 }
 
-export interface DocParameter extends DocDescriptive {
+export interface DocAuthority {
+	authority: Authority
+}
+
+export interface DocTyped {
 	type: string,
+	is_array?: boolean,
+	nullable?: boolean
+}
+
+export interface DocParameter extends DocDescriptive, DocTyped {
 	name: string,
 	default?: string
 }
 
-export interface DocReturn extends DocDescriptive {
-	type: string
+export interface DocReturn extends DocDescriptive, DocTyped {
 }
 
-export interface DocFunction extends DocDescriptive {
+export interface DocFunction extends DocDescriptive, DocAuthority {
 	name: string,
-	authority: Authority,
 	parameters?: DocParameter[],
 	return?: DocReturn
 }
@@ -32,14 +39,12 @@ export interface DocEvent extends DocDescriptive {
 	arguments: DocParameter[]
 }
 
-export interface DocProperty extends DocDescriptive {
-	type: string,
+export interface DocProperty extends DocDescriptive, DocTyped {
 	name: string
 }
 
-export interface DocClass extends DocDescriptive {
+export interface DocClass extends DocDescriptive, DocAuthority {
 	name: string,
-	authority: Authority,
 	inheritance?: string[],
 	constructor?: DocParameter[],
 	functions?: DocFunction[],

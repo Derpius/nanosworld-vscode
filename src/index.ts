@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue, DocDescriptive, DocProperty } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue, DocDescriptive, DocProperty, DocTyped } from "./schema";
 
 console.log("Building documentation...");
 
@@ -47,11 +47,20 @@ function generateParamDocstring(param: DocParameter): string {
 	return docstring;
 }
 
+function generateType(typed: DocTyped): string {
+	let type = typed.type.endsWith("Path") ? "string" : typed.type;
+
+	if (typed.is_array === true) type += "[]";
+	if (typed.nullable === true) type += "?";
+
+	return type;
+}
+
 function generateReturn(ret?: DocReturn): string {
 	if (ret === undefined) return "";
 
 	return `
----@return ${ret.type.endsWith("Path") ? "string" : ret.type} @${generateDocstring(ret)}`;
+---@return ${generateType(ret)} @${generateDocstring(ret)}`;
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -61,7 +70,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name}${param.default === "nil" ? "?" : ""} ${param.type.endsWith("Path") ? "string" : param.type} ${generateParamDocstring(param)}`;
+		ret.string += `\n---@param ${param.name}${param.default === "nil" ? "?" : ""} ${generateType(param)} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
@@ -88,7 +97,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	let constructor = "";
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
 		let signature = cls.constructor!.map(
-			(param) => `${param.name}: ${param.type.endsWith("Path") ? "string" : param.type}`
+			(param) => `${param.name}: ${generateType(param)}`
 		).join(", ");
 
 		constructor = `
@@ -132,7 +141,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		let unsubOverloads = "";
 		Object.entries(combinedEvents).forEach(([_, event]) => {
 			let callbackSig = event.arguments.map(
-				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? (param.type.endsWith("Path") ? "string" : param.type) : cls.name}`
+				(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param) : cls.name}`
 			).join(", ");
 
 			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: fun(${callbackSig})): fun(${callbackSig}) ${generateInlineDocstring(event)}`;
@@ -156,7 +165,7 @@ function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callba
 	let fields = "";
 	if (cls.properties !== undefined) {
 		cls.properties.forEach((prop) => {
-			fields += `\n---@field ${prop.name} ${prop.type.endsWith("Path") ? "string" : prop.type} ${generateInlineDocstring(prop)}`;
+			fields += `\n---@field ${prop.name} ${generateType(prop)} ${generateInlineDocstring(prop)}`;
 		});
 	}
 
