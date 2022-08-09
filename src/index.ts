@@ -168,7 +168,7 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, c
 ---
 ---${generateDocstring(cls)}
 ---@class ${cls.name}${inheritance}${fields}${constructor}
-local ${cls.name} = {}${staticFunctions}${functions}${events}`;
+${cls.name} = {}${staticFunctions}${functions}${events}`;
 }
 
 function generateEnum(name: string, values: DocEnumValue[]): string {
