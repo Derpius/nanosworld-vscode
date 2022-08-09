@@ -5,35 +5,35 @@ export enum Authority {
 	Both = "both"
 }
 
-export interface DocParameter {
+export interface DocDescriptive {
+	description?: string,
+	description_long?: string
+}
+
+export interface DocParameter extends DocDescriptive {
 	type: string,
 	name: string,
-	description?: string,
 	default?: string
 }
 
-export interface DocReturn {
-	type: string,
-	description: string
+export interface DocReturn extends DocDescriptive {
+	type: string
 }
 
-export interface DocFunction {
+export interface DocFunction extends DocDescriptive {
 	name: string,
 	authority: Authority,
-	description: string,
 	parameters?: DocParameter[],
 	return?: DocReturn
 }
 
-export interface DocEvent {
+export interface DocEvent extends DocDescriptive {
 	name: string,
-	description: string,
 	arguments: DocParameter[]
 }
 
-export interface DocClass {
+export interface DocClass extends DocDescriptive {
 	name: string,
-	description: string,
 	authority: Authority,
 	inheritance?: string[],
 	constructor?: DocParameter[],

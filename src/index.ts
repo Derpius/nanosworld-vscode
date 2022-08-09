@@ -4,7 +4,7 @@ import { context, getOctokit } from "@actions/github";
 import * as fs from "fs";
 import * as path from "path";
 
-import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue } from "./schema";
+import { Authority, Docs, DocClass, DocFunction, DocParameter, DocReturn, DocEvent, DocEnumValue, DocDescriptive } from "./schema";
 
 console.log("Building documentation...");
 
@@ -30,11 +30,17 @@ function generateAuthorityString(authority: Authority) {
 	}
 }
 
+function generateDocstring(obj: DocDescriptive): string {
+	return (
+		obj.description_long === undefined ? (obj.description === undefined ? "" : obj.description) : obj.description_long
+	).replaceAll("\n", "<br>");
+}
+
 function generateReturn(ret?: DocReturn): string {
 	if (ret === undefined) return "";
 
 	return `
----@return ${ret.type} @${ret.description}`;
+---@return ${ret.type} @${generateDocstring(ret)}`;
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -44,7 +50,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 	params.forEach(function (param) {
 		if (param.name.endsWith("...")) param.name = "...";
 
-		ret.string += `\n---@param ${param.name} ${param.type} @${param.description ? param.description.replaceAll("\n", " ") + " " : ""}`;
+		ret.string += `\n---@param ${param.name} ${param.type} @${generateDocstring(param)}`;
 		if (param.default !== undefined) ret.string += `(Default: ${param.default})`;
 
 		ret.names += param.name + ", ";
@@ -60,7 +66,7 @@ function generateFunction(fun: DocFunction, accessor: string = ""): string {
 
 ---${generateAuthorityString(fun.authority)}
 ---
----${fun.description.replaceAll("\n", "\n---\n---")}${params.string}${generateReturn(fun.return)}
+---${generateDocstring(fun)}${params.string}${generateReturn(fun.return)}
 function ${accessor}${fun.name}(${params.names}) end`;
 }
 
@@ -145,7 +151,7 @@ function ${cls.name}_meta${cls.staticClass ? "." : ":"}Unsubscribe(event_name, c
 
 ---${generateAuthorityString(cls.authority)}
 ---
----${cls.description.replaceAll("\n", "\n---\n---")}
+---${generateDocstring(cls)}
 ---@class ${cls.name}${inheritance}
 local ${cls.name}_meta = {}${constructor}${staticFunctions}${functions}${events}`;
 }
@@ -180,7 +186,7 @@ async function buildDocs() {
 	const promises = response.data.tree.filter(function (entry) {
 		return entry.type === "blob" && entry.path?.endsWith(".json");
 	}).map((entry) => (async () => {
-		if (entry.path === undefined) return;
+		if (entry.path === undefined || entry.path.startsWith("_")) return;
 		console.log(`Processing ${entry.path}...`);
 	
 		const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
