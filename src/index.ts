@@ -95,11 +95,15 @@ function generateType(typed: DocTyped): ComplexType {
 	return complexType;
 }
 
-function generateReturn(ret?: DocReturn): string {
-	if (ret === undefined) return "";
+function generateReturns(rets?: DocReturn[]): string {
+	if (rets === undefined) return "";
+	return rets.map((ret) => `\n---@return ${generateType(ret).toString()} ${generateInlineDocstring(ret)}`).join("");
+}
 
-	return `
----@return ${generateType(ret).toString()} ${generateInlineDocstring(ret)}`;
+// This can be refactored out once the overload rework on the language server is done
+function generateInlineReturns(rets?: DocReturn[]): string {
+	if (rets === undefined) return "";
+	return ": " + rets.map((ret) => generateType(ret).toString()).join(", ");
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -124,7 +128,7 @@ function generateFunction(fun: DocFunction, accessor: string = ""): string {
 
 ---${generateAuthorityString(fun.authority)}
 ---
----${generateDocstring(fun)}${params.string}${generateReturn(fun.return)}
+---${generateDocstring(fun)}${params.string}${generateReturns(fun.return)}
 function ${accessor}${fun.name}(${params.names}) end`;
 }
 
@@ -187,8 +191,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 					(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param).toString() : cls.name}`
 				).join(", ");
 			}
-			callbackSig = `fun(${callbackSig})`;
-			if (event.return !== undefined) callbackSig += `: ${generateType(event.return).toString()}`;
+			callbackSig = `fun(${callbackSig})${generateInlineReturns(event.return)}`;
 
 			subOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}): ${callbackSig} ${generateInlineDocstring(event)}`;
 			unsubOverloads += `\n---@overload fun(${cls.staticClass ? "" : `self: ${cls.name}, `}event_name: "${event.name}", callback: ${callbackSig}) ${generateInlineDocstring(event)}`;

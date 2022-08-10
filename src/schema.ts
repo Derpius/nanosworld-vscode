@@ -29,13 +29,13 @@ export interface DocReturn extends DocDescriptive, DocTyped {
 export interface DocFunction extends DocDescriptive, DocAuthority {
 	name: string,
 	parameters?: DocParameter[],
-	return?: DocReturn
+	return?: DocReturn[]
 }
 
 export interface DocEvent extends DocDescriptive {
 	name: string,
 	arguments?: DocParameter[],
-	return?: DocReturn
+	return?: DocReturn[]
 }
 
 export interface DocProperty extends DocDescriptive, DocTyped {
