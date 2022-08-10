@@ -58,6 +58,7 @@ class ComplexType {
 	toString = (): string => {
 		let ret = "";
 		this.typenames.forEach((type) => {
+			console.log(type);
 			ret += type.name;
 			if (type.array) ret += "[]";
 		});
@@ -66,6 +67,7 @@ class ComplexType {
 }
 
 function generateType(typed: DocTyped): ComplexType {
+	console.log(typed);
 	let complexType: ComplexType = {
 		optional: false,
 		typenames: []
