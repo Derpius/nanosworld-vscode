@@ -67,10 +67,7 @@ class ComplexType {
 }
 
 function generateType(typed: DocTyped): ComplexType {
-	let complexType: ComplexType = {
-		optional: false,
-		typenames: []
-	};
+	let complexType = new ComplexType();
 
 	let typeString = typed.type;
 	if (typeString.endsWith("?")) {
