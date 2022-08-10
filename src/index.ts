@@ -57,7 +57,6 @@ class ComplexType {
 
 	public toString = (): string => {
 		let ret = "";
-		console.log(this);
 		this.typenames.forEach((type) => {
 			ret += type.name;
 			if (type.array) ret += "[]";
