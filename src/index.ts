@@ -97,6 +97,7 @@ function generateType(typed: DocTyped): ComplexType {
 
 function generateReturns(rets?: DocReturn[]): string {
 	if (rets === undefined) return "";
+	console.log(rets);
 	return rets.map((ret) => `\n---@return ${generateType(ret).toString()} ${generateInlineDocstring(ret)}`).join("");
 }
 
