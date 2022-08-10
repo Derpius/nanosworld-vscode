@@ -52,10 +52,10 @@ interface Type {
 }
 
 class ComplexType {
-	optional: boolean = false;
-	typenames: Type[] = [];
+	public optional: boolean = false;
+	public typenames: Type[] = [];
 
-	toString = (): string => {
+	public toString = (): string => {
 		let ret = "";
 		this.typenames.forEach((type) => {
 			console.log(type);
