@@ -67,7 +67,6 @@ class ComplexType {
 }
 
 function generateType(typed: DocTyped): ComplexType {
-	console.log(typed);
 	let complexType: ComplexType = {
 		optional: false,
 		typenames: []
