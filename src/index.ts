@@ -111,7 +111,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 		if (param.name.endsWith("...")) param.name = "...";
 
 		const type = generateType(param);
-		ret.string += `\n---@param ${param.name}${type.optional ? "?" : ""} ${type.optional ? type.toString().slice(0, -1) : type.toString()} ${generateParamDocstring(param)}`;
+		ret.string += `\n---@param ${param.name}${type.optional || param.default !== undefined ? "?" : ""} ${type.optional ? type.toString().slice(0, -1) : type.toString()} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
