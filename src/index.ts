@@ -74,6 +74,8 @@ function generateType(typed: DocTyped): ComplexType {
 	if (typeString.endsWith("?")) {
 		complexType.optional = true;
 		typeString = typeString.slice(0, -1);
+	} else if (typed.default !== undefined) {
+		complexType.optional = true;
 	}
 
 	typeString.split("|").forEach((typename) => {
@@ -102,7 +104,10 @@ function generateReturns(rets?: DocReturn[]): string {
 // This can be refactored out once the overload rework on the language server is done
 function generateInlineReturns(rets?: DocReturn[]): string {
 	if (rets === undefined) return "";
-	return ": " + rets.map((ret) => generateType(ret).toString()).join(", ");
+	return ": " + rets.map((ret) => {
+		const type = generateType(ret);
+		return type.toString() + (type.optional ? "?" : "");
+	}).join(", ");
 }
 
 function generateParams(params?: DocParameter[]): {string: string, names: string} {
@@ -113,7 +118,7 @@ function generateParams(params?: DocParameter[]): {string: string, names: string
 		if (param.name.endsWith("...")) param.name = "...";
 
 		const type = generateType(param);
-		ret.string += `\n---@param ${param.name}${type.optional || param.default !== undefined ? "?" : ""} ${type.optional ? type.toString().slice(0, -1) : type.toString()} ${generateParamDocstring(param)}`;
+		ret.string += `\n---@param ${param.name}${type.optional ? "?" : ""} ${type.toString()} ${generateParamDocstring(param)}`;
 		ret.names += param.name + ", ";
 	});
 
@@ -141,7 +146,7 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 	if (cls.hasOwnProperty("constructor")) { // JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
 		let signature = cls.constructor!.map((param) => {
 			const type = generateType(param);
-			return `${param.name}${type.optional ? "?" : ""}: ${type.optional ? type.toString().slice(0, -1) : type.toString()}`;
+			return `${param.name}${type.optional ? "?" : ""}: ${type.toString()}`;
 		}).join(", ");
 
 		constructor = `
@@ -280,7 +285,7 @@ async function buildDocs() {
 		}
 
 		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses") || entry.path.startsWith("Structs") || entry.path.startsWith("UtilityClasses")) {
-			fileContents.staticClass = entry.path.startsWith("StaticClasses");
+			fileContents.staticClass = entry.path.startsWith("StaticClasses") || entry.path.startsWith("UtilityClasses");
 			docs.classes[fileContents.name] = fileContents;
 			return;
 		}

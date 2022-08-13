@@ -15,12 +15,12 @@ export interface DocAuthority {
 }
 
 export interface DocTyped {
-	type: string
+	type: string,
+	default?: string
 }
 
 export interface DocParameter extends DocDescriptive, DocTyped {
-	name: string,
-	default?: string
+	name: string
 }
 
 export interface DocReturn extends DocDescriptive, DocTyped {
