@@ -60,7 +60,9 @@ class ComplexType {
 		this.typenames.forEach((type) => {
 			ret += type.name;
 			if (type.array) ret += "[]";
+			ret += "|";
 		});
+		ret = ret.slice(0, -1);
 		return this.optional ? ret + "?" : ret;
 	};
 }
@@ -277,7 +279,7 @@ async function buildDocs() {
 			return;
 		}
 
-		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses") || entry.path.startsWith("Structs")) {
+		if (entry.path.startsWith("Classes") || entry.path.startsWith("StaticClasses") || entry.path.startsWith("Structs") || entry.path.startsWith("UtilityClasses")) {
 			fileContents.staticClass = entry.path.startsWith("StaticClasses");
 			docs.classes[fileContents.name] = fileContents;
 			return;
