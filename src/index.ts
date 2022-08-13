@@ -63,7 +63,7 @@ class ComplexType {
 			ret += "|";
 		});
 		ret = ret.slice(0, -1);
-		return this.optional ? ret + "?" : ret;
+		return ret;
 	};
 }
 
