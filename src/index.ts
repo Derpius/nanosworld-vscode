@@ -98,7 +98,10 @@ function generateType(typed: DocTyped): ComplexType {
 
 function generateReturns(rets?: DocReturn[]): string {
 	if (rets === undefined) return "";
-	return rets.map((ret) => `\n---@return ${generateType(ret).toString()} ${generateInlineDocstring(ret)}`).join("");
+	return rets.map((ret) => {
+		const type = generateType(ret);
+		return `\n---@return ${type.toString() + (type.optional ? "?" : "")} ${generateInlineDocstring(ret)}`;
+	}).join("");
 }
 
 // This can be refactored out once the overload rework on the language server is done
@@ -191,9 +194,10 @@ function generateClassAnnotations(classes: {[key: string]: DocClass}, cls: DocCl
 		Object.entries(combinedEvents).forEach(([_, event]) => {
 			let callbackSig = "";
 			if (event.arguments !== undefined) {
-				callbackSig = event.arguments.map(
-					(param, idx) => `${param.name}: ${(idx !== 0 || param.name !== "self") ? generateType(param).toString() : cls.name}`
-				).join(", ");
+				callbackSig = event.arguments.map((param, idx) => {
+					const type = generateType(param);
+					return `${param.name}${type.optional ? "?" : ""}: ${(idx !== 0 || param.name !== "self") ? type.toString() : cls.name}`;
+				}).join(", ");
 			}
 			callbackSig = `fun(${callbackSig})${generateInlineReturns(event.return)}`;
 
