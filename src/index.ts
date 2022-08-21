@@ -257,7 +257,7 @@ function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callba
 	if (cls.operators !== undefined) {
 		cls.operators.forEach((op) => {
 			if (op.operator in OPERATORS)
-				operators += `\n---@operator ${OPERATORS[op.operator]}(${cls.name}): ${generateType({type: op.return}).toString()}`;
+				operators += `\n---@operator ${OPERATORS[op.operator]}(${generateType({type: op.rhs}).toString()}): ${generateType({type: op.return}).toString()}`;
 		});
 	}
 
