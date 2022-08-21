@@ -29,6 +29,26 @@ function generateAuthorityString(authority: Authority) {
 	}
 }
 
+const OPERATORS: {[key: string]: string} = {
+	"__unm": "unm",
+	"__bnot": "bnot",
+	"__len": "len",
+	"__add": "add",
+	"__sub": "sub",
+	"__mul": "mul",
+	"__div": "div",
+	"__mod": "mod",
+	"__pow": "pow",
+	"__idiv": "idiv",
+	"__band": "band",
+	"__bor": "bor",
+	"__bxor": "bxor",
+	"__shl": "shl",
+	"__shr": "shr",
+	"__concat": "concat",
+	"__call": "call"
+};
+
 function generateDocstring(obj: DocDescriptive): string {
 	return (
 		obj.description_long === undefined ? (obj.description === undefined ? "" : obj.description) : obj.description_long
@@ -233,12 +253,20 @@ function ${cls.name}${cls.staticClass ? "." : ":"}Unsubscribe(event_name, callba
 		});
 	}
 
+	let operators = "";
+	if (cls.operators !== undefined) {
+		cls.operators.forEach((op) => {
+			if (op.operator in OPERATORS)
+				operators += `\n---@operator ${OPERATORS[op.operator]}(${cls.name}): ${generateType({type: op.return}).toString()}`;
+		});
+	}
+
 	return `
 
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${generateDocstring(cls)}
----@class ${cls.name}${inheritance}${fields}${constructor}
+---@class ${cls.name}${inheritance}${fields}${operators}${constructor}
 ${cls.name} = {}${staticFunctions}${functions}${events}`;
 }
 
