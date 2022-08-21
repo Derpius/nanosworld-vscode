@@ -16,10 +16,15 @@ export interface DocAuthority {
 
 export interface DocTyped {
 	type: string,
-	default?: string
+	default?: string,
+	table_properties?: { name: string, type: string }[]
 }
 
 export interface DocParameter extends DocDescriptive, DocTyped {
+	name: string
+}
+
+export interface DocProperty extends DocDescriptive, DocTyped {
 	name: string
 }
 
@@ -38,8 +43,12 @@ export interface DocEvent extends DocDescriptive {
 	return?: DocReturn[]
 }
 
-export interface DocProperty extends DocDescriptive, DocTyped {
-	name: string
+export interface DocOperator {
+	name: string,
+	operator: string,
+	lhs: string,
+	rhs: string,
+	return: string
 }
 
 export interface DocClass extends DocDescriptive, DocAuthority {
@@ -50,6 +59,7 @@ export interface DocClass extends DocDescriptive, DocAuthority {
 	static_functions?: DocFunction[],
 	events?: DocEvent[],
 	properties?: DocProperty[],
+	operators?: DocOperator[],
 	staticClass: boolean
 }
 

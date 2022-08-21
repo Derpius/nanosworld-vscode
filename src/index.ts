@@ -78,20 +78,27 @@ function generateType(typed: DocTyped): ComplexType {
 		complexType.optional = true;
 	}
 
-	typeString.split("|").forEach((typename) => {
-		let type: Type = {
-			name: "undefined",
-			array: false
-		};
+	if (typed.table_properties === undefined) {
+		typeString.split("|").forEach((typename) => {
+			let type: Type = {
+				name: "undefined",
+				array: false
+			};
 
-		if (typename.endsWith("[]")) {
-			type.array = true;
-			typename = typename.slice(0, -2);
-		}
+			if (typename.endsWith("[]")) {
+				type.array = true;
+				typename = typename.slice(0, -2);
+			}
 
-		type.name = typename.endsWith("Path") ? "string" : typename;
-		complexType.typenames.push(type);
-	});
+			type.name = typename.endsWith("Path") ? "string" : typename;
+			complexType.typenames.push(type);
+		});
+	} else {
+		complexType.typenames.push({
+			name: `{ ${typed.table_properties.map((prop) => `${prop.name}: ${generateType({type: prop.type}).toString()}`).join(", ")} }`,
+			array: typeString.endsWith("[]")
+		});
+	}
 
 	return complexType;
 }
