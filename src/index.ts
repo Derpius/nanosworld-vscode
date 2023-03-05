@@ -133,13 +133,13 @@ function generateType(typed: DocTyped): ComplexType {
 	if (typed.table_properties === undefined) {
 		typeString.split("|").forEach((typename) => {
 			let type: Type = {
-				name: "undefined",
+				name: typename,
 				array: false,
 			};
 
-			if (typename.endsWith("[]")) {
+			if (type.name.endsWith("[]")) {
 				type.array = true;
-				typename = typename.slice(0, -2);
+				type.name = type.name.slice(0, -2);
 			}
 
 			complexType.typenames.push(type);
