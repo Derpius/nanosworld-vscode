@@ -12,7 +12,8 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts"
+		"lint": "eslint src --ext ts",
+		"start": "ts-node ./src/index.ts"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.4",
@@ -23,6 +24,7 @@
 		"eslint": "^7.32.0",
 		"glob": "^7.1.7",
 		"mocha": "^9.1.1",
+		"ts-node": "^10.9.1",
 		"typescript": "^4.4.3"
 	},
 	"dependencies": {

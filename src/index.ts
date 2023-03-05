@@ -1,8 +1,7 @@
 import { getInput } from "@actions/core";
-import { context, getOctokit } from "@actions/github";
+import { getOctokit } from "@actions/github";
 
 import * as fs from "fs";
-import * as path from "path";
 
 import {
 	Authority,
@@ -16,6 +15,7 @@ import {
 	DocDescriptive,
 	DocProperty,
 	DocTyped,
+	DocConstructor,
 } from "./schema";
 
 console.log("Building documentation...");
@@ -208,6 +208,17 @@ function generateParams(params?: DocParameter[]): {
 	return ret;
 }
 
+function generateInlineParams(params: DocParameter[]): string {
+	return params
+		.map((param) => {
+			const type = generateType(param);
+			return `${param.name}${
+				type.optional ? "?" : ""
+			}: ${type.toString()}`;
+		})
+		.join(", ");
+}
+
 function generateFunction(fun: DocFunction, accessor: string = ""): string {
 	const params = generateParams(fun.parameters);
 	return `
@@ -216,6 +227,14 @@ function generateFunction(fun: DocFunction, accessor: string = ""): string {
 ---
 ---${generateDocstring(fun)}${params.string}${generateReturns(fun.return)}
 function ${accessor}${fun.name}(${params.names}) end`;
+}
+
+function generateConstructor(
+	constructor: DocConstructor,
+	className: string
+): string {
+	const params = generateInlineParams(constructor.parameters);
+	return `\n---@overload fun(${params}): ${className}`;
 }
 
 function generateClassAnnotations(
@@ -227,24 +246,14 @@ function generateClassAnnotations(
 		inheritance = ` : ${cls.inheritance.join(", ")}`;
 	}
 
-	let constructor = "";
-	if (cls.hasOwnProperty("constructor")) {
-		// JavaScript moment (also TS moment cause it doesnt think this ensures constructor is defined, requiring !. below)
-		let signature = cls
-			.constructor!.map((param) => {
-				const type = generateType(param);
-				return `${param.name}${
-					type.optional ? "?" : ""
-				}: ${type.toString()}`;
-			})
-			.join(", ");
-
-		constructor = `
----@overload fun(${signature}): ${cls.name}`;
-	}
+	const constructors =
+		cls.constructors?.reduce(
+			(prev, constructor) =>
+				prev + generateConstructor(constructor, cls.name),
+			""
+		) ?? "";
 
 	let staticFunctions = "";
-
 	if (cls.static_functions !== undefined) {
 		cls.static_functions.forEach((fun) => {
 			if (
@@ -362,7 +371,7 @@ function ${cls.name}${
 ---${generateAuthorityString(cls.authority)}
 ---
 ---${generateDocstring(cls)}
----@class ${cls.name}${inheritance}${fields}${operators}${constructor}
+---@class ${cls.name}${inheritance}${fields}${operators}${constructors}
 ${cls.name} = {}${staticFunctions}${functions}${events}`;
 }
 
