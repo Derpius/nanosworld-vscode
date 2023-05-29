@@ -70,7 +70,12 @@ export interface DocEnumValue {
 	key: string;
 	value: string;
 }
+
+export interface DocEnum extends DocDescriptive {
+	enums: DocEnumValue[];
+}
+
 export interface Docs {
 	classes: { [key: string]: DocClass };
-	enums: { [key: string]: DocEnumValue[] };
+	enums: { [key: string]: DocEnum };
 }

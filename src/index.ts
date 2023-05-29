@@ -460,7 +460,7 @@ async function buildDocs() {
 	Object.entries(docs.classes).forEach(([_, cls]) => {
 		output += generateClassAnnotations(docs.classes, cls);
 	});
-	Object.entries(docs.enums).forEach(([name, values]) => {
+	Object.entries(docs.enums).forEach(([name, { enums: values }]) => {
 		output += generateEnum(name, values);
 	});
 
