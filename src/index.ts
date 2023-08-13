@@ -195,6 +195,7 @@ function generateParams(params?: DocParameter[]): {
 	if (params === undefined) return ret;
 
 	params.forEach(function (param) {
+		param.name = param.name ?? "missing_name";
 		if (param.name.endsWith("...")) param.name = "...";
 
 		const type = generateType(param);
@@ -211,6 +212,7 @@ function generateParams(params?: DocParameter[]): {
 function generateInlineParams(params: DocParameter[]): string {
 	return params
 		.map((param) => {
+			param.name = param.name ?? "missing_name";
 			const type = generateType(param);
 			return `${param.name}${
 				type.optional ? "?" : ""
