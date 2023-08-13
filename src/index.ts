@@ -174,14 +174,14 @@ function generateReturns(rets?: DocReturn[]): string {
 }
 
 // This can be refactored out once the overload rework on the language server is done
-function generateInlineReturns(rets?: DocReturn[]): string {
+function generateInlineReturns(rets?: DocReturn[], areAllOptional?: boolean): string {
 	if (rets === undefined) return "";
 	return (
 		": " +
 		rets
 			.map((ret) => {
 				const type = generateType(ret);
-				return type.toString() + (type.optional ? "?" : "");
+				return type.toString() + (areAllOptional || type.optional ? "?" : "");
 			})
 			.join(", ")
 	);
@@ -310,7 +310,7 @@ function generateClassAnnotations(
 					.join(", ");
 			}
 			callbackSig = `fun(${callbackSig})${generateInlineReturns(
-				event.return
+				event.return, true
 			)}`;
 
 			subOverloads += `\n---@overload fun(${
