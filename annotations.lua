@@ -194,8 +194,9 @@ function Actor:GetScreenPercentage() end
 ---
 ---Gets a Socket Transform in world space given a bone or socket name
 ---@param socket_name string 
+---@param attachable_id? string @The attachable ID (set with <code>AddSkeletalMeshAttached</code> or <code>AddStaticMeshAttached</code>) to read the Socket from. Pass empty to read from the main mesh (Default: "")
 ---@return { Location: Vector, Rotation: Rotator } 
-function Actor:GetSocketTransform(socket_name) end
+function Actor:GetSocketTransform(socket_name, attachable_id) end
 
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/both.png" height="21"> <b>[Client/Server Side]</b>
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/base-classes/actor#function-getvelocity">docs</a>
@@ -1633,7 +1634,7 @@ function Character:SetPhysicalAnimationSettings(bone, include_self, is_local_sim
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/character#function-setphysicsasset">docs</a>
 ---
 ---Sets the Physics Asset for the Character
----@param physics_asset Other 
+---@param physics_asset string 
 function Character:SetPhysicsAsset(physics_asset) end
 
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/server-only.png" height="21"> <b>[Server Side]</b>
@@ -2049,7 +2050,7 @@ function CharacterSimple:SetPawnSettings(use_controller_rotation_pitch, use_cont
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/charactersimple#function-setphysicsasset">docs</a>
 ---
 ---Sets the Physics Asset for the Character
----@param physics_asset Other 
+---@param physics_asset string 
 function CharacterSimple:SetPhysicsAsset(physics_asset) end
 
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/authority-only.png" height="21"> <b>[Authority Side]</b>
