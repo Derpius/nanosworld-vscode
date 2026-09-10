@@ -1325,6 +1325,13 @@ function Character:GetViewMode() end
 ---@return AimMode 
 function Character:GetWeaponAimMode() end
 
+---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/both.png" height="21"> <b>[Client/Server Side]</b>
+---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/character#function-getweaponshootermode">docs</a>
+---
+---Gets if this Character is in Shooter Mode
+---@return boolean 
+function Character:GetWeaponShooterMode() end
+
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/server-only.png" height="21"> <b>[Server Side]</b>
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/character#function-grabprop">docs</a>
 ---
@@ -1713,6 +1720,13 @@ function Character:SetViewMode(view_mode) end
 ---Sets the Weapon's Aim Mode
 ---@param aim_mode AimMode 
 function Character:SetWeaponAimMode(aim_mode) end
+
+---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/server-only.png" height="21"> <b>[Server Side]</b>
+---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/character#function-setweaponshootermode">docs</a>
+---
+---Sets if this Character is in Shooter Mode, in which a held Weapon is always aimed while idle or walking, is lowered while sprinting, and the aim input aims down sights instead of raising the Weapon
+---@param weapon_shooter_mode boolean 
+function Character:SetWeaponShooterMode(weapon_shooter_mode) end
 
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/server-only.png" height="21"> <b>[Server Side]</b>
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/classes/character#function-ungrabprop">docs</a>
@@ -2384,6 +2398,13 @@ function Client.GetNearClipPlane() end
 ---@param package_type_filter? PackageType @Which Package type to return. Leave it default to return all types. (Default: PackageType.All)
 ---@return { title: string, name: string, type: PackageType, version: string, author: string }[] @a list of Packages data
 function Client.GetPackages(package_type_filter) end
+
+---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/client-only.png" height="21"> <b>[Client Side]</b>
+---<a href="https://docs.nanos-world.com/docs/scripting-reference/static-classes/client#static-function-getsettings">docs</a>
+---
+---Gets the local player's game Settings
+---@return { ToggleSprint: boolean, ToggleCrouch: boolean, ToggleAim: boolean, ToggleWalk: boolean, MouseSensitivity: number, AutoReAlignCamera: boolean, FOVCanChange: boolean, CameraBending: integer, EnableCustomLoadingScreen: boolean, VolumeMusic: integer, VolumeMenuMusic: integer, VolumeUI: integer, VolumeSFX: integer, VolumeAmbient: integer, VolumeOverall: integer, VolumeVoice: integer, PlaySoundInDesktop: boolean, Gamma: integer, MotionBlur: integer, FOV: integer, GameMaxFPS: integer, RayTracing: boolean, HardwareRayTracing: boolean, RHI: integer, BloodDecalQualityLevel: integer, AntiAliasingMethod: integer, ShadowMapMethod: integer, MegaLights: boolean, UpscalingMethod: integer, UpscalingQuality: integer, UpscalingSharpness: integer, FrameGenerationMethod: integer, LatencyReductionMethod: integer, DLSSFrameGenerationMode: integer, DLSSRayReconstruction: boolean, CEFSharedTexture: boolean, CEFUseHardwareAcceleration: boolean, CEFUseMessageLoopSchedule: boolean, CEFUseExternalBeginFrame: boolean, CEFMaxFrameRate: integer, CEFMaxResolution: integer, ScreenResolution: Vector2D, FullscreenMode: integer, VSync: boolean, ResolutionScale: number, OverallQuality: integer, ViewDistanceQuality: integer, ShadowQuality: integer, GlobalIlluminationQuality: integer, ReflectionQuality: integer, AntiAliasingQuality: integer, TextureQuality: integer, VisualEffectQuality: integer, PostProcessingQuality: integer, FoliageQuality: integer, ShadingQuality: integer } @the current Settings
+function Client.GetSettings() end
 
 ---<img src="https://raw.github.com/nanos-world/vscode-extension/master/assets/client-only.png" height="21"> <b>[Client Side]</b>
 ---<a href="https://docs.nanos-world.com/docs/scripting-reference/static-classes/client#static-function-gettime">docs</a>
